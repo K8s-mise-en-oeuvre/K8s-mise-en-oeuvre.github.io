@@ -4,12 +4,12 @@ title = "Modern Kubernetes Learning"
 # The homepage contents
 
 [extra]
-lead = '<b>MasterClassK8S</b> is a modern and opinionated approach of Kubernetes ecosystem learning'
+lead = '<b>Kubernetes, mise en oeuvre</b> is a modern and opinionated approach of Kubernetes ecosystem learning'
 url = "/blog/"
 url_button = "Start Learning"
 repo_version = "GitHub v0.1.0"
 repo_license = "Open-source MIT License."
-repo_url = "https://github.com/masterclassk8s/masterclassk8s.github.io"
+repo_url = "https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"
 
 [[extra.list]]
 title = "Full text search"
