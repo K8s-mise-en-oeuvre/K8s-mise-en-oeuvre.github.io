@@ -25,4 +25,4 @@ jobs:
           PAGES_BRANCH: main
           BUILD_DIR: .
           TOKEN: ${{ secrets.TOKEN }}
-          REPOSITORY: masterclassk8s/masterclassk8s.github.io
+          REPOSITORY: K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io
