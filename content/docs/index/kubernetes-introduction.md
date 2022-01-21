@@ -17,6 +17,8 @@ top = false
 
 Kubernetes, souvent abrégé k8s, est un orchestrateur de conteneurs conçu par Google et sorti en 2014. C’est un outil Open Source (code source disponible sur github), écrit en Go, qui trouve ses racines dans Borg le système interne de Google qui gère l’infrastructure du géant de Mountain View.
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/borg.png" alt="Borg" width="900" height="720">
+
 Ce n’est pas le seul orchestrateur de conteneurs sur le marché, il en existe d’autres comme **Docker Swarm**, **Apache Marathon**, **Nomad** ou **Kontena**. Cependant, aujourd'hui K8s apparaît comme hégémonique sur le marché et ses concurrents ne se divisent que peu de parts.
 
 > Le nom Kubernetes tire son origine du grec ancien, signifiant capitaine ou pilote ou encore timonier et est la racine de gouverneur et cybernetic. K8s est l'abbréviation dérivée par le remplacement des 8 lettres "ubernete" par "8".
@@ -81,6 +83,11 @@ La nouvelle façon (new way) consiste à déployer des conteneurs basés sur une
 [Marketplace Solutions](https://unofficial-kubernetes.readthedocs.io/en/latest/setup/pick-right-solution)
 
 [Kubernetes Training Partners](https://kubernetes.io/training/)
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/ccnf-landscape.jpg" alt="CCNF Landscape" width="900" height="720">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/landscape-kuber-min-1.jpg
+" alt="CCNF Landscape 2" width="900" height="720">
 
 ##### Managed Solutions
 
@@ -300,7 +307,7 @@ Vous ne pouvez accéder à l'interface utilisateur que depuis la machine sur laq
 
 Nous y préférerons aujourd'hui l'outil Kubernetes Lens (https://k8slens.dev/), disposant de plus de fonctionnalités.
 
-<img src="k8s-lens.png" alt="k8s-lens">
+<img src="k8s-lens.png" alt="k8s-lens" width="900" height="720">
 
 #### APIs
 

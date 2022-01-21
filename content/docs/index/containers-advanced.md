@@ -17,6 +17,8 @@ top = false
 
 ### Qu'est-ce qu'un container ?
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containers.jpg" alt="containers" width="900" height="720">
+
 > "Caisson métallique parallélépipédique conçu pour le transport de marchandise par différents mode de transports.
 > Ses dimensions ont été standardisées au niveau international et il est muni a tous les angles de pièces de préemption
 > permettant de l'arrimer ou de le transborder d'un véhicule a l'autre." 
@@ -39,6 +41,8 @@ A la fin j'ai une brique atomique, je n'ai pas besoin de savoir quelles sont les
 
 Cela permet de résoudre la problématique du packaging OS (.deb, .rpm, etc.), non agnostique.
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-on-linux.png" alt="docker-on-linux" width="900" height="720">
+
 Les containers sont immutables, ils ne laissent rien derrière eux, ont un format autosufisant.
 
 Les développeurs peuvent passer d'un langage a l'autre pour les applications sans jamais impacter l'infrastructure de PROD.
@@ -53,13 +57,39 @@ Autour de cette infrastructure, d'autres composants, tel un orchestrateur peuven
 
 Kubernetes est compatible avec plusieurs containers runtime: **Docker, containerd, cri-o, rktlet ainsi que toute implémentation de Kubernetes CRI (Container Runtime Interface)**
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-and-kubernetes-use-containerd.png" alt="docker-and-kubernetes-use-containerd" width="900" height="720">
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containerd-platform.png" alt="containerd-plateform" width="900" height="720">
+
 *Ressources supplémentaires*
 
 Image disposant d'une binary toolbox minimaliste: [Busybox](https://www.busybox.net)
 
 Outil d'introspection des layers des images: [Dive](https://github.com/wagoodman/dive)
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/demo-ci-dive.webp" alt="dive-demo" width="900" height="720">
+
+
 Container runtime de docker: [Containerd](https://containerd.io)
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containerd.webp" alt="containerd" width="900" height="720">
+
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker_containerd.png" alt="docker_containerd" width="900" height="720">
+
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/Docker-containerd-announcement.jpg" alt="docker-announcement" width="900" height="720">
+
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/cri.png" alt="CRI" width="900" height="720">
+
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/ctr.png" alt="CTR" width="900" height="720">
 
 ### Dockerfile
 
