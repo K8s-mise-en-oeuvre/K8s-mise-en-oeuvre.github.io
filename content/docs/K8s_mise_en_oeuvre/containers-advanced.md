@@ -340,7 +340,7 @@ L'image devra être buildée et run sans erreurs.
 
 #### Partie 2 (Facultatif)
 
-Étoffer votre image en rajoutant plusieurs services comme vu dans la section [Un conteneur et plusieurs services]().
+Étoffer votre image en rajoutant plusieurs services comme vu dans la section "Un conteneur et plusieurs services".
 
 #### Partie 3 (Facultatif)
 
