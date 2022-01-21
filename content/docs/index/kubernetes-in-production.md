@@ -4,7 +4,7 @@ description = ""
 date = 2022-01-01T08:00:00+00:00
 updated = 2022-01-01T08:00:00+00:00
 draft = false
-weight = 10
+weight = 15
 sort_by = "weight"
 template = "docs/page.html"
 
