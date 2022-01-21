@@ -199,6 +199,10 @@ set2:
 
 ### Scalabilité d'un déploiement
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-out.png" alt="scaling-kubernetes-out">
+
 Vous pouvez mettre à l'échelle un déploiement en utilisant la commande suivante:
 
 ```bash

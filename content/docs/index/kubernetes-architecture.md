@@ -15,10 +15,22 @@ top = false
 
 ## Architecture Kubernetes 
 
+Fonctionnalités:
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/feature-of-Kubernetes-Kubernetes-Architecture.png" alt="feature-of-Kubernetes-Kubernetes-Architecture">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-functionnalities.webp" alt="kube-functionnalities">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kubernetes-features.png" alt="kubernetes-features">
+
 ### Composants du Control Plane
 
 *Vue macro*
-<img src="https://masterclassk8s.github.io/blog/control-plane.png" alt="Simple_Control_Plane_Schema"> 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/control-plane.png" alt="Simple_Control_Plane_Schema"> 
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-basic-archi.png" alt="Kubernetes basic architecture"> 
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-multi-master.png" alt="Kubernetes multi master">
 
 Le master Kubernetes qui est un ensemble de trois processus qui s'exécutent sur un seul node de votre cluster, désigné comme master node. Ces processus sont: kube-apiserver, kube-controller-manager et kube-scheduler.
 Chaque node non master de votre cluster exécute deux processus:
@@ -31,7 +43,7 @@ Par exemple, lorsque vous utilisez l'API Kubernetes pour créer un objet Deploym
 
 #### Composants du master node
 
-<img src="https://masterclassK8s.github.io/blog/Kubernetes-101-Architecture-Diagram.jpg" alt="Other_Control_Plane_Schema"> 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/Kubernetes-101-Architecture-Diagram.jpg" alt="Kubernetes Archi master-node"> 
 
 - cluster etcd
 > Un stockage simple et distribué de valeurs de clés qui est utilisé pour stocker les données du cluster Kubernetes (telles que le nombre de pods, leur état, l'espace de noms, etc), les objets API et les détails de la découverte de services. Pour des raisons de sécurité, il n'est accessible qu'à partir du serveur d'API. etc. etcd permet de notifier au cluster les changements de configuration à l'aide de surveillants. Les notifications sont des requêtes API sur chaque node du cluster etcd pour déclencher la mise à jour des informations dans le stockage du node.
@@ -54,7 +66,7 @@ Un node est une machine de travail dans Kubernetes, connue auparavant sous le no
 
 Chaque node contient les services nécessaires à l'exécution de pods et est géré par les composants du master. **Les services présents sur un node incluent le container runtime, kubelet et kube-proxy.**
 
-<img src="minion-archi.png" alt="Architecture Minion">
+<img src="node-archi.png" alt="Architecture Minion">
 
 Pour effectuer l'auto-enregistrement des nodes:
 
@@ -89,3 +101,35 @@ Ce qui caractérisera la persistence de notre objet stateful reste toutefois li�
 A l'inverse, les processus pour lesquels il n'est pas souhaité que l'état soit maintenu sont dits stateless. Il s'agit par défaut dans Kubernetes de tout objet qui ne soit pas un StatefulSet ou ne disposant pas d'un storage  persistant.
 
 Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre "Exploiter Kubernetes".
+
+### Quelques exemples d'architecture cloud hybrides ou on-premise
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/oc-archi.jpg" alt="OC Archi">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.jpg" alt="Possible archi OC">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.2jpg.webp" alt="Possible archi OC 2">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/redhat-openshift-on-aws-architecture.png" alt="redhat-openshift-on-aws-architecture">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/architecture-on-premise.jpeg" alt="Archi on-premise">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/archi-hybrid.png" alt="Archi Hybrid">
+
+### Quelques exemples d'architecture cloud public
+
+*Azure*
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/aks.png" alt="AKS">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/aks-production-deployment.png" alt="AKS Productionc Deployment">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/azure-application-architecture.png" alt="Azure Application Architecture">
+
+
+*GCP*
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi.png" alt="GKE Archi">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi2.png" alt="GKE Archi 2">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant">
