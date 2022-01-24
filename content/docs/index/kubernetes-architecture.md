@@ -17,25 +17,23 @@ top = false
 
 Fonctionnalités:
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/feature-of-Kubernetes-Kubernetes-Architecture.png" alt="feature-of-Kubernetes-Kubernetes-Architecture" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/feature-of-Kubernetes-Kubernetes-Architecture.png" alt="feature-of-Kubernetes-Kubernetes-Architecture" width="720" height="600">
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-functionnalities.webp" alt="kube-functionnalities" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-functionnalities.webp" alt="kube-functionnalities" width="720" height="600">
 
 
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/kubernetes-features.png" alt="kubernetes-features width="900" height="720"
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kubernetes-features.png" alt="kubernetes-features" width="900" height="720"
 
 ### Composants du Control Plane
 
 *Vue macro*
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/control-plane.png" alt="Simple_Control_Plane_Schema" width="900" height="720"> 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/control-plane.png" alt="Simple_Control_Plane_Schema" width="720" height="600"> 
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-basic-archi.png" alt="Kubernetes basic architecture" width="900" height="720"> 
-
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-basic-archi.png" alt="Kubernetes basic architecture" width="800" height="680"> 
 
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-multi-master.png" alt="Kubernetes multi master" width="900" height="720">
@@ -74,7 +72,7 @@ Un node est une machine de travail dans Kubernetes, connue auparavant sous le no
 
 Chaque node contient les services nécessaires à l'exécution de pods et est géré par les composants du master. **Les services présents sur un node incluent le container runtime, kubelet et kube-proxy.**
 
-<img src="node-archi.png" alt="Architecture Minion" width="900" height="720">
+<img src="node-archi.jpeg" alt="Architecture Minion" width="720" height="600">
 
 Pour effectuer l'auto-enregistrement des nodes:
 
@@ -123,17 +121,17 @@ Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre "Exploit
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.2jpg.webp" alt="Possible archi OC 2" width="900" height="720">
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/redhat-openshift-on-aws-architecture.png" alt="redhat-openshift-on-aws-architecture width="900" height="720"
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/redhat-openshift-on-aws-architecture.png" alt="redhat-openshift-on-aws-architecture" width="900" height="720"
 
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/architecture-on-premise.jpeg" alt="Archi on-premise" width="900" height="720">
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/archi-hybrid.png" alt="Archi Hybrid" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/archi-hybrid.png" alt="Archi Hybrid" width="700" height="520">
 
 ### Quelques exemples d'architecture cloud public
 
-*Azure*
+#### Azure
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/aks.png" alt="AKS" width="900" height="720">
 
 
@@ -142,17 +140,17 @@ Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre "Exploit
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/azure-application-architecture.png" alt="Azure Application Architecture" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/azure-application-architecture.png" alt="Azure Application Architecture" width="940" height="620">
 
 
-*GCP*
+#### GCP
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi.png" alt="GKE Archi" width="900" height="720">
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi2.png" alt="GKE Archi 2" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi2.png" alt="GKE Archi 2" width="800" height="620">
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant" width="800" height="620">

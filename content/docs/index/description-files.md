@@ -199,11 +199,10 @@ set2:
 
 ### Scalabilité d'un déploiement
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in" width="700" height="520">
 
 
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-out.png" alt="scaling-kubernetes-out" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-out.png" alt="scaling-kubernetes-out" width="700" height="520">
 
 Vous pouvez mettre à l'échelle un déploiement en utilisant la commande suivante:
 
@@ -506,6 +505,24 @@ kubectl delete deploy nginx-deployment
 
 #### Partie 1
 
+Vous devrez publier un fichier deployment contenant la spécification de 3 replicas web servers nginx.
+
+Vous devrez décrire ce deployment, afficher son état et vous assurez qu'il soit dans un état sain.
+
 #### Partie 2
 
-#### Partie 3
+Scaler le nombre de replicas à 10. Assurez-vous que l'état des replicas est sain.
+
+Revenir ensuite à une révision précédente de votre spécification.
+
+Détruisez ensuite ce deployment.
+
+
+#### Partie 3 (Facultatif)
+
+Reproduisez l'étape 1 pour une base de données mysql en lieu et place des serveurs nginx. Ce deployment ne devra disposer que d'un seul replica.
+
+La persistence des données n'est requise.
+
+Détruisez ensuite ce deployment.
+

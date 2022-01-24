@@ -41,6 +41,7 @@ A la fin j'ai une brique atomique, je n'ai pas besoin de savoir quelles sont les
 
 Cela permet de résoudre la problématique du packaging OS (.deb, .rpm, etc.), non agnostique.
 
+*Docker on Linux*
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-on-linux.png" alt="docker-on-linux" width="900" height="720">
 
 Les containers sont immutables, ils ne laissent rien derrière eux, ont un format autosufisant.
@@ -57,6 +58,7 @@ Autour de cette infrastructure, d'autres composants, tel un orchestrateur peuven
 
 Kubernetes est compatible avec plusieurs containers runtime: **Docker, containerd, cri-o, rktlet ainsi que toute implémentation de Kubernetes CRI (Container Runtime Interface)**
 
+*Docker and Kubernetes use containerd*
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-and-kubernetes-use-containerd.png" alt="docker-and-kubernetes-use-containerd" width="900" height="720">
 
 
@@ -68,7 +70,8 @@ Image disposant d'une binary toolbox minimaliste: [Busybox](https://www.busybox.
 
 Outil d'introspection des layers des images: [Dive](https://github.com/wagoodman/dive)
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/demo-ci-dive.webp" alt="dive-demo" width="900" height="720">
+*Demo CI dive*
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/demo-ci-dive.png" alt="dive-demo" width="900" height="720">
 
 
 Container runtime de docker: [Containerd](https://containerd.io)
@@ -76,20 +79,16 @@ Container runtime de docker: [Containerd](https://containerd.io)
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/containerd.webp" alt="containerd" width="900" height="720">
 
 
-
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/docker_containerd.png" alt="docker_containerd" width="900" height="720">
 
 
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/Docker-containerd-announcement.jpg" alt="docker-announcement" width="900" height="720">
-
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/Docker-containerd-announcement.jpg" alt="docker-announcement" width="680" height="520">
 
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/cri.png" alt="CRI" width="900" height="720">
 
 
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/ctr.png" alt="CTR" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/ctr.png" alt="CTR" width="720" height="600">
 
 ### Dockerfile
 

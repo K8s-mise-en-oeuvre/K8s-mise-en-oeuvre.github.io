@@ -17,7 +17,7 @@ top = false
 
 Kubernetes, souvent abrégé k8s, est un orchestrateur de conteneurs conçu par Google et sorti en 2014. C’est un outil Open Source (code source disponible sur github), écrit en Go, qui trouve ses racines dans Borg le système interne de Google qui gère l’infrastructure du géant de Mountain View.
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/borg.png" alt="Borg" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/borg.png" alt="Borg" width="720" height="600">
 
 Ce n’est pas le seul orchestrateur de conteneurs sur le marché, il en existe d’autres comme **Docker Swarm**, **Apache Marathon**, **Nomad** ou **Kontena**. Cependant, aujourd'hui K8s apparaît comme hégémonique sur le marché et ses concurrents ne se divisent que peu de parts.
 
@@ -348,7 +348,7 @@ spec:
 
 Dans cet exemple:
 
-Un déploiement nommé nginx-deployment est créé, indiqué par le champ .metadata.name.
+Un déploiement nommé nginx-deployment est créé, indiqué par le champ **.metadata.name**.
 
 Le déploiement crée trois pods répliqués, indiqués par le champ replicas.
 
@@ -446,8 +446,8 @@ Le ReplicaSet créé garantit qu'il y a trois pods nginx.
 
 ### Déploiement d'une plateforme de test (TP)
 
-Dans ce TP vous devrez mettre en place une plateforme de test locale via l'une des solutions suivantes: Minikube, Kind, MicroK8S ou encore K3S (nécessite WSL2).
+Dans ce TP vous devrez mettre en place une plateforme de test locale via l'une des solutions suivantes: Minikube, Kind, MicroK8S ou encore Docker Desktop.
 
 Vous créerez des pods disposant d'un label 'test'.
 
-Vous devrez pouvoir lister les pods ainsi que leurs labels et accéder au fihier de configuration du cluster (kubeconfig).
+Vous devrez pouvoir lister les pods ainsi que leurs labels et accéder au fichier de configuration du cluster (kubeconfig).
