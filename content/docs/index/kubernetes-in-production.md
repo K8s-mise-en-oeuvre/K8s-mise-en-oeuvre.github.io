@@ -81,6 +81,8 @@ spec:
 
 ### Limitation de ressources
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="daemonset" width="900" height="720">
+
 Lorsque Kubernetes planifie un Pod, il est important que les conteneurs disposent de suffisamment de ressources pour fonctionner. Si vous planifiez une grosse application sur un node aux ressources limitées, il est possible que le node soit à court de mémoire ou de ressources CPU et que les pods cessent de fonctionner.
 
 > Les requêtes et les limites sont les mécanismes utilisés par Kubernetes pour contrôler les ressources telles que le CPU et la mémoire. Les requêtes sont ce que le conteneur est assuré d'obtenir.
@@ -182,6 +184,10 @@ Les services multiclusters agrègent les services entre les clusters et les rend
 [GKE Service Discovery](https://cloud.google.com/kubernetes-engine/docs/concepts/service-discovery#:~:text=In%20Kubernetes%2C%20service%20discovery%20is%20implemented%20with%20automatically,external%20services%20through%20their%20names%2C%20such%20as%20example.com.)
 
 ### Les namespaces et les quotas
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="requests-limits" width="900" height="720">
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="requests-limits-macro-fonctionnement" width="960" height="740">
 
 Après avoir créé des namespaces, vous pouvez les verrouiller à l'aide de ResourceQuotas. Les quotas de ressources sont très puissants, mais voyons simplement comment les utiliser pour limiter l'utilisation des ressources CPU et mémoire.
 
@@ -293,20 +299,16 @@ Si vous souhaitez définir un rôle au sein d'un espace de noms, utilisez un Rol
 Voici un exemple de rôle dans l'espace de nom "default" qui peut être utilisé pour accorder un accès en lecture aux pods:
 
 ```yaml
+---
+kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
 metadata:
-  # "namespace" omitted since ClusterRoles are not namespaced
-  name: secret-reader
+  name: pods-svc-reader
 rules:
 - apiGroups: [""]
-  #
-  # at the HTTP level, the name of the resource for accessing Secret
-  # objects is "secrets"
-  resources: ["secrets"]
-  verbs: ["get", "watch", "list"]
+  resources: ["pods", "services"]
+  verbs: ["get", "list"]
 ```
-
 *Exemple de ClusterRole*
 
 > Un ClusterRole peut être utilisée pour accorder les mêmes permissions qu'un rôle. Étant donné que les ClusterRoles sont adaptés aux clusters, vous pouvez également les utiliser pour accorder l'accès à:
@@ -320,7 +322,18 @@ Par exemple: vous pouvez utiliser une ClusterRole pour autoriser un utilisateur 
 Voici un exemple de ClusterRole qui peut être utilisé pour accorder un accès en lecture aux secrets dans un espace de noms particulier ou dans tous les espaces de noms (selon la façon dont il est lié) :
 
 ```yaml
-
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  # "namespace" omitted since ClusterRoles are not namespaced
+  name: secret-reader
+rules:
+- apiGroups: [""]
+  #
+  # at the HTTP level, the name of the resource for accessing Secret
+  # objects is "secrets"
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
 ```
 
 Le nom d'un objet Role ou ClusterRole doit être un nom de segment de chemin valide.
