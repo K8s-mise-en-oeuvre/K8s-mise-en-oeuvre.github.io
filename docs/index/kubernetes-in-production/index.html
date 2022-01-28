@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Kubernetes en Production | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="Documentation website of eponym course using Zola Adidoks and Github Pages">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Kubernetes In Production",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#kubernetes-en-production">Kubernetes en production</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#frontal-administrable-ingress">Frontal administrable Ingress</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#limitation-de-ressources">Limitation de ressources</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#service-discovery-env-dns">Service Discovery (env, DNS)</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#les-namespaces-et-les-quotas">Les namespaces et les quotas</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#gestion-des-acces-rbac">Gestion des accès (RBAC)</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#haute-disponibilite-et-mode-maintenance">Haute disponibilité et mode maintenance</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/#gestion-des-droits-user-sa-et-mise-en-place-de-services-exposes-tp">Gestion des droits user, sa et mise en place de services exposés (TP)</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Kubernetes en Production</h1>
+        
+        <h2 id="kubernetes-en-production">Kubernetes en production</h2>
+<h3 id="frontal-administrable-ingress">Frontal administrable Ingress</h3>
+<blockquote>
+<p>Ingress (ou entrée réseau), ajouté à Kubernetes v1.1, expose les routes HTTP et HTTPS de l'extérieur du cluster à des services au sein du cluster. Le routage du trafic est contrôlé par des règles définies sur la ressource Ingress.</p>
+</blockquote>
+<pre style="background-color:#2b303b;">
+<code><span style="color:#c0c5ce;">    internet
+        |
+   [ Ingress ]
+   --|-----|--
+   [ Services ]
+</span></code></pre>
+<p><em>FEATURE STATE: Kubernetes v1.1 [beta]</em>
+Avant de commencer à utiliser un Ingress, vous devez comprendre qu'un Ingress est une ressource en &quot;version Beta&quot;.</p>
+<p>Un Ingress peut être configuré pour donner aux services des URLs accessibles de l'extérieur, un équilibrage du trafic de charge externe, la terminaison SSL/TLS et un hébergement virtuel basé sur le nom. Un contrôleur d'Ingress est responsable de l'exécution de l'Ingress, généralement avec un load-balancer (équilibreur de charge), bien qu'il puisse également configurer votre routeur périphérique ou des interfaces supplémentaires pour aider à gérer le trafic.</p>
+<p>Un Ingress n'expose pas de ports ni de protocoles arbitraires. <strong>Exposer des services autres que HTTP et HTTPS à Internet généralement utilise un service de type Service.Type=NodePort ou Service.Type=LoadBalancer.</strong></p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">networking.k8s.io/v1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Ingress
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">test-ingress
+  annotations</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">nginx.ingress.kubernetes.io/rewrite-target</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">/
+spec</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">rules</span><span style="color:#c0c5ce;">:
+  - </span><span style="color:#bf616a;">http</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">paths</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">path</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">/testpath
+        pathType</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Prefix
+        backend</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">service</span><span style="color:#c0c5ce;">:
+            </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">test
+            port</span><span style="color:#c0c5ce;">:
+              </span><span style="color:#bf616a;">number</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">80
+</span></code></pre>
+<p>La spécification de la ressource Ingress dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il contient une liste de règles d'appariement de toutes les demandes entrantes. La ressource Ingress ne supporte que les règles pour diriger le trafic HTTP.</p>
+<p>Pour 2 vhosts sur un ingress:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">extensions/v1beta1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Ingress
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">name-virtual-host-ingress
+spec</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">rules</span><span style="color:#c0c5ce;">:
+  - </span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">service-a.example.com
+    http</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">paths</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">backend</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">serviceName</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">service-a
+          servicePort</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">80
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">service-b.example.com
+    http</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">paths</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">backend</span><span style="color:#c0c5ce;">:
+          </span><span style="color:#bf616a;">serviceName</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">service-a
+          servicePort</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">80
+</span></code></pre><h3 id="limitation-de-ressources">Limitation de ressources</h3>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="daemonset" width="900" height="720">
+<p>Lorsque Kubernetes planifie un Pod, il est important que les conteneurs disposent de suffisamment de ressources pour fonctionner. Si vous planifiez une grosse application sur un node aux ressources limitées, il est possible que le node soit à court de mémoire ou de ressources CPU et que les pods cessent de fonctionner.</p>
+<blockquote>
+<p>Les requêtes et les limites sont les mécanismes utilisés par Kubernetes pour contrôler les ressources telles que le CPU et la mémoire. Les requêtes sont ce que le conteneur est assuré d'obtenir.</p>
+</blockquote>
+<p>Si un conteneur demande une ressource, Kubernetes ne le programmera que sur un node qui peut lui fournir cette ressource. Les limites, quant à elles, garantissent qu'un conteneur ne dépasse jamais une certaine valeur. Le conteneur est seulement autorisé à aller jusqu'à la limite, et ensuite il est restreint.</p>
+<p>Il est important de se rappeler que la limite ne peut jamais être inférieure à la demande. Si vous essayez de le faire, Kubernetes émettra une erreur et ne vous laissera pas exécuter le conteneur.</p>
+<p>Les demandes et les limites sont établies par conteneur. Si les pods ne contiennent généralement qu'un seul conteneur, il est courant de voir des pods avec plusieurs conteneurs. Chaque conteneur du pod reçoit sa propre limite et sa propre demande, mais comme les pods sont toujours planifiés en tant que groupe, vous devez additionner les limites et les demandes de chaque conteneur pour obtenir une valeur globale pour le pod.</p>
+<p>Il existe deux types de ressources : </p>
+<ul>
+<li>Le processeur et la mémoire.</li>
+</ul>
+<p>Le scheduler de Kubernetes les utilisent pour déterminer où exécuter vos pods.</p>
+<p>Une spécification typique de ressources pour un pod peut ressembler à ceci. Ce pod possède deux conteneurs :</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">containers</span><span style="color:#c0c5ce;">:
+  - </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">container1
+    image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox
+    resources</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">requests</span><span style="color:#c0c5ce;">:
+        </span><span style="color:#bf616a;">memory</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">32Mi</span><span style="color:#c0c5ce;">&quot;
+        </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">200m</span><span style="color:#c0c5ce;">&quot;
+      </span><span style="color:#bf616a;">limits</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">memory</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">64Mi</span><span style="color:#c0c5ce;">&quot;
+      </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">200m</span><span style="color:#c0c5ce;">&quot;
+  - </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">container2
+    image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">busybox
+    resources</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">requests</span><span style="color:#c0c5ce;">:
+        </span><span style="color:#bf616a;">memory</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">96Mi</span><span style="color:#c0c5ce;">&quot;
+        </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">300m</span><span style="color:#c0c5ce;">&quot;
+      </span><span style="color:#bf616a;">limits</span><span style="color:#c0c5ce;">: 
+        </span><span style="color:#bf616a;">memory</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">192Mi</span><span style="color:#c0c5ce;">&quot;
+        </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">750m</span><span style="color:#c0c5ce;">&quot;
+</span></code></pre>
+<p>Chaque conteneur du pod peut définir ses propres demandes et limites, qui sont toutes additives. Ainsi, dans l'exemple ci-dessus, le Pod a une demande totale de 500 m de CPU et 128 MiB de mémoire, et une limite totale de 1 CPU et 256MiB de mémoire.</p>
+<p><em>CPU</em>
+Les ressources CPU sont définies en millicores. Si votre conteneur a besoin de deux cœurs complets pour fonctionner, vous mettez la valeur &quot;2000m&quot;. Si votre conteneur n'a besoin que de ¼ de cœur, vous mettrez une valeur de &quot;250m&quot;.</p>
+<p>Une chose à garder à l'esprit concernant les demandes de CPU est que si vous mettez une valeur supérieure au nombre de cœurs de votre plus gros node, votre pod ne sera jamais programmé. Disons que vous avez un pod qui a besoin de quatre cœurs, mais que votre cluster Kubernetes est composé de VM à double cœur - votre pod ne sera jamais programmé !</p>
+<p>À moins que votre application ne soit spécifiquement conçue pour tirer parti de plusieurs cœurs (l'informatique scientifique et certaines bases de données viennent à l'esprit), il est généralement préférable de maintenir la demande de CPU à '1' ou moins, et d'exécuter plus de répliques pour la faire évoluer. Cela donne au système plus de flexibilité et de fiabilité.</p>
+<p><em>RAM</em>
+Les ressources mémoire sont définies en octets. Normalement, vous donnez une valeur de mebibytes pour la mémoire (c'est en fait la même chose qu'un mégaoctet), mais vous pouvez donner n'importe quelle valeur en octets.</p>
+<p>Comme pour le CPU, si vous introduisez une demande de mémoire supérieure à la quantité de mémoire disponible sur vos nodes, le pod ne sera jamais programmé.</p>
+<p>Contrairement aux ressources du CPU, la mémoire ne peut pas être compressée. Comme il n'y a aucun moyen de limiter l'utilisation de la mémoire, si un conteneur dépasse sa limite de mémoire, il sera terminé. Si votre pod est géré par un Deployment, StatefulSet, DaemonSet ou un autre type de contrôleur, le contrôleur lance un remplacement.</p>
+<p><em>Nodes</em>
+Il est important de se rappeler que vous ne pouvez pas définir des demandes plus importantes que les ressources fournies par vos nodes. Par exemple, si vous avez un cluster de machines à deux cœurs, un Pod avec une demande de 2,5 cœurs ne sera jamais scheduler.</p>
+<h3 id="service-discovery-env-dns">Service Discovery (env, DNS)</h3>
+<blockquote>
+<p>Dans Kubernetes, la détection de services est mise en œuvre avec des noms de service générés automatiquement correspondant à l'adresse IP du service. Les noms de service suivent la spécification standard suivante: my-svc.my-namespace.svc.cluster-domain.example. Les pods peuvent également accéder à des services externes, tels que example.com, via leur nom. Pour en savoir plus sur le fonctionnement du DNS dans Kubernetes, consultez la page <a href="https://github.com/kubernetes/dns/blob/master/docs/specification.md">DNS pour les services et les pods</a>.</p>
+</blockquote>
+<p>Kubernetes fournit les options DNS de cluster suivantes pour résoudre les noms de service et les noms externes :</p>
+<p>kube-dns: module complémentaire de cluster déployé par défaut.
+Cloud DNS: infrastructure DNS de cluster gérée dans le cloud exploitant Cloud DNS et ne nécessitant pas la gestion des serveurs DNS dans les clusters, comme kube-dns.
+Vous pouvez également enregistrer vos services dans l'annuaire des services pour votre cloud provider.</p>
+<p>GKE fournit également le module complémentaire facultatif NodeLocal DNSCache pouvant être utilisé avec kube-dns ou Cloud DNS.</p>
+<p><em>kube-dns</em></p>
+<blockquote>
+<p><strong>kube-dns est le fournisseur DNS par défaut des clusters</strong>. Il s'exécute comme un déploiement qui programme les pods kube-dns sur les nodes du cluster.</p>
+</blockquote>
+<p><em>Cloud DNS</em></p>
+<blockquote>
+<p>Cloud DNS fournit la résolution DNS des pods et des services, sans nécessiter de fournisseur DNS hébergé par le cluster tel que kube-dns. Le contrôleur Cloud DNS provisionne automatiquement les enregistrements DNS des pods et des services dans Cloud DNS pour les adresses ClusterIP, les services sans adresse IP de cluster et les services de noms externes.</p>
+</blockquote>
+<p><em>NodeLocal DNSCache</em></p>
+<blockquote>
+<p>NodeLocal DNSCache s'exécute en tant que DaemonSet qui programme un pod de cache DNS sur chaque node de cluster. Ce cache DNS améliore la latence de la résolution DNS, harmonise les délais des résolutions DNS, et peut réduire le nombre de requêtes DNS adressées à kube-dns ou Cloud DNS.</p>
+</blockquote>
+<h4 id="detection-de-services-en-dehors-d-un-cluster">Détection de services en dehors d'un cluster</h4>
+<p>Vous pouvez configurer la détection de services sur plusieurs clusters à l'aide de l'une des méthodes suivantes.</p>
+<p><em>VPC Cloud DNS Scope</em>
+Un cluster qui utilise Cloud DNS pour les services DNS de cluster doit s'exécuter dans l'un des deux modes disponibles: champ d'application de cluster ou champ d'application de cloud privé virtuel (VPC).</p>
+<p>Lorsque vous configurez un cluster avec un champ d'application de cluster, les enregistrements DNS ne peuvent être résolus que dans le cluster à l'aide du schéma <code>&lt;svc&gt;.&lt;ns&gt;.svc.cluster.local</code>. <strong>Ce comportement est le même que celui de kube-dns</strong>.</p>
+<p>Lorsque vous configurez un cluster avec un champ d'application de VPC, les enregistrements DNS des services du cluster peuvent être résolus dans l'ensemble du VPC. Cela signifie que les clients du même VPC ou connectés à celui-ci via Cloud VPN ou Cloud Interconnect peuvent résoudre directement les enregistrements DNS des services du cluster.</p>
+<p><em>Services multiclusters</em></p>
+<blockquote>
+<p>Les services multiclusters fournissent la détection de services et l'équilibrage de charge multiclusters pour GKE qui exploite l'objet Service existant. Les services multiclusters sont visibles et accessibles sur n'importe quel cluster GKE doté d'une seule adresse IP virtuelle. Ce comportement est identique à celui d'un service ClusterIP accessible dans un seul cluster.</p>
+</blockquote>
+<p>Les services multiclusters agrègent les services entre les clusters et les rendent adressables sous la forme d'un seul enregistrement DNS multicluster à l'aide du schéma <code>&lt;svc&gt;.&lt;ns&gt;.svc.clusterset.local</code>. </p>
+<p><em>Sources</em></p>
+<p><a href="https://cloud.google.com/kubernetes-engine/docs/concepts/service-discovery#:%7E:text=In%20Kubernetes%2C%20service%20discovery%20is%20implemented%20with%20automatically,external%20services%20through%20their%20names%2C%20such%20as%20example.com.">GKE Service Discovery</a></p>
+<h3 id="les-namespaces-et-les-quotas">Les namespaces et les quotas</h3>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="requests-limits" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/k8s-recs-ands-limits.png" alt="requests-limits-macro-fonctionnement" width="960" height="740">
+<p>Après avoir créé des namespaces, vous pouvez les verrouiller à l'aide de ResourceQuotas. Les quotas de ressources sont très puissants, mais voyons simplement comment les utiliser pour limiter l'utilisation des ressources CPU et mémoire.</p>
+<p>Un quota de ressource peut ressembler à ceci:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">v1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ResourceQuotas
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">sample
+spec</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">hard</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">requests.cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">500m
+  requests.memory</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">100Mib
+  limits.cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">700m
+  limits.memory</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">500Mib
+</span></code></pre>
+<p>En regardant cet exemple, vous pouvez voir qu'il y a quatre sections. La configuration de chacune de ces sections est facultative.</p>
+<p><em>requests.cpu</em> </p>
+<blockquote>
+<p>Nombre maximum de demandes combinées de CPU en millicores pour tous les conteneurs de le namespace. Dans l'exemple ci-dessus, vous pouvez avoir 50 conteneurs avec des demandes de 10m, cinq conteneurs avec des demandes de 100m, ou même un conteneur avec une demande de 500m. Tant que le total des demandes de CPU dans le namespace est inférieur à 500m !</p>
+</blockquote>
+<p><em>requests.memory</em> </p>
+<blockquote>
+<p>Demandes maximales combinées de mémoire pour tous les conteneurs dans le namespace. Dans l'exemple ci-dessus, vous pouvez avoir 50 conteneurs avec des demandes de 2MiB, cinq conteneurs avec des demandes de CPU de 20MiB, ou même un seul conteneur avec une demande de 100MiB. Tant que la mémoire totale demandée dans le namespace est inférieure à 100MiB !</p>
+</blockquote>
+<p><em>limits.cpu</em> </p>
+<blockquote>
+<p>Limites maximales combinées du CPU pour tous les conteneurs dans le namespace. C'est comme requests.cpu mais pour la limite.</p>
+</blockquote>
+<p><em>limits.memory</em></p>
+<blockquote>
+<p>Limites maximales de mémoire combinées pour tous les conteneurs dans le namespace. C'est comme requests.memory mais pour la limite.</p>
+</blockquote>
+<p>Si vous utilisez un Namespace de production et de développement (par opposition à un Namespace par équipe ou service), un modèle commun est de ne pas mettre de quota sur le Namespace de production et des quotas stricts sur le Namespace de développement. Cela permet à la production de prendre toutes les ressources dont elle a besoin en cas de pic de trafic.</p>
+<p><em>LimitRange</em></p>
+<blockquote>
+<p>Vous pouvez également créer une LimitRange dans votre Namespace. Contrairement à un quota, qui concerne le namespace dans son ensemble, une LimitRange s'applique à un conteneur individuel. Cela peut aider à empêcher les gens de créer des conteneurs super petits ou super grands dans le namespace.</p>
+</blockquote>
+<p>Une <strong>LimitRange</strong> peut ressembler à ceci :</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">v1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">LimitRange
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">sample
+spec</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">limits</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">default</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">600m
+    memory</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">100Mib
+  defaultRequest</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">100Mib
+    memory</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">50Mib
+  max</span><span style="color:#c0c5ce;">:
+   </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">1000m
+   memory</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">200Mib
+  min</span><span style="color:#c0c5ce;">:
+   </span><span style="color:#bf616a;">cpu</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">10m 
+   memory</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">100Mib
+  type</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Container
+</span></code></pre>
+<p>En regardant cet exemple, vous pouvez voir qu'il y a quatre sections. Là encore, la définition de chacune de ces sections est facultative</p>
+<p><em>Section default</em> </p>
+<blockquote>
+<p>La section default définit les limites par défaut pour un conteneur dans un pod. Si vous définissez ces valeurs dans la section limitRange, tous les conteneurs qui ne les définissent pas explicitement se verront attribuer les valeurs par défaut.</p>
+</blockquote>
+<p><em>Section defaultRequest</em> </p>
+<blockquote>
+<p>La section defaultRequest définit les demandes par défaut pour un conteneur dans un pod. Si vous définissez ces valeurs dans l'intervalle limitRange, les valeurs par défaut seront attribuées à tous les conteneurs qui ne les définissent pas explicitement.</p>
+</blockquote>
+<p><em>Section max</em></p>
+<blockquote>
+<p>La section max définit les limites maximales qu'un conteneur dans un pod peut fixer. La section par défaut ne peut être supérieure à cette valeur. De même, les limites définies pour un conteneur ne peuvent être supérieures à cette valeur. Il est important de noter que si cette valeur est définie et que la section par défaut ne l'est pas, tous les conteneurs qui ne définissent pas explicitement ces valeurs eux-mêmes se verront attribuer les valeurs max comme limite.</p>
+</blockquote>
+<p><em>Section min</em></p>
+<blockquote>
+<p>La section min définit les requêtes minimales qu'un conteneur dans un Pod peut définir. La section defaultRequest ne peut être inférieure à cette valeur. De même, les demandes définies sur un conteneur ne peuvent être inférieures à cette valeur. Il est important de noter que si cette valeur est définie et que la section defaultRequest ne l'est pas, la valeur min devient également la valeur defaultRequest.</p>
+</blockquote>
+<h3 id="gestion-des-acces-rbac">Gestion des accès (RBAC)</h3>
+<blockquote>
+<p>Le contrôle d'accès basé sur les rôles (RBAC) est une méthode de régulation de l'accès aux ressources informatiques ou réseau en fonction des rôles des utilisateurs individuels au sein de votre organisation.</p>
+</blockquote>
+<blockquote>
+<p>L'autorisation RBAC utilise le groupe d'API <code>rbac.authorization.k8s.io</code> pour piloter les décisions d'autorisation, ce qui vous permet de configurer dynamiquement les politiques via l'API Kubernetes.</p>
+</blockquote>
+<p>Pour activer RBAC, démarrez le serveur API avec l'indicateur <code>--authorization-mode</code> défini sur une liste séparée par des virgules qui inclut RBAC; par exemple:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kube-apiserver --authorization-mode</span><span style="color:#c0c5ce;">=Example,RBAC</span><span style="color:#bf616a;"> --other-options --more-options
+</span></code></pre>
+<p><strong>L'API RBAC déclare quatre types d'objets Kubernetes: Role, ClusterRole, RoleBinding et ClusterRoleBinding</strong>. Vous pouvez décrire les objets, ou les modifier, à l'aide d'outils tels que kubectl, comme tout autre objet Kubernetes.</p>
+<p><em>Attention !</em> Ces objets, par conception, imposent des restrictions d'accès. Si vous apportez des modifications à un cluster au fur et à mesure de votre apprentissage, consultez la section Prévention de l'escalade des privilèges et amorçage pour comprendre comment ces restrictions peuvent vous empêcher d'effectuer certaines modifications.</p>
+<p><strong>Rôle et ClusterRole</strong>
+Un rôle RBAC ou un ClusterRole contient des règles qui représentent un ensemble de permissions. Les permissions sont purement additives (il n'existe pas de règles de &quot;refus&quot;).</p>
+<p>Un rôle définit toujours les permissions dans un espace de nom particulier; lorsque vous créez un rôle, vous devez spécifier le namespace auquel il appartient.</p>
+<p><strong>ClusterRole</strong>, en revanche, est une ressource sans namespaces. Les ressources ont des noms différents (Role et ClusterRole) parce qu'un objet Kubernetes doit toujours être soit namespaced soit non namespaced; il ne peut pas être les deux.</p>
+<p>Les ClusterRoles ont plusieurs usages. Vous pouvez utiliser un ClusterRole pour:</p>
+<ul>
+<li>Définir des autorisations sur des ressources à espace de noms et les accorder au sein d'un ou de plusieurs espaces de noms individuels.</li>
+<li>Définir des autorisations sur des ressources d'espace de noms et les accorder dans tous les espaces de noms</li>
+<li>Définir des permissions sur des ressources à l'échelle du cluster</li>
+</ul>
+<p>Si vous souhaitez définir un rôle au sein d'un espace de noms, utilisez un Role ; si vous souhaitez définir un rôle à l'échelle du cluster, utilisez un ClusterRole.</p>
+<p><em>Exemple de rôle</em></p>
+<p>Voici un exemple de rôle dans l'espace de nom &quot;default&quot; qui peut être utilisé pour accorder un accès en lecture aux pods:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#c0c5ce;">---
+</span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Role
+apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">rbac.authorization.k8s.io/v1
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">pods-svc-reader
+rules</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">apiGroups</span><span style="color:#c0c5ce;">: [&quot;&quot;]
+  </span><span style="color:#bf616a;">resources</span><span style="color:#c0c5ce;">: [&quot;</span><span style="color:#a3be8c;">pods</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">services</span><span style="color:#c0c5ce;">&quot;]
+  </span><span style="color:#bf616a;">verbs</span><span style="color:#c0c5ce;">: [&quot;</span><span style="color:#a3be8c;">get</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">list</span><span style="color:#c0c5ce;">&quot;]
+</span></code></pre>
+<p><em>Exemple de ClusterRole</em></p>
+<blockquote>
+<p>Un ClusterRole peut être utilisée pour accorder les mêmes permissions qu'un rôle. Étant donné que les ClusterRoles sont adaptés aux clusters, vous pouvez également les utiliser pour accorder l'accès à:</p>
+</blockquote>
+<ul>
+<li>des ressources à l'échelle du cluster (comme les nodes)</li>
+<li>des points de terminaison non liés aux ressources (comme /healthz sur un healthcheck)</li>
+<li>des ressources namespaces (comme les pods), dans tous les namespaces.</li>
+</ul>
+<p>Par exemple: vous pouvez utiliser une ClusterRole pour autoriser un utilisateur particulier à exécuter <code>kubectl get pods --all-namespaces</code>.</p>
+<p>Voici un exemple de ClusterRole qui peut être utilisé pour accorder un accès en lecture aux secrets dans un espace de noms particulier ou dans tous les espaces de noms (selon la façon dont il est lié) :</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">rbac.authorization.k8s.io/v1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ClusterRole
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#65737e;"># &quot;namespace&quot; omitted since ClusterRoles are not namespaced
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">secret-reader
+rules</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">apiGroups</span><span style="color:#c0c5ce;">: [&quot;&quot;]
+  </span><span style="color:#65737e;">#
+  # at the HTTP level, the name of the resource for accessing Secret
+  # objects is &quot;secrets&quot;
+  </span><span style="color:#bf616a;">resources</span><span style="color:#c0c5ce;">: [&quot;</span><span style="color:#a3be8c;">secrets</span><span style="color:#c0c5ce;">&quot;]
+  </span><span style="color:#bf616a;">verbs</span><span style="color:#c0c5ce;">: [&quot;</span><span style="color:#a3be8c;">get</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">watch</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">list</span><span style="color:#c0c5ce;">&quot;]
+</span></code></pre>
+<p>Le nom d'un objet Role ou ClusterRole doit être un nom de segment de chemin valide.</p>
+<p><em>RoleBinding et ClusterRoleBinding</em></p>
+<blockquote>
+<p>Un role binding accorde les permissions définies dans un rôle à un utilisateur ou à un ensemble d'utilisateurs. Il contient une liste de sujets (utilisateurs, groupes ou comptes de service) et une référence au rôle accordé. Un RoleBinding accorde des permissions dans un espace de nom spécifique, tandis qu'un ClusterRoleBinding accorde cet accès à l'échelle du cluster.</p>
+</blockquote>
+<blockquote>
+<p>Un RoleBinding peut faire référence à n'importe quel rôle dans le même espace de noms. Par ailleurs, un RoleBinding peut faire référence à un ClusterRole et lier ce ClusterRole à l'espace de nom du RoleBinding. Si vous souhaitez lier un ClusterRole à tous les espaces de noms de votre cluster, vous utilisez un ClusterRoleBinding.</p>
+</blockquote>
+<p>Le nom d'un objet RoleBinding ou ClusterRoleBinding doit être un nom de segment de chemin valide.</p>
+<p><em>Exemples de RoleBinding</em></p>
+<p>Voici un exemple de RoleBinding qui accorde le rôle &quot;pod-reader&quot; à l'utilisateur &quot;jane&quot; dans l'espace de nom &quot;default&quot;. Ceci permet à &quot;jane&quot; de lire les pods dans l'espace de noms &quot;default&quot;.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io/v1
+</span><span style="color:#65737e;"># This role binding allows &quot;jane&quot; to read pods in the &quot;default&quot; namespace.
+# You need to already have a Role named &quot;pod-reader&quot; in that namespace.
+</span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">RoleBinding
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">read-pods
+  namespace</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">default
+subjects</span><span style="color:#c0c5ce;">:
+</span><span style="color:#65737e;"># You can specify more than one &quot;subject&quot;
+</span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">User
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">jane </span><span style="color:#65737e;"># &quot;name&quot; is case sensitive
+  </span><span style="color:#bf616a;">apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">rbac.authorization.k8s.io
+roleRef</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#65737e;"># &quot;roleRef&quot; specifies the binding to a Role / ClusterRole
+  </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Role </span><span style="color:#65737e;">#this must be Role or ClusterRole
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">pod-reader </span><span style="color:#65737e;"># this must match the name of the Role or ClusterRole you wish to bind to
+  </span><span style="color:#bf616a;">apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io
+</span></code></pre>
+<p><strong>Un RoleBinding peut également faire référence à un ClusterRole pour accorder les permissions définies dans ce ClusterRole aux ressources de le namespace du RoleBinding. Ce type de référence vous permet de définir un ensemble de rôles communs à l'ensemble de votre cluster, puis de les réutiliser dans plusieurs namespaces.</strong></p>
+<p>Par exemple, même si le RoleBinding suivant fait référence à un ClusterRole, &quot;dave&quot; (le sujet, sensible à la casse) ne pourra lire que les Secrets dans l'espace de nom &quot;development&quot;, car le namespace du RoleBinding (dans ses métadonnées) est &quot;development&quot;.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io/v1
+</span><span style="color:#65737e;"># This role binding allows &quot;dave&quot; to read secrets in the &quot;development&quot; namespace.
+# You need to already have a ClusterRole named &quot;secret-reader&quot;.
+</span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">RoleBinding
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">read-secrets
+  </span><span style="color:#65737e;">#
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the &quot;development&quot; namespace.
+  </span><span style="color:#bf616a;">namespace</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">development
+subjects</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">User
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">dave </span><span style="color:#65737e;"># Name is case sensitive
+  </span><span style="color:#bf616a;">apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">rbac.authorization.k8s.io
+roleRef</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ClusterRole
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">secret-reader
+  apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io
+</span></code></pre>
+<p><em>ClusterRoleBinding example</em></p>
+<p>Pour accorder des permissions à l'ensemble d'un cluster, vous pouvez utiliser un ClusterRoleBinding. Le ClusterRoleBinding suivant permet à tout utilisateur du groupe &quot;manager&quot; de lire les secrets dans n'importe quel namespace.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io/v1
+</span><span style="color:#65737e;"># This role binding allows &quot;dave&quot; to read secrets in the &quot;development&quot; namespace.
+# You need to already have a ClusterRole named &quot;secret-reader&quot;.
+</span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">RoleBinding
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">read-secrets
+  </span><span style="color:#65737e;">#
+  # The namespace of the RoleBinding determines where the permissions are granted.
+  # This only grants permissions within the &quot;development&quot; namespace.
+  </span><span style="color:#bf616a;">namespace</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">development
+subjects</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">User
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">dave </span><span style="color:#65737e;"># Name is case sensitive
+  </span><span style="color:#bf616a;">apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">rbac.authorization.k8s.io
+roleRef</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ClusterRole
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">secret-reader
+  apiGroup</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">rbac.authorization.k8s.io
+</span></code></pre>
+<p>Après avoir créé un lien, vous ne pouvez pas modifier le rôle ou le ClusterRole auquel il fait référence. Si vous essayez de modifier le roleRef d'une liaison, vous obtenez une erreur de validation. Si vous souhaitez modifier le roleRef d'un binding, vous devez supprimer l'objet binding et en créer un autre.</p>
+<p>Il y a deux raisons pour cette restriction:</p>
+<ul>
+<li>Rendre le roleRef immuable permet d'accorder à quelqu'un la permission de mettre à jour un objet de liaison existant, afin qu'il puisse gérer la liste des sujets, sans pouvoir changer le rôle qui est accordé à ces sujets.</li>
+</ul>
+<p>L'utilitaire de ligne de commande kubectl auth reconcile crée ou met à jour un fichier manifeste contenant les objets RBAC, et gère la suppression et la recréation des objets de liaison si nécessaire pour modifier le rôle auquel ils se réfèrent. Voir l'utilisation de la commande et les exemples pour plus d'informations.</p>
+<h3 id="haute-disponibilite-et-mode-maintenance">Haute disponibilité et mode maintenance</h3>
+<p>Cette page explique deux approches différentes pour configurer un Kubernetes à haute disponibilité. cluster utilisant kubeadm:</p>
+<p>Avec des nodes de control plane empilés. Cette approche nécessite moins d'infrastructure. Les membres etcd et les nodes du control plane sont co-localisés.</p>
+<p>Avec un cluster etcd externe cette approche nécessite plus d'infrastructure. Les nodes du control plane et les membres etcd sont séparés.</p>
+<p>Avant de poursuivre, vous devez déterminer avec soin quelle approche répond le mieux aux besoins de vos applications et de l'environnement. Cette comparaison décrit les avantages et les inconvénients de chacune.</p>
+<p>Vos clusters doivent exécuter Kubernetes version 1.12 ou ultérieure. Vous devriez aussi savoir que la mise en place de clusters HA avec kubeadm est toujours expérimentale et sera simplifiée davantage dans les futures versions. Vous pouvez par exemple rencontrer des problèmes lors de la mise à niveau de vos clusters. Nous vous encourageons à essayer l’une ou l’autre approche et à nous faire part de vos commentaires dans Suivi des problèmes Kubeadm.</p>
+<p>Avertissement: Cette page ne traite pas de l'exécution de votre cluster sur un fournisseur de cloud. Dans un environnement Cloud, les approches documentées ici ne fonctionnent ni avec des objets de type load balancer, ni avec des volumes persistants dynamiques.</p>
+<h4 id="pre-requis">Pré-requis</h4>
+<p>Pour les deux méthodes, vous avez besoin de cette infrastructure:</p>
+<ul>
+<li>Trois machines qui répondent aux pré-requis des exigences de kubeadm pour les maîtres (masters)</li>
+<li>Trois machines qui répondent aux pré-requis des exigences de kubeadm pour les workers</li>
+<li>Connectivité réseau complète entre toutes les machines du cluster (public ou réseau privé)</li>
+<li>Privilèges sudo sur toutes les machines</li>
+<li>Accès SSH d'une machine à tous les nodes du cluster</li>
+<li>kubeadm et une kubelet installés sur toutes les machines. kubectl est optionnel.</li>
+</ul>
+<p>Pour le cluster etcd externe uniquement, vous avez besoin également de:</p>
+<ul>
+<li>Trois machines supplémentaires pour les membres etcd</li>
+</ul>
+<p><em>N.B.</em> Les exemples suivants utilisent Calico en tant que fournisseur de réseau de Pod. Si vous utilisez un autre CNI, pensez à remplacer les valeurs par défaut si nécessaire.</p>
+<p><em>N.B.</em> Toutes les commandes d'un control plane ou d'un noeud etcd doivent être éxecutées en tant que root.
+Certains plugins réseau CNI tels que Calico nécessitent un CIDR tel que 192.168.0.0 / 16 et  certains comme Weave n'en ont pas besoin. Voir la Documentation du CNI réseau. </p>
+<p>Pour ajouter un CIDR de pod, définissez le champ podSubnet: 192.168.0.0 / 16 sous   l'objet networking de ClusterConfiguration.</p>
+<h5 id="creez-un-load-balancer-pour-kube-apiserver">Créez un load balancer pour kube-apiserver</h5>
+<p>Note: Il existe de nombreuses configurations pour les équilibreurs de charge (load balancers). L'exemple suivant n'est qu'un exemple. Vos exigences pour votre cluster peuvent nécessiter une configuration différente.</p>
+<p><strong>Créez un load balancer kube-apiserver avec un nom résolu en DNS.</strong></p>
+<p>Dans un environnement cloud, placez vos nodes du control plane derrière un load balancer TCP. Ce load balancer distribue le trafic à tous les nodes du control plane sains dans sa liste. La vérification de la bonne santé d'un apiserver est une vérification TCP sur le port que kube-apiserver écoute (valeur par défaut: 6443).</p>
+<p>Il n'est pas recommandé d'utiliser une adresse IP directement dans un environnement cloud.</p>
+<p>Le load balancer doit pouvoir communiquer avec tous les nodes du control plane sur le port apiserver. Il doit également autoriser le trafic entrant sur son réseau de port d'écoute.</p>
+<p>HAProxy peut être utilisé comme load balancer.</p>
+<p>Assurez-vous que l'adresse du load balancer correspond toujours à l'adresse de <strong>ControlPlaneEndpoint</strong> de kubeadm.</p>
+<p>Ajoutez les premiers nodes du control plane au load balancer et testez la connexion:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">nc -v</span><span style="color:#c0c5ce;"> LOAD_BALANCER_IP PORT
+</span></code></pre>
+<p>Une erreur connection refused est attendue car l'apiserver n'est pas encore en fonctionnement. Cependant, un timeout signifie que le load balancer ne peut pas communiquer avec le node du control plane. Si un timeout survient, reconfigurez le load balancer pour communiquer avec le node du control plane.</p>
+<p>Ajouter les nodes du control plane restants au groupe cible du load balancer.</p>
+<h5 id="configurer-ssh">Configurer SSH</h5>
+<p>SSH est requis si vous souhaitez contrôler tous les nodes à partir d'une seule machine.</p>
+<p>Activer ssh-agent sur votre machine ayant accès à tous les autres nodes du cluster:</p>
+<p><code>eval $(ssh-agent)</code></p>
+<p>Ajoutez votre clé SSH à la session:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ssh-add ~</span><span style="color:#c0c5ce;">/.ssh/path_to_private_key
+</span><span style="color:#bf616a;">SSH</span><span style="color:#c0c5ce;"> entre les nodes pour vérifier que la connexion fonctionne correctement.
+</span></code></pre>
+<p>Lorsque vous faites un SSH sur un node, <code>assurez-vous d’ajouter l’option -A</code>:</p>
+<p><code>ssh -A 10.0.0.7</code></p>
+<p>Lorsque vous utilisez sudo sur n’importe quel node, veillez à préserver l’environnement afin que le SSH forwarding fonctionne:</p>
+<p><code>sudo -E -s</code></p>
+<h4 id="control-plane-empile-et-nodes-etcd">Control plane empilé et nodes etcd</h4>
+<p>Sur le premier node du control plane, créez un fichier de configuration appelé <strong>kubeadm-config.yaml</strong>:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kubeadm.k8s.io/v1beta1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ClusterConfiguration
+kubernetesVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">stable
+apiServer</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">certSANs</span><span style="color:#c0c5ce;">:
+  - &quot;</span><span style="color:#a3be8c;">LOAD_BALANCER_DNS</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">controlPlaneEndpoint</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">LOAD_BALANCER_DNS:LOAD_BALANCER_PORT</span><span style="color:#c0c5ce;">&quot;
+</span></code></pre>
+<p>kubernetesVersion doit représenter la version de Kubernetes à utiliser. Cet exemple utilise stable.
+<strong>controlPlaneEndpoint</strong> doit correspondre à l'adresse ou au DNS et au port du load balancer.
+Il est recommandé que les versions de kubeadm, kubelet, kubectl et kubernetes correspondent.</p>
+<p>Assurez-vous que le node est dans un état sain puis exécuter:</p>
+<p><code>sudo kubeadm init --config=kubeadm-config.yaml</code></p>
+<p>Vous pouvez à présent joindre n'importe quelle machine au cluster en lancant la commande suivante sur chaque nœeud en tant que root:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> join 192.168.0.200:6443</span><span style="color:#bf616a;"> --token</span><span style="color:#c0c5ce;"> j04n3m.octy8zely83cy2ts</span><span style="color:#bf616a;"> --discovery-token-ca-cert-hash</span><span style="color:#c0c5ce;">    sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f
+</span></code></pre>
+<p>Copiez ce jeton dans un fichier texte. Vous en aurez besoin plus tard pour joindre d’autres nodes du control plane au cluster.</p>
+<p>Activez l'extension CNI Weave:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://cloud.weave.works/k8s/net?k8s-version=</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">kubectl</span><span style="color:#a3be8c;"> version </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">base64 </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">tr -d </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">\n</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">)</span><span style="color:#c0c5ce;">&quot;
+</span></code></pre>
+<p>Tapez ce qui suit et observez les pods des composants démarrer:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get pod</span><span style="color:#bf616a;"> -n</span><span style="color:#c0c5ce;"> kube-system</span><span style="color:#bf616a;"> -w
+</span></code></pre>
+<p>Il est recommandé de ne joindre les nouveaux nodes du control plane qu'après l'initialisation du premier node.</p>
+<p>Copiez les fichiers de certificat du premier node du control plane dans les autres:</p>
+<p>Dans l'exemple suivant, remplacez <strong>CONTROL_PLANE_IPS</strong> par les adresses IP des autres nodes du control plane.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;">ubuntu </span><span style="color:#65737e;"># customizable
+</span><span style="color:#bf616a;">CONTROL_PLANE_IPS</span><span style="color:#c0c5ce;">=&quot;</span><span style="color:#a3be8c;">10.0.0.7 10.0.0.8</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#b48ead;">for</span><span style="color:#c0c5ce;"> host </span><span style="color:#b48ead;">in </span><span style="color:#c0c5ce;">${</span><span style="color:#bf616a;">CONTROL_PLANE_IPS</span><span style="color:#c0c5ce;">}; </span><span style="color:#b48ead;">do
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/ca.crt &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/ca.key &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/sa.key &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/sa.pub &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/front-proxy-ca.crt &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/front-proxy-ca.key &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/etcd/ca.crt &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:etcd-ca.crt
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/etcd/ca.key &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:etcd-ca.key
+    </span><span style="color:#bf616a;">scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/admin.conf &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">USER</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;@$</span><span style="color:#bf616a;">host</span><span style="color:#c0c5ce;">:
+</span><span style="color:#b48ead;">done
+</span></code></pre>
+<p>Avertissement: N'utilisez que les certificats de la liste ci-dessus. kubeadm se chargera de générer le reste des certificats avec les SANs requis pour les instances du control plane qui se joignent. Si vous copiez tous les certificats par erreur, la création de noeuds supplémentaires pourrait échouer en raison d'un manque de SANs requis.</p>
+<h5 id="etapes-pour-le-reste-des-nodes-du-control-plane">Étapes pour le reste des nodes du control plane</h5>
+<p>Déplacer les fichiers créés à l'étape précédente où scp était utilisé:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;">ubuntu </span><span style="color:#65737e;"># customizable
+</span><span style="color:#bf616a;">mkdir -p</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/etcd
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/ca.crt /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/ca.key /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/sa.pub /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/sa.key /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/front-proxy-ca.crt /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/front-proxy-ca.key /etc/kubernetes/pki/
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/etcd-ca.crt /etc/kubernetes/pki/etcd/ca.crt
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/etcd-ca.key /etc/kubernetes/pki/etcd/ca.key
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> /home/${</span><span style="color:#bf616a;">USER</span><span style="color:#c0c5ce;">}/admin.conf /etc/kubernetes/admin.conf
+</span></code></pre>
+<p>Ce processus écrit tous les fichiers demandés dans le dossier <strong>/etc/kubernetes</strong>.</p>
+<p>Lancez kubeadm join sur ce node en utilisant la commande de join qui vous avait été précédemment donnée par kubeadm init sur le premier noeud. Ça devrait ressembler a quelque chose comme ça:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> kubeadm join 192.168.0.200:6443</span><span style="color:#bf616a;"> --token</span><span style="color:#c0c5ce;"> j04n3m.octy8zely83cy2ts</span><span style="color:#bf616a;"> --discovery-token-ca-cert-hash</span><span style="color:#c0c5ce;"> sha256:84938d2a22203a8e56a787ec0c6ddad7bc7dbd52ebabc62fd5f4dbea72b14d1f</span><span style="color:#bf616a;"> --experimental-control-plane
+</span></code></pre>
+<p>Remarquez l'ajout de l'option --experimental-control-plane. Ce paramètre automatise l'adhésion au control plane du cluster.
+Tapez ce qui suit et observez les pods des composants démarrer:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get pod</span><span style="color:#bf616a;"> -n</span><span style="color:#c0c5ce;"> kube-system</span><span style="color:#bf616a;"> -w
+</span></code></pre>
+<p>Répétez ces étapes pour le reste des nodes du control plane.</p>
+<h5 id="noeuds-etcd-externes">Noeuds etcd externes</h5>
+<h5 id="configurer-le-cluster-etcd">Configurer le cluster etcd</h5>
+<p>Suivez ces instructions pour configurer le cluster etcd.</p>
+<ul>
+<li>Configurer le premier node du control plane</li>
+<li>Copiez les fichiers suivants de n’importe quel node du cluster etcd vers ce node.:</li>
+</ul>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#b48ead;">export </span><span style="color:#bf616a;">CONTROL_PLANE</span><span style="color:#c0c5ce;">=&quot;</span><span style="color:#a3be8c;">ubuntu@10.0.0.7</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">+scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/etcd/ca.crt &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">CONTROL_PLANE</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;:
+</span><span style="color:#bf616a;">+scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/apiserver-etcd-client.crt &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">CONTROL_PLANE</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;:
+</span><span style="color:#bf616a;">+scp</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/apiserver-etcd-client.key &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">CONTROL_PLANE</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot;:
+</span></code></pre>
+<p>Remplacez la valeur de CONTROL_PLANE par l'utilisateur@hostname de cette machine.</p>
+<p>Créez un fichier YAML appelé kubeadm-config.yaml avec le contenu suivant:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kubeadm.k8s.io/v1beta1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">ClusterConfiguration
+kubernetesVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">stable
+apiServer</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">certSANs</span><span style="color:#c0c5ce;">:
+  - &quot;</span><span style="color:#a3be8c;">LOAD_BALANCER_DNS</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">controlPlaneEndpoint</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">LOAD_BALANCER_DNS:LOAD_BALANCER_PORT</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">etcd</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">external</span><span style="color:#c0c5ce;">:
+        </span><span style="color:#bf616a;">endpoints</span><span style="color:#c0c5ce;">:
+        - </span><span style="color:#bf616a;">https://ETCD_0_IP:2379
+        </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">https://ETCD_1_IP:2379
+        </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">https://ETCD_2_IP:2379
+        caFile</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">/etc/kubernetes/pki/etcd/ca.crt
+        certFile</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">/etc/kubernetes/pki/apiserver-etcd-client.crt
+        keyFile</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">/etc/kubernetes/pki/apiserver-etcd-client.key
+La différence entre etcd empilé et externe, c’est que nous utilisons le champ external pour etcd dans la configuration de kubeadm. Dans le cas de la topologie etcd empilée, c&#39;est géré automatiquement.
+</span></code></pre>
+<p>Remplacez les variables suivantes dans le modèle (template) par les valeurs appropriées pour votre cluster:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">LOAD_BALANCER_DNS
+LOAD_BALANCER_PORT
+ETCD_0_IP
+ETCD_1_IP
+ETCD_2_IP
+</span></code></pre>
+<p>Lancez <code>kubeadm init --config kubeadm-config.yaml</code> sur ce node.</p>
+<p>Ecrivez le résultat de la commande de join dans un fichier texte pour une utilisation ultérieure.</p>
+<p>Appliquer le plugin CNI Weave:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://cloud.weave.works/k8s/net?k8s-version=</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">kubectl</span><span style="color:#a3be8c;"> version </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">base64 </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">tr -d </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">\n</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">)</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">Étapes</span><span style="color:#c0c5ce;"> pour le reste des nodes du control plane
+</span><span style="color:#bf616a;">Pour</span><span style="color:#c0c5ce;"> ajouter le reste des nodes du control plane, suivez ces instructions. Les étapes sont les mêmes que pour la configuration etcd empilée, à l’exception du fait qu&#39;</span><span style="color:#a3be8c;">un membre etcd local n</span><span style="color:#c0c5ce;">&#39;est pas créé.
+</span></code></pre>
+<p>Pour résumer:</p>
+<ul>
+<li>Assurez-vous que le premier node du control plane soit complètement initialisé.</li>
+<li>Copier les certificats entre le premier node du control plane et les autres nodes du control plane.</li>
+<li>Joignez chaque node du control plane à l'aide de la commande de join que vous avez enregistrée dans un fichier texte, puis ajoutez l'option --experimental-control-plane.</li>
+</ul>
+<p>Tâches courantes après l'amorçage du control plane</p>
+<ul>
+<li>
+<p>Installer un réseau de pod
+Suivez ces instructions afin d'installer le réseau de pod. Assurez-vous que cela correspond au pod CIDR que vous avez fourni dans le fichier de configuration principal.</p>
+</li>
+<li>
+<p>Installer les workers
+Chaque node worker peut maintenant être joint au cluster avec la commande renvoyée à partir du resultat de n’importe quelle commande kubeadm init. L'option --experimental-control-plane ne doit pas être ajouté aux nodes workers.</p>
+</li>
+</ul>
+<h3 id="gestion-des-droits-user-sa-et-mise-en-place-de-services-exposes-tp">Gestion des droits user, sa et mise en place de services exposés (TP)</h3>
+<p>Dans ce TP vous aurez à charge de définir un ensemble de services de type clusterIP ou nodePort ainsi que la gestion des accès des pods. </p>
+<p>Les pods derrière les services devront pouvoir être joints et listés dans l'ensemble du cluster pour un service account donné. Vous utiliserez pour cela un clusterRole et clusterRoleBinding.</p>
+<p>2 services devront exposés un port sur le node, 2 autres devront permettre aux pods de communiquer entre eux à l'intérieur du cluster.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+  <a href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-exploitation&#x2F;">
+    <div class="card my-1">
+      <div class="card-body py-2">
+        &larr; Exploitation de Kubernetes
+      </div>
+    </div>
+  </a>
+  
+
+  
+  
+  
+  
+  
+    <a class="ms-auto" href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;deploy-k8s-cluster&#x2F;">
+      <div class="card my-1">
+        <div class="card-body py-2">
+          Déploiement d&#x27;un cluster Kubernetes  &rarr;
+        </div>
+      </div>
+    </a>
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>

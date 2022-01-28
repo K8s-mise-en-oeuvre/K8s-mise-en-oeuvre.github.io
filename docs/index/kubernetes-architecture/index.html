@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Architecture Kubernetes | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="Documentation website of eponym course using Zola Adidoks and Github Pages">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Kubernetes Architecture",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/#architecture-kubernetes">Architecture Kubernetes</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/#composants-du-control-plane">Composants du Control Plane</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/#concepts-objets-stateful-stateless">Concepts: objets stateful, stateless</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/#quelques-exemples-d-architecture-cloud-hybrides-ou-on-premise">Quelques exemples d&#x27;architecture cloud hybrides ou on-premise</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/#quelques-exemples-d-architecture-cloud-public">Quelques exemples d&#x27;architecture cloud public</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Architecture Kubernetes</h1>
+        
+        <h2 id="architecture-kubernetes">Architecture Kubernetes</h2>
+<p>Fonctionnalités:</p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/feature-of-Kubernetes-Kubernetes-Architecture.png" alt="feature-of-Kubernetes-Kubernetes-Architecture" width="720" height="600">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-functionnalities.webp" alt="kube-functionnalities" width="720" height="600">
+<p>&lt;img src=&quot;https://K8s-mise-en-oeuvre.github.io/docs/kubernetes-features.png&quot; alt=&quot;kubernetes-features&quot; width=&quot;900&quot; height=&quot;720&quot;</p>
+<h3 id="composants-du-control-plane">Composants du Control Plane</h3>
+<p><em>Vue macro</em>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/control-plane.png" alt="Simple_Control_Plane_Schema" width="720" height="600"> </p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-basic-archi.png" alt="Kubernetes basic architecture" width="800" height="680"> 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-multi-master.png" alt="Kubernetes multi master" width="900" height="720">
+<p>Le master Kubernetes qui est un ensemble de trois processus qui s'exécutent sur un seul node de votre cluster, désigné comme master node. Ces processus sont: kube-apiserver, kube-controller-manager et kube-scheduler.
+Chaque node non master de votre cluster exécute deux processus:</p>
+<ul>
+<li>kubelet, qui communique avec le Kubernetes master.</li>
+<li>kube-proxy, un proxy réseau reflétant les services réseau Kubernetes sur chaque node.</li>
+</ul>
+<p>Les différentes parties du control plane Kubernetes, telles que les processus Kubernetes master et kubelet, déterminent la manière dont Kubernetes communique avec votre cluster. Le control plane conserve un enregistrement de tous les objets Kubernetes du système et exécute des boucles de contrôle continues pour gérer l'état de ces objets. À tout moment, les boucles de contrôle du control plane répondent aux modifications du cluster et permettent de faire en sorte que l'état réel de tous les objets du système corresponde à l'état souhaité que vous avez fourni.</p>
+<p>Par exemple, lorsque vous utilisez l'API Kubernetes pour créer un objet Deployment, vous fournissez un nouvel état souhaité pour le système. Le control plane Kubernetes enregistre la création de cet objet et exécute vos instructions en lançant les applications requises et en les planifiant vers des nodes de cluster, afin que l'état actuel du cluster corresponde à l'état souhaité.</p>
+<h4 id="composants-du-master-node">Composants du master node</h4>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/Kubernetes-101-Architecture-Diagram.jpg" alt="Kubernetes Archi master-node"> 
+<ul>
+<li>cluster etcd</li>
+</ul>
+<blockquote>
+<p>Un stockage simple et distribué de valeurs de clés qui est utilisé pour stocker les données du cluster Kubernetes (telles que le nombre de pods, leur état, l'espace de noms, etc), les objets API et les détails de la découverte de services. Pour des raisons de sécurité, il n'est accessible qu'à partir du serveur d'API. etc. etcd permet de notifier au cluster les changements de configuration à l'aide de surveillants. Les notifications sont des requêtes API sur chaque node du cluster etcd pour déclencher la mise à jour des informations dans le stockage du node.</p>
+</blockquote>
+<ul>
+<li>kube-apiserver</li>
+</ul>
+<blockquote>
+<p>Le serveur API Kubernetes est l'entité de gestion centrale qui reçoit toutes les demandes REST de modifications (aux pods, services, ensembles de réplication/contrôleurs et autres), servant de front-end au cluster. C'est également le seul composant qui communique avec le cluster etcd, s'assurant que les données sont stockées dans etcd et sont en accord avec les détails des services des pods déployés.</p>
+</blockquote>
+<ul>
+<li>kube-controller-manager</li>
+</ul>
+<blockquote>
+<p>Exécute un certain nombre de processus de contrôle distincts en arrière-plan (par exemple, le contrôleur de réplication contrôle le nombre de replica dans un pod, le contrôleur de endpoints remplit les objets endpints comme les services et les pods) pour réguler l'état partagé du cluster et effectuer des tâches de routine. Lorsqu'un changement dans la configuration d'un service se produit (par exemple, le remplacement de l'image à partir de laquelle les pods sont exécutés, ou la modification des paramètres dans le fichier yaml de configuration), le contrôleur repère le changement et commence à travailler vers le nouvel état souhaité.</p>
+</blockquote>
+<ul>
+<li>cloud-controller-manager</li>
+</ul>
+<blockquote>
+<p>Le responsable de la gestion des processus du contrôleur qui dépendent du cloud provider sous-jacent (le cas échéant). Par exemple, lorsqu'un contrôleur doit vérifier si un node a été résilié ou configurer des routes, des équilibreurs de charge ou des volumes dans l'infrastructure du cloud provider, tout cela est géré par le cloud provider.</p>
+</blockquote>
+<ul>
+<li>kube-scheduler</li>
+</ul>
+<blockquote>
+<p>Aide à planifier les pods (un groupe de conteneurs co-localisés à l'intérieur desquels nos processus d'application sont exécutés) sur les différents nodes en fonction de l'utilisation des ressources. Il lit les exigences opérationnelles du service et le planifie sur le node le mieux adapté. Par exemple, si l'application a besoin de 1 Go de mémoire et de 2 cœurs CPU, les pods de cette application seront planifiés sur un node disposant au moins de ces ressources. Le planificateur s'exécute chaque fois qu'il est nécessaire de planifier des pods. Le planificateur doit connaître les ressources totales disponibles ainsi que les ressources allouées aux charges de travail existantes sur chaque node.</p>
+</blockquote>
+<h4 id="architecture-d-un-minion">Architecture d'un minion</h4>
+<p>Un node est une machine de travail dans Kubernetes, connue auparavant sous le nom de minion. Un node peut être une machine virtuelle ou une machine physique, selon le cluster. </p>
+<p>Chaque node contient les services nécessaires à l'exécution de pods et est géré par les composants du master. <strong>Les services présents sur un node incluent le container runtime, kubelet et kube-proxy.</strong></p>
+<img src="node-archi.jpeg" alt="Architecture Minion" width="720" height="600">
+<p>Pour effectuer l'auto-enregistrement des nodes:</p>
+<p>Lorsque l'indicateur de kubelet <strong>--register-node est à true</strong> (valeur par défaut), le kubelet tente de s'enregistrer auprès du serveur d'API. C'est le modèle préféré, utilisé par la plupart des distributions Linux.</p>
+<p>Pour l'auto-enregistrement (self-registration en anglais), le kubelet est lancé avec les options suivantes:</p>
+<ul>
+<li>--kubeconfig - Chemin d'accès aux informations d'identification pour s'authentifier auprès de l'apiserver.</li>
+<li>--cloud-provider - Comment lire les métadonnées d'un fournisseur de cloud sur lui-même.</li>
+<li>--register-node - Enregistrement automatique avec le serveur API.</li>
+<li>--register-with-taints - Enregistrez le noeud avec la liste donnée de marques (séparés par des virgules <key>=<value>:<effect>). Sans effet si register-node est à false.</li>
+<li>--node-ip - Adresse IP du noeud.</li>
+<li>--node-labels - Labels à ajouter lors de l’enregistrement du noeud dans le cluster (voir Restrictions des labels appliquées par le plugin NodeRestriction admission dans les versions 1.13+).</li>
+<li>--node-status-update-frequency - Spécifie la fréquence à laquelle kubelet publie le statut de nœud sur master.</li>
+</ul>
+<p>Quand le mode autorisation de node et plugin NodeRestriction admission sont activés, les kubelets sont uniquement autorisés à créer / modifier leur propre ressource de node.</p>
+<h3 id="concepts-objets-stateful-stateless">Concepts: objets stateful, stateless</h3>
+<p>Un objet dit stateful est capable de maintenir l'état d'un processus ou d'une transaction.</p>
+<p>StatefulSet est l'objet de l'API de charge de travail utilisé pour gérer des applications stateful.</p>
+<p>Il gère le déploiement et la mise à l'échelle d'un ensemble de Pods, et fournit des garanties sur l'ordre et l'unicité de ces Pods.</p>
+<p>Comme un Déploiement, un StatefulSet gère des Pods qui sont basés sur une même spécification de conteneur. Contrairement à un Deployment, un StatefulSet maintient une identité pour chacun de ces Pods. Ces Pods sont créés à partir de la même spec, mais ne sont pas interchangeables: <strong>chacun a un identifiant persistant qu'il garde à travers tous ses re-scheduling.</strong></p>
+<p>Si vous voulez utiliser des volumes de stockage pour fournir de la persistance à votre charge de travail, vous pouvez utiliser un StatefulSet comme partie de la solution. Même si des Pods individuels d'un StatefulSet sont susceptibles d'échouer, les identifiants persistants des Pods rendent plus facile de faire correspondre les volumes existants aux nouveaux Pods remplaçant ceux ayant échoué.</p>
+<p>Ce qui caractérisera la persistence de notre objet stateful reste toutefois lié à notre politique de storage. Un StatefulSet dont le stockage n'est pas persistant n'aura que peu de tolérance à la panne sur des applications critiques ou en hautes disponibilités. C'est dans cette perspective que nous introduirons ensuite les concepts de PersistentVolume et de PersistentVolumeClaim qui permettent de tirer parti de toutes les fonctionnalités du StatefulSet.</p>
+<p>A l'inverse, les processus pour lesquels il n'est pas souhaité que l'état soit maintenu sont dits stateless. Il s'agit par défaut dans Kubernetes de tout objet qui ne soit pas un StatefulSet ou ne disposant pas d'un storage  persistant.</p>
+<p>Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre &quot;Exploiter Kubernetes&quot;.</p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/StatefulSetArchi.png" alt="StatefulSetArchi" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/persistence-statefulset.png" alt="PersistenceStatefulSet" width="900" height="720">
+<h3 id="quelques-exemples-d-architecture-cloud-hybrides-ou-on-premise">Quelques exemples d'architecture cloud hybrides ou on-premise</h3>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.jpg" alt="Possible archi OC" width="900" height="720">
+<p>&lt;img src=&quot;https://K8s-mise-en-oeuvre.github.io/docs/redhat-openshift-on-aws-architecture.png&quot; alt=&quot;redhat-openshift-on-aws-architecture&quot; width=&quot;900&quot; height=&quot;720&quot;</p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/architecture-on-premise.jpeg" alt="Archi on-premise" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/archi-hybrid.png" alt="Archi Hybrid" width="700" height="520">
+<h3 id="quelques-exemples-d-architecture-cloud-public">Quelques exemples d'architecture cloud public</h3>
+<h4 id="azure">Azure</h4>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/aks.png" alt="AKS" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/aks-production-deployment.png" alt="AKS Productionc Deployment" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/azure-application-architecture.png" alt="Azure Application Architecture" width="940" height="620">
+<h4 id="gcp">GCP</h4>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi.png" alt="GKE Archi" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/gke-archi2.png" alt="GKE Archi 2" width="800" height="620">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant" width="800" height="620">
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+  <a href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;description-files&#x2F;">
+    <div class="card my-1">
+      <div class="card-body py-2">
+        &larr; Les fichiers descriptifs
+      </div>
+    </div>
+  </a>
+  
+
+  
+  
+  
+  
+  
+    <a class="ms-auto" href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-exploitation&#x2F;">
+      <div class="card my-1">
+        <div class="card-body py-2">
+          Exploitation de Kubernetes &rarr;
+        </div>
+      </div>
+    </a>
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>

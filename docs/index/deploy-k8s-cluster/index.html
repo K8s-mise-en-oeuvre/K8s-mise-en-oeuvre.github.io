@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Déploiement d'un cluster Kubernetes  | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="Documentation website of eponym course using Zola Adidoks and Github Pages">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Deploy K8s Cluster",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/#deploiement-d-un-cluster-kubernetes">Déploiement d&#x27;un cluster Kubernetes</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/#deploiement-d-un-master-nodeadm-d-un-master-node-d-un-worker-node">Déploiement d&#x27;un master-nodeadm, d&#x27;un master-node, d&#x27;un worker-node</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/#mise-en-place-du-dashboard-et-du-reseau">Mise en place du dashboard et du réseau</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/#deploiement-d-un-cluster-tp">Déploiement d&#x27;un cluster (TP)</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Déploiement d&#x27;un cluster Kubernetes </h1>
+        
+        <h2 id="deploiement-d-un-cluster-kubernetes">Déploiement d'un cluster Kubernetes</h2>
+<h3 id="deploiement-d-un-master-nodeadm-d-un-master-node-d-un-worker-node">Déploiement d'un master-nodeadm, d'un master-node, d'un worker-node</h3>
+<p>Choisissez un add-on réseau pour les pods et vérifiez s’il nécessite des arguments à passer à l'initialisation de kubeadm. <strong>Selon le fournisseur tiers que vous choisissez, vous devrez peut-être définir le --pod-network-cidr sur une valeur spécifique au fournisseur</strong>.</p>
+<p>Maintenant, lancez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> init &lt;args&gt;
+</span></code></pre>
+<p>Pour plus d'informations sur les arguments de <code>kubeadm init</code>, voir le guide de référence kubeadm.</p>
+<p>Pour une liste complète des options de configuration, voir la documentation du fichier de configuration.</p>
+<p>Pour personnaliser les composants du control plane, y compris l'affectation facultative d'IPv6 à la sonde liveness, pour les composants du control plane et du serveur etcd, fournissez des arguments supplémentaires à chaque composant, comme indiqué dans les arguments personnalisés.</p>
+<p>Pour lancer encore une fois <code>kubeadm init</code>, vous devez d'abord détruire le cluster.</p>
+<blockquote>
+<p><em>N.B.</em> Si vous joignez un node avec une architecture différente par rapport à votre cluster, créez un Déploiement ou DaemonSet pour kube-proxy et kube-dns sur le node. C’est nécéssaire car les images Docker pour ces composants ne prennent actuellement pas en charge la multi-architecture.</p>
+</blockquote>
+<p><code>kubeadm init</code> exécute d’abord une série de vérifications préalables pour s’assurer que la machine est prête à exécuter Kubernetes. Ces vérifications préalables exposent des avertissements et se terminent en cas d'erreur. Ensuite kubeadm init télécharge et installe les composants du control plane du cluster. </p>
+<p>Cela peut prendre plusieurs minutes. l'output devrait ressembler à:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">[init]</span><span style="color:#c0c5ce;"> Using Kubernetes version: vX.Y.Z
+</span><span style="color:#bf616a;">[preflight]</span><span style="color:#c0c5ce;"> Running pre-flight checks
+</span><span style="color:#bf616a;">[preflight]</span><span style="color:#c0c5ce;"> Pulling images required for setting up a Kubernetes cluster
+</span><span style="color:#bf616a;">[preflight]</span><span style="color:#c0c5ce;"> This might take a minute or two, depending on the speed of your internet connection
+</span><span style="color:#bf616a;">[preflight]</span><span style="color:#c0c5ce;"> You can also perform this action in beforehand using &#39;</span><span style="color:#a3be8c;">kubeadm config images pull</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#bf616a;">[kubelet-start]</span><span style="color:#c0c5ce;"> Writing kubelet environment file with flags to file &quot;</span><span style="color:#a3be8c;">/var/lib/kubelet/kubeadm-flags.env</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[kubelet-start]</span><span style="color:#c0c5ce;"> Writing kubelet configuration to file &quot;</span><span style="color:#a3be8c;">/var/lib/kubelet/config.yaml</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[kubelet-start]</span><span style="color:#c0c5ce;"> Activating the kubelet service
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Using certificateDir folder &quot;</span><span style="color:#a3be8c;">/etc/kubernetes/pki</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">etcd/ca</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">etcd/server</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> etcd/server serving cert is signed for DNS names </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">kubeadm-master localhost</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> and IPs </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">10.138.0.4 127.0.0.1 ::1</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">etcd/healthcheck-client</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">etcd/peer</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> etcd/peer serving cert is signed for DNS names </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">kubeadm-master localhost</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> and IPs </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">10.138.0.4 127.0.0.1 ::1</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">apiserver-etcd-client</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">ca</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">apiserver</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> apiserver serving cert is signed for DNS names </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">kubeadm-master kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> and IPs </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">10.96.0.1 10.138.0.4</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">apiserver-kubelet-client</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">front-proxy-ca</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">front-proxy-client</span><span style="color:#c0c5ce;">&quot; certificate and key
+</span><span style="color:#bf616a;">[certs]</span><span style="color:#c0c5ce;"> Generating &quot;</span><span style="color:#a3be8c;">sa</span><span style="color:#c0c5ce;">&quot; key and public key
+</span><span style="color:#bf616a;">[kubeconfig]</span><span style="color:#c0c5ce;"> Using kubeconfig folder &quot;</span><span style="color:#a3be8c;">/etc/kubernetes</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[kubeconfig]</span><span style="color:#c0c5ce;"> Writing &quot;</span><span style="color:#a3be8c;">admin.conf</span><span style="color:#c0c5ce;">&quot; kubeconfig file
+</span><span style="color:#bf616a;">[kubeconfig]</span><span style="color:#c0c5ce;"> Writing &quot;</span><span style="color:#a3be8c;">kubelet.conf</span><span style="color:#c0c5ce;">&quot; kubeconfig file
+</span><span style="color:#bf616a;">[kubeconfig]</span><span style="color:#c0c5ce;"> Writing &quot;</span><span style="color:#a3be8c;">controller-manager.conf</span><span style="color:#c0c5ce;">&quot; kubeconfig file
+</span><span style="color:#bf616a;">[kubeconfig]</span><span style="color:#c0c5ce;"> Writing &quot;</span><span style="color:#a3be8c;">scheduler.conf</span><span style="color:#c0c5ce;">&quot; kubeconfig file
+</span><span style="color:#bf616a;">[control-plane]</span><span style="color:#c0c5ce;"> Using manifest folder &quot;</span><span style="color:#a3be8c;">/etc/kubernetes/manifests</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[control-plane]</span><span style="color:#c0c5ce;"> Creating static Pod manifest for &quot;</span><span style="color:#a3be8c;">kube-apiserver</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[control-plane]</span><span style="color:#c0c5ce;"> Creating static Pod manifest for &quot;</span><span style="color:#a3be8c;">kube-controller-manager</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[control-plane]</span><span style="color:#c0c5ce;"> Creating static Pod manifest for &quot;</span><span style="color:#a3be8c;">kube-scheduler</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[etcd]</span><span style="color:#c0c5ce;"> Creating static Pod manifest for local etcd in &quot;</span><span style="color:#a3be8c;">/etc/kubernetes/manifests</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[wait-control-plane]</span><span style="color:#c0c5ce;"> Waiting for the kubelet to boot up the control plane as static Pods from directory &quot;</span><span style="color:#a3be8c;">/etc/kubernetes/manifests</span><span style="color:#c0c5ce;">&quot;. This can take up to 4m0s
+</span><span style="color:#bf616a;">[apiclient]</span><span style="color:#c0c5ce;"> All control plane components are healthy after 31.501735 seconds
+</span><span style="color:#bf616a;">[uploadconfig]</span><span style="color:#c0c5ce;"> storing the configuration used in ConfigMap &quot;</span><span style="color:#a3be8c;">kubeadm-config</span><span style="color:#c0c5ce;">&quot; in the &quot;</span><span style="color:#a3be8c;">kube-system</span><span style="color:#c0c5ce;">&quot; Namespace
+</span><span style="color:#bf616a;">[kubelet]</span><span style="color:#c0c5ce;"> Creating a ConfigMap &quot;</span><span style="color:#a3be8c;">kubelet-config-X.Y</span><span style="color:#c0c5ce;">&quot; in namespace kube-system with the configuration for the kubelets in the cluster
+</span><span style="color:#bf616a;">[patchnode]</span><span style="color:#c0c5ce;"> Uploading the CRI Socket information &quot;</span><span style="color:#a3be8c;">/var/run/dockershim.sock</span><span style="color:#c0c5ce;">&quot; to the Node API object &quot;</span><span style="color:#a3be8c;">kubeadm-master</span><span style="color:#c0c5ce;">&quot; as an annotation
+</span><span style="color:#bf616a;">[mark-control-plane]</span><span style="color:#c0c5ce;"> Marking the node kubeadm-master as control-plane by adding the label &quot;</span><span style="color:#a3be8c;">node-role.kubernetes.io/master=&#39;&#39;</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">[mark-control-plane]</span><span style="color:#c0c5ce;"> Marking the node kubeadm-master as control-plane by adding the taints </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">node-role.kubernetes.io/master:NoSchedule</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">[bootstrap-token]</span><span style="color:#c0c5ce;"> Using token: &lt;token&gt;
+</span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">bootstrap-token</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;"> Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+</span><span style="color:#bf616a;">[bootstraptoken]</span><span style="color:#c0c5ce;"> configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+</span><span style="color:#bf616a;">[bootstraptoken]</span><span style="color:#c0c5ce;"> configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+</span><span style="color:#bf616a;">[bootstraptoken]</span><span style="color:#c0c5ce;"> configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+</span><span style="color:#bf616a;">[bootstraptoken]</span><span style="color:#c0c5ce;"> creating the &quot;</span><span style="color:#a3be8c;">cluster-info</span><span style="color:#c0c5ce;">&quot; ConfigMap in the &quot;</span><span style="color:#a3be8c;">kube-public</span><span style="color:#c0c5ce;">&quot; namespace
+</span><span style="color:#bf616a;">[addons]</span><span style="color:#c0c5ce;"> Applied essential addon: CoreDNS
+</span><span style="color:#bf616a;">[addons]</span><span style="color:#c0c5ce;"> Applied essential addon: kube-proxy
+
+</span><span style="color:#bf616a;">Your</span><span style="color:#c0c5ce;"> Kubernetes master has initialized successfully!
+
+</span><span style="color:#bf616a;">To</span><span style="color:#c0c5ce;"> start using your cluster, you need to run the following as a regular user:
+
+  </span><span style="color:#bf616a;">mkdir -p </span><span style="color:#c0c5ce;">$</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube
+  </span><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> cp</span><span style="color:#bf616a;"> -i</span><span style="color:#c0c5ce;"> /etc/kubernetes/admin.conf $</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube/config
+  </span><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> chown $(</span><span style="color:#bf616a;">id -u</span><span style="color:#c0c5ce;">):$(</span><span style="color:#bf616a;">id -g</span><span style="color:#c0c5ce;">) $</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube/config
+
+</span><span style="color:#bf616a;">You</span><span style="color:#c0c5ce;"> should now deploy a pod network to the cluster.
+</span><span style="color:#bf616a;">Run </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">kubectl apply -f [podnetwork].yaml</span><span style="color:#c0c5ce;">&quot; with one of the options listed at:
+  </span><span style="color:#bf616a;">https://kubernetes.io/fr/docs/concepts/cluster-administration/addons/
+
+You</span><span style="color:#c0c5ce;"> can now join any number of machines by running the following on each node
+</span><span style="color:#bf616a;">as</span><span style="color:#c0c5ce;"> root:
+
+  </span><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> join &lt;master-ip&gt;:&lt;master-port&gt; --token &lt;token&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
+</span></code></pre>
+<p>Pour que kubectl fonctionne pour votre utilisateur non root, exécutez ces commandes, qui font également partie du resultat de la commande <code>kubeadm init</code>:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">mkdir -p </span><span style="color:#c0c5ce;">$</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube
+</span><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> cp</span><span style="color:#bf616a;"> -i</span><span style="color:#c0c5ce;"> /etc/kubernetes/admin.conf $</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube/config
+</span><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> chown $(</span><span style="color:#bf616a;">id -u</span><span style="color:#c0c5ce;">):$(</span><span style="color:#bf616a;">id -g</span><span style="color:#c0c5ce;">) $</span><span style="color:#bf616a;">HOME</span><span style="color:#c0c5ce;">/.kube/config
+</span></code></pre>
+<p>Alternativement, si vous êtes root, vous pouvez exécuter:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#b48ead;">export </span><span style="color:#bf616a;">KUBECONFIG</span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;">/etc/kubernetes/admin.conf
+</span></code></pre>
+<p>Faites un enregistrement du retour de la commande <code>kubeadm join</code> que <code>kubeadm init</code> génère. Vous avez besoin de cette commande pour joindre des nodes à votre cluster.</p>
+<p>Le token est utilisé pour l'authentification mutuelle entre le master et les nœuds qui veulent le rejoindre. Le token est secret. Gardez-le en sécurité, parce que n'importe qui avec ce token peut ajouter des node authentifiés à votre cluster. Ces tokens peuvent être listés, créés et supprimés avec la commande <code>kubeadm token</code>.</p>
+<h3 id="mise-en-place-du-dashboard-et-du-reseau">Mise en place du dashboard et du réseau</h3>
+<p>Vous devez installer un add-on réseau pour pod afin que vos pods puissent communiquer les uns avec les autres.</p>
+<p>Le réseau doit être déployé avant toute application. De plus, CoreDNS ne démarrera pas avant l’installation d’un réseau. kubeadm ne prend en charge que les réseaux basés sur un CNI (et ne prend pas en charge kubenet).</p>
+<p>Plusieurs projets fournissent des réseaux de pod Kubernetes utilisant CNI, dont certains supportent les network policies. Allez voir la page des add-ons pour une liste complète des add-ons réseau disponibles.</p>
+<blockquote>
+<p>Le support IPv6 a été ajouté dans CNI v0.6.0.
+CNI bridge et local-ipam sont les seuls plug-ins de réseau IPv6 pris en charge dans Kubernetes version 1.9.</p>
+</blockquote>
+<p><strong>Notez que kubeadm configure un cluster sécurisé par défaut et impose l’utilisation de RBAC. Assurez-vous que votre manifeste de réseau prend en charge RBAC.</strong></p>
+<p>Veuillez également à ce que votre réseau Pod ne se superpose à aucun des réseaux hôtes, car cela pourrait entraîner des problèmes. Si vous constatez une collision entre le réseau de pod de votre plug-in de réseau et certains de vos réseaux hôtes, vous devriez penser à un remplacement de CIDR approprié et l'utiliser lors de <code>kubeadm init</code> avec <code>--pod-network-cidr</code> et en remplacement du YAML de votre plugin réseau. </p>
+<p>Vous ne pouvez installer qu'un seul réseau de pod par cluster.</p>
+<p>Choisissez-en un parmi les suivants:</p>
+<ul>
+<li>Calico</li>
+<li>Canal</li>
+<li>Cilium</li>
+<li>Flannel</li>
+<li>Kube-router</li>
+<li>Romana</li>
+<li>Weave Net</li>
+<li>JuniperContrail/TungstenFabric</li>
+</ul>
+<p>Pour notre part nous ferons le choix de Calico qui est majoritairement utilisé.</p>
+<p>Pour plus d'informations sur l'utilisation de Calico, voir Guide de démarrage rapide de Calico sur Kubernetes, Installation de Calico pour les netpols (network policies) et le réseau, ainsi que d'autres resources liées à ce sujet.</p>
+<p><a href="https://projectcalico.docs.tigera.io/getting-started/kubernetes/quickstart">Quickstart Calico on K8s</a></p>
+<p><a href="https://www.calicolabs.com/">Calico Home</a></p>
+<blockquote>
+<p>Pour que Calico fonctionne correctement, vous devez passer <strong>--pod-network-cidr = 192.168.0.0 / 16 à kubeadm init ou mettre à jour le fichier calico.yml pour qu'il corresponde à votre réseau de Pod.</strong> Notez que Calico fonctionne uniquement sur amd64, arm64, ppc64le et s390x.</p>
+</blockquote>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f</span><span style="color:#c0c5ce;"> https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+</span></code></pre>
+<p><strong>Une fois qu'un réseau de pod a été installé, vous pouvez vérifier qu'il fonctionne en vérifiant que le pod CoreDNS est en cours d’exécution</strong> dans l'output de <code>kubectl get pods --all-namespaces</code>. Et une fois que le pod CoreDNS est opérationnel, vous pouvez continuer en joignant vos nœuds.</p>
+<p>Si votre réseau ne fonctionne pas ou si CoreDNS n'est pas en cours d'exécution, vérifiez notre documentation de dépannage.</p>
+<p>Par défaut, votre cluster ne déploie pas de pods sur le master pour des raisons de sécurité. Si vous souhaitez pouvoir déployer des pods sur le master, par exemple, pour un cluster Kubernetes mono-machine pour le développement, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> taint nodes</span><span style="color:#bf616a;"> --all</span><span style="color:#c0c5ce;"> node-role.kubernetes.io/master-
+
+</span><span style="color:#bf616a;">node </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">test-01</span><span style="color:#c0c5ce;">&quot; untainted
+</span><span style="color:#bf616a;">taint </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">node-role.kubernetes.io/master:</span><span style="color:#c0c5ce;">&quot; not found
+</span><span style="color:#bf616a;">taint </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">node-role.kubernetes.io/master:</span><span style="color:#c0c5ce;">&quot; not found
+</span></code></pre>
+<p>Cela supprimera la marque <strong>node-role.kubernetes.io/master</strong> de tous les nodes qui l'ont, y compris du node master, ce qui signifie que le scheduler sera alors capable de déployer des pods partout.</p>
+<p>Les nodes sont ceux sur lesquels vos workloads (conteneurs, pods, etc.) sont exécutés. Pour ajouter de nouveaux nodes à votre cluster, procédez comme suit pour chaque machine:</p>
+<ul>
+<li>SSH vers la machine</li>
+<li>Devenir root (par exemple, <code>sudo su-</code>)</li>
+<li>Exécutez la commande qui a été récupérée sur l'output de <code>kubeadm init</code>. </li>
+</ul>
+<p>Par exemple:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> join</span><span style="color:#bf616a;"> --token </span><span style="color:#c0c5ce;">&lt;token&gt; &lt;master-ip&gt;:&lt;master-port&gt; --discovery-token-ca-cert-hash sha256:&lt;hash&gt;
+</span></code></pre>
+<p>Si vous n'avez pas le jeton, vous pouvez l'obtenir en exécutant la commande suivante sur le node master:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> token list
+</span></code></pre>
+<p>Par défaut, les jetons expirent après 24 heures. Si vous joignez un node au cluster après l’expiration du jeton actuel, vous pouvez créer un nouveau jeton en exécutant la commande suivante sur le node master:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> token create
+
+</span><span style="color:#bf616a;">5didvk.d09sbcov8ph2amjw
+</span></code></pre>
+<p>Si vous n'avez pas la valeur <strong>--discovery-token-ca-cert-hash</strong>, vous pouvez l'obtenir en exécutant la suite de commande suivante sur le node master:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">openssl</span><span style="color:#c0c5ce;"> x509</span><span style="color:#bf616a;"> -pubkey -in</span><span style="color:#c0c5ce;"> /etc/kubernetes/pki/ca.crt | </span><span style="color:#bf616a;">openssl</span><span style="color:#c0c5ce;"> rsa</span><span style="color:#bf616a;"> -pubin -outform</span><span style="color:#c0c5ce;"> der </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">&gt;/dev/null | \
+   </span><span style="color:#bf616a;">openssl</span><span style="color:#c0c5ce;"> dgst</span><span style="color:#bf616a;"> -sha256 -hex </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">sed </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">s/^.* //</span><span style="color:#c0c5ce;">&#39;
+
+</span><span style="color:#bf616a;">8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
+
+[preflight]</span><span style="color:#c0c5ce;"> Running pre-flight checks
+
+</span><span style="color:#bf616a;">...</span><span style="color:#c0c5ce;"> (log output of join workflow) </span><span style="color:#bf616a;">...
+
+Node</span><span style="color:#c0c5ce;"> join complete:
+</span><span style="color:#bf616a;">*</span><span style="color:#c0c5ce;"> Certificate signing request sent to master and response
+  </span><span style="color:#bf616a;">received.
+*</span><span style="color:#c0c5ce;"> Kubelet informed of new secure connection details.
+
+</span><span style="color:#bf616a;">Run </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">kubectl get nodes</span><span style="color:#c0c5ce;">&#39; on the master to see this machine join.
+</span></code></pre>
+<p>Quelques secondes plus tard, vous remarquerez ce node dans l'output de <code>kubectl get nodes</code>.</p>
+<p>Enfin, nous allons installer la dashboard UI:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f</span><span style="color:#c0c5ce;"> https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml
+</span></code></pre><h3 id="deploiement-d-un-cluster-tp">Déploiement d'un cluster (TP)</h3>
+<p>Dans ce TP vous aurez à charge de spawner un cluster avec kubeadm/eksctl ou les 2 sur un environnement AWS.</p>
+<p>Nous devrons au prélable nous assurer de l'existence de 3 VM accessibles.</p>
+<h4 id="installation-manuelle-avec-kubeadm">Installation manuelle avec kubeadm</h4>
+<p>Suivez les étapes de la documentation ci-dessous <a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/">Create cluster from scratch with kubeadm</a></p>
+<p>Puis, valider le bon fonctionnement suite à l'installation.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">controlplane</span><span style="color:#c0c5ce;"> $ kubectl cluster-info
+
+</span><span style="color:#bf616a;">Kubernetes</span><span style="color:#c0c5ce;"> master is running at https://172.17.0.10:6443
+</span><span style="color:#bf616a;">KubeDNS</span><span style="color:#c0c5ce;"> is running at https://172.17.0.10:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+</span><span style="color:#65737e;"># Validate resources visibility after installation
+</span><span style="color:#c0c5ce;">kubectl get pods</span><span style="color:#bf616a;"> --all-namespaces -o</span><span style="color:#c0c5ce;"> wide
+</span></code></pre>
+<p>Enfin, détruisez le cluster:</p>
+<p>Pour annuler ce que kubeadm a fait, vous devez d’abord drainer le node et assurez-vous que le node est vide avant de l'arrêter. </p>
+<p>En communiquant avec le master en utilisant les informations d'identification appropriées, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> drain &lt;node name&gt; --delete-local-data</span><span style="color:#bf616a;"> --force --ignore-daemonsets
+kubectl</span><span style="color:#c0c5ce;"> delete node &lt;node name&gt;
+</span></code></pre>
+<p>Ensuite, sur le node en cours de suppression, réinitialisez l'état de tout ce qui concerne kubeadm:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubeadm</span><span style="color:#c0c5ce;"> reset
+</span></code></pre>
+<p>Le processus de réinitialisation ne réinitialise pas et ne nettoie pas les règles iptables ni les tables IPVS. Si vous souhaitez réinitialiser iptables, vous devez le faire manuellement:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">iptables -F </span><span style="color:#c0c5ce;">&amp;&amp; </span><span style="color:#bf616a;">iptables -t</span><span style="color:#c0c5ce;"> nat</span><span style="color:#bf616a;"> -F </span><span style="color:#c0c5ce;">&amp;&amp; </span><span style="color:#bf616a;">iptables -t</span><span style="color:#c0c5ce;"> mangle</span><span style="color:#bf616a;"> -F </span><span style="color:#c0c5ce;">&amp;&amp; </span><span style="color:#bf616a;">iptables -X
+</span></code></pre>
+<p>Si vous souhaitez réinitialiser les tables IPVS, vous devez exécuter la commande suivante:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">ipvsadm -C
+</span></code></pre>
+<p>Si vous souhaitez recommencer Il suffit de lancer <code>kubeadm init</code> ou <code>kubeadm join</code> avec les arguments appropriés.</p>
+<h4 id="installation-sur-aws-eks-avec-eksctl">Installation sur AWS EKS avec eksctl</h4>
+<p>Plusieurs types de configuration pour les nodes qui seront spawn pour l'installation du cluster:</p>
+<ul>
+<li>
+<p>Fargate - Linux - Sélectionnez ce type de node si vous souhaitez exécuter des applications Linux sur AWS Fargate. Fargate est un moteur de calcul sans serveur qui vous permet de déployer des pods Kubernetes sans gérer les instances Amazon EC2.</p>
+</li>
+<li>
+<p>nodes gérés - Linux - sélectionnez ce type de node si vous souhaitez exécuter des applications Amazon Linux sur des instances Amazon EC2. Bien que cela ne soit pas abordé dans ce guide, vous pouvez également ajouter des nodes autogérés et Bottlerocket Windows à votre cluster.</p>
+</li>
+</ul>
+<h5 id="installation-d-eksctl">Installation d'eksctl</h5>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl --silent --location </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">uname -s</span><span style="color:#a3be8c;">)_amd64.tar.gz</span><span style="color:#c0c5ce;">&quot; | </span><span style="color:#bf616a;">tar</span><span style="color:#c0c5ce;"> xz</span><span style="color:#bf616a;"> -C</span><span style="color:#c0c5ce;"> /tmp
+
+</span><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> mv /tmp/eksctl /usr/local/bin
+</span></code></pre><h5 id="creation-d-un-cluster-avec-eksctl-sur-des-nodes-de-type-fargate">Création d'un cluster avec eksctl sur des nodes de type fargate</h5>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">eksctl</span><span style="color:#c0c5ce;"> create cluster</span><span style="color:#bf616a;"> --name</span><span style="color:#c0c5ce;"> kolorado</span><span style="color:#bf616a;"> --region</span><span style="color:#c0c5ce;"> us-east-2</span><span style="color:#bf616a;"> --fargate
+
+2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  eksctl version 0.76.0
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  using region us-east-2
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  setting availability zones to </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">us-east-2a us-east-2b us-east-2c</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  subnets for us-east-2a - public:192.168.0.0/19 private:192.168.96.0/19
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  subnets for us-east-2b - public:192.168.32.0/19 private:192.168.128.0/19
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  subnets for us-east-2c - public:192.168.64.0/19 private:192.168.160.0/19
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  using Kubernetes version 1.21
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  creating EKS cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot; in &quot;</span><span style="color:#a3be8c;">us-east-2</span><span style="color:#c0c5ce;">&quot; region with Fargate profile
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  if you encounter any issues, check CloudFormation console or try &#39;</span><span style="color:#a3be8c;">eksctl utils describe-stacks --region=us-east-2 --cluster=kolorado</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  CloudWatch logging will not be enabled for cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot; in &quot;</span><span style="color:#a3be8c;">us-east-2</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  you can enable it with &#39;</span><span style="color:#a3be8c;">eksctl utils update-cluster-logging --enable-types={SPECIFY-YOUR-LOG-TYPES-HERE (e.g. all)} --region=us-east-2 --cluster=kolorado</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  Kubernetes API endpoint access will use default of {publicAccess=true, privateAccess=false} for cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot; in &quot;</span><span style="color:#a3be8c;">us-east-2</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]
+</span><span style="color:#bf616a;">2</span><span style="color:#c0c5ce;"> sequential tasks: { create cluster control plane &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot;,
+    2 sequential sub-tasks: {
+        wait for control plane to become ready,
+        create fargate profiles,
+    }
+}
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  building cluster stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:14 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  deploying stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:35:44 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:36:14 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:37:15 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:38:15 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:39:16 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:40:16 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:41:16 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:42:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:43:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:44:18 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:45:18 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:46:19 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:47:19 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:48:19 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for CloudFormation stack &quot;</span><span style="color:#a3be8c;">eksctl-kolorado-cluster</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:50:22 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  creating Fargate profile &quot;</span><span style="color:#a3be8c;">fp-default</span><span style="color:#c0c5ce;">&quot; on EKS cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:54:41 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  created Fargate profile &quot;</span><span style="color:#a3be8c;">fp-default</span><span style="color:#c0c5ce;">&quot; on EKS cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:57:13 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]  </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">coredns</span><span style="color:#c0c5ce;">&quot; is now schedulable onto Fargate
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]  </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">coredns</span><span style="color:#c0c5ce;">&quot; is now scheduled onto Fargate
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]  </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">coredns</span><span style="color:#c0c5ce;">&quot; pods are now scheduled onto Fargate
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  waiting for the control plane availability...
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">✔</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  saved kubeconfig as &quot;</span><span style="color:#a3be8c;">/home/pbackz/.kube/config</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  no tasks
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:17 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">✔</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  all EKS cluster resources for &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot; have been created
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:19 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">ℹ</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  kubectl command should work with &quot;</span><span style="color:#a3be8c;">/home/pbackz/.kube/config</span><span style="color:#c0c5ce;">&quot;, try &#39;</span><span style="color:#a3be8c;">kubectl get nodes</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#bf616a;">2021-12-14</span><span style="color:#c0c5ce;"> 02:58:19 </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">✔</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">  EKS cluster &quot;</span><span style="color:#a3be8c;">kolorado</span><span style="color:#c0c5ce;">&quot; in &quot;</span><span style="color:#a3be8c;">us-east-2</span><span style="color:#c0c5ce;">&quot; region is ready
+</span></code></pre><pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;"># Validate resources visibility after installation
+</span><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get pods</span><span style="color:#bf616a;"> --all-namespaces -o</span><span style="color:#c0c5ce;"> wide
+
+</span><span style="color:#65737e;"># Show config
+</span><span style="color:#c0c5ce;">kubectl config view
+</span></code></pre><pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">v1
+clusters</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">cluster</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">certificate-authority-data</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">DATA+OMITTED
+    server</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">https://D574D5657EED6B65990285B60D420EBB.gr7.us-east-2.eks.amazonaws.com
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolorado.us-east-2.eksctl.io
+contexts</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">context</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">cluster</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolorado.us-east-2.eksctl.io
+    user</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolo@kolorado.us-east-2.eksctl.io
+  name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolo@kolorado.us-east-2.eksctl.io
+current-context</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolo@kolorado.us-east-2.eksctl.io
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Config
+preferences</span><span style="color:#c0c5ce;">: {}
+</span><span style="color:#bf616a;">users</span><span style="color:#c0c5ce;">:
+- </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">kolo@kolorado.us-east-2.eksctl.io
+  user</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">exec</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">client.authentication.k8s.io/v1alpha1
+      args</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">eks
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">get-token
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">--cluster-name
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">kolorado
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">--region
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">us-east-2
+      command</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">aws
+      env</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">AWS_STS_REGIONAL_ENDPOINTS
+        value</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">regional
+      interactiveMode</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">IfAvailable
+      provideClusterInfo</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">false
+</span></code></pre>
+<p>Puis détruire le cluster:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;"># Delete cluster
+</span><span style="color:#bf616a;">eksctl</span><span style="color:#c0c5ce;"> delete cluster</span><span style="color:#bf616a;"> --name</span><span style="color:#c0c5ce;"> kolorado</span><span style="color:#bf616a;"> --region</span><span style="color:#c0c5ce;"> us-east-2
+</span></code></pre>
+<p><a href="https://github.com/weaveworks/eksctl/tree/main/examples">eksctl examples</a></p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+  <a href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-in-production&#x2F;">
+    <div class="card my-1">
+      <div class="card-body py-2">
+        &larr; Kubernetes en Production
+      </div>
+    </div>
+  </a>
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>
