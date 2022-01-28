@@ -1,18 +1,3 @@
-+++
-title = "Introduction à Kubernetes"
-description = ""
-date = 2022-01-01T08:00:00+00:00
-updated = 2022-01-01T08:00:00+00:00
-draft = false
-weight = 11
-sort_by = "weight"
-template = "docs/page.html"
-
-[extra]
-toc = true
-top = false
-+++
-
 ## Introduction à kubernetes
 
 Kubernetes, souvent abrégé k8s, est un orchestrateur de conteneurs conçu par Google et sorti en 2014. C’est un outil Open Source (code source disponible sur github), écrit en Go, qui trouve ses racines dans Borg le système interne de Google qui gère l’infrastructure du géant de Mountain View.

@@ -1,18 +1,3 @@
-+++
-title = "Les fichiers descriptifs"
-description = ""
-date = 2022-01-01T08:00:00+00:00
-updated = 2022-01-01T08:00:00+00:00
-draft = false
-weight = 12
-sort_by = "weight"
-template = "docs/page.html"
-
-[extra]
-toc = true
-top = false
-+++
-
 ## Les fichiers descriptifs
 
 ### Syntaxe YAML

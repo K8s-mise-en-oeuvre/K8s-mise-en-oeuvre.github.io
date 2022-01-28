@@ -1,18 +1,3 @@
-+++
-title = "Déploiement d'un cluster Kubernetes "
-description = ""
-date = 2022-01-01T08:00:00+00:00
-updated = 2022-01-01T08:00:00+00:00
-draft = false
-weight = 16
-sort_by = "weight"
-template = "docs/page.html"
-
-[extra]
-toc = true
-top = false
-+++
-
 ## Déploiement d'un cluster Kubernetes 
 
 ### Déploiement d'un master-nodeadm, d'un master-node, d'un worker-node
