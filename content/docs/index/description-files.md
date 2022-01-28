@@ -199,7 +199,7 @@ set2:
 
 ### Scalabilité d'un déploiement
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in" width="700" height="520">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in" width="580" height="400">
 
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-out.png" alt="scaling-kubernetes-out" width="700" height="520">

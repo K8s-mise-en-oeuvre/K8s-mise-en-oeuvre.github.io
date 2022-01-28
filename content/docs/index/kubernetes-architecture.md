@@ -24,8 +24,6 @@ Fonctionnalités:
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/kube-functionnalities.webp" alt="kube-functionnalities" width="720" height="600">
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/kubernetes-features.png" alt="kubernetes-features" width="900" height="720"
-
 ### Composants du Control Plane
 
 *Vue macro*
@@ -108,21 +106,16 @@ A l'inverse, les processus pour lesquels il n'est pas souhaité que l'état soit
 
 Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre "Exploiter Kubernetes".
 
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/StatefulSetArchi.png" alt="StatefulSetArchi" width="900" height="720">
+
+
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/persistence-statefulset.png" alt="PersistenceStatefulSet" width="900" height="720">
+
+
 ### Quelques exemples d'architecture cloud hybrides ou on-premise
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/oc-archi.jpg" alt="OC Archi" width="900" height="720">
-
 
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.jpg" alt="Possible archi OC" width="900" height="720">
-
-
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/possible-oc-archi.2jpg.webp" alt="Possible archi OC 2" width="900" height="720">
-
-
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/redhat-openshift-on-aws-architecture.png" alt="redhat-openshift-on-aws-architecture" width="900" height="720"
-
 
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/architecture-on-premise.jpeg" alt="Archi on-premise" width="900" height="720">
 
@@ -153,4 +146,4 @@ Ces concepts seront revus et pratiqués dans le cadre du TP du chapitre "Exploit
 
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant" width="800" height="620">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/google-search-assistant-diagram-gcp.webp" alt="Google assistant" width="700" height="520">

@@ -82,9 +82,6 @@ Container runtime de docker: [Containerd](https://containerd.io)
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/docker_containerd.png" alt="docker_containerd" width="900" height="720">
 
 
-<img src="https://K8s-mise-en-oeuvre.github.io/docs/Docker-containerd-announcement.jpg" alt="docker-announcement" width="680" height="520">
-
-
 <img src="https://K8s-mise-en-oeuvre.github.io/docs/cri.png" alt="CRI" width="900" height="720">
 
 
