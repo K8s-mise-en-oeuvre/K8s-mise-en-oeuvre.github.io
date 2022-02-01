@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Les fichiers descriptifs | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="Documentation website of eponym course using Zola Adidoks and Github Pages">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Description Files",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à kubernetes</a></li>
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/annexe-a/">Annexe A</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#les-fichiers-descriptifs">Les fichiers descriptifs</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#syntaxe-yaml">Syntaxe YAML</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#scalabilite-d-un-deploiement">Scalabilité d&#x27;un déploiement</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#strategie-de-mise-a-jour-sans-interruption">Stratégie de mise à jour sans interruption</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#revenir-a-une-revision-precedente">Revenir à une révision précédente</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#suppression-d-un-deploiement">Suppression d&#x27;un déploiement</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/#publication-et-analyse-d-un-deploiement-tp">Publication et analyse d&#x27;un déploiement (TP)</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Les fichiers descriptifs</h1>
+        
+        <h2 id="les-fichiers-descriptifs">Les fichiers descriptifs</h2>
+<h3 id="syntaxe-yaml">Syntaxe YAML</h3>
+<p>Le YAML, qu'est-ce que c'est ?</p>
+<blockquote>
+<p>YAML, acronyme de Yet Another Markup Language dans sa version 1.01, devient l'acronyme récursif de YAML Ain't Markup Language (« YAML n’est pas un langage de balisage ») dans sa version 1.12, est un format de représentation de données par sérialisation Unicode. Il reprend des concepts d'autres langages comme XML, ou encore du format de message électronique tel que documenté par RFC 2822. YAML a été proposé par Clark Evans en 20013, et implémenté par ses soins ainsi que par Brian Ingerson et Oren Ben-Kiki.
+Son objet est de représenter des informations plus élaborées que le simple CSV en gardant cependant une lisibilité presque comparable, et bien plus grande en tout cas que du XML.</p>
+</blockquote>
+<p><em>Source</em> <a href="https://fr.wikipedia.org/wiki/YAML">YAML definition</a></p>
+<p>L'essentiel de la syntaxe YAML:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#c0c5ce;">---  </span><span style="color:#65737e;"># document start
+
+# Comments in YAML look like this.
+
+################
+# SCALAR TYPES #
+################
+
+# Our root object (which continues for the entire document) will be a map,
+# which is equivalent to a dictionary, hash or object in other languages.
+</span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">value
+another_key</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Another value goes here.
+a_number_value</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">100
+</span><span style="color:#bf616a;">scientific_notation</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">1e+12
+</span><span style="color:#65737e;"># The number 1 will be interpreted as a number, not a boolean. if you want
+# it to be interpreted as a boolean, use true
+</span><span style="color:#bf616a;">boolean</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">true
+</span><span style="color:#bf616a;">null_value</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">null
+</span><span style="color:#bf616a;">key with spaces</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">value
+</span><span style="color:#65737e;"># Notice that strings don&#39;t need to be quoted. However, they can be.
+</span><span style="color:#bf616a;">however</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">A string, enclosed in quotes.</span><span style="color:#c0c5ce;">&#39;
+&#39;</span><span style="color:#a3be8c;">Keys can be quoted too.</span><span style="color:#c0c5ce;">&#39;: &quot;</span><span style="color:#a3be8c;">Useful if you want to put a &#39;:&#39; in your key.</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#bf616a;">single quotes</span><span style="color:#c0c5ce;">: &#39;</span><span style="color:#a3be8c;">have </span><span style="color:#96b5b4;">&#39;&#39;</span><span style="color:#a3be8c;">one</span><span style="color:#96b5b4;">&#39;&#39;</span><span style="color:#a3be8c;"> escape pattern</span><span style="color:#c0c5ce;">&#39;
+</span><span style="color:#bf616a;">double quotes</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">have many: </span><span style="color:#96b5b4;">\&quot;</span><span style="color:#a3be8c;">, </span><span style="color:#96b5b4;">\0</span><span style="color:#a3be8c;">, </span><span style="color:#96b5b4;">\t</span><span style="color:#a3be8c;">, </span><span style="color:#96b5b4;">\u263A</span><span style="color:#a3be8c;">, </span><span style="color:#96b5b4;">\x0d\x0a</span><span style="color:#a3be8c;"> == </span><span style="color:#96b5b4;">\r\n</span><span style="color:#a3be8c;">, and more.</span><span style="color:#c0c5ce;">&quot;
+</span><span style="color:#65737e;"># UTF-8/16/32 characters need to be encoded
+</span><span style="color:#bf616a;">Superscript two</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">\u00B2
+
+</span><span style="color:#65737e;"># Multiple-line strings can be written either as a &#39;literal block&#39; (using |),
+# or a &#39;folded block&#39; (using &#39;&gt;&#39;).
+</span><span style="color:#bf616a;">literal_block</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">|
+</span><span style="color:#a3be8c;">    This entire block of text will be the value of the &#39;literal_block&#39; key,
+    with line breaks being preserved.
+
+    The literal continues until de-dented, and the leading indentation is
+    stripped.
+
+        Any lines that are &#39;more-indented&#39; keep the rest of their indentation -
+        these lines will be indented by 4 spaces.
+</span><span style="color:#bf616a;">folded_style</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">&gt;
+</span><span style="color:#a3be8c;">    This entire block of text will be the value of &#39;folded_style&#39;, but this
+    time, all newlines will be replaced with a single space.
+
+    Blank lines, like above, are converted to a newline character.
+
+        &#39;More-indented&#39; lines keep their newlines, too -
+        this text will appear over two lines.
+
+</span><span style="color:#65737e;">####################
+# COLLECTION TYPES #
+####################
+
+# Nesting uses indentation. 2 space indent is preferred (but not required).
+</span><span style="color:#bf616a;">a_nested_map</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">value
+  another_key</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Another Value
+  another_nested_map</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">hello</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">hello
+
+</span><span style="color:#65737e;"># Maps don&#39;t have to have string keys.
+</span><span style="color:#d08770;">0.25</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">a float key
+
+</span><span style="color:#65737e;"># Keys can also be complex, like multi-line objects
+# We use ? followed by a space to indicate the start of a complex key.
+</span><span style="color:#c0c5ce;">? </span><span style="color:#b48ead;">|
+</span><span style="color:#a3be8c;">  This is a key
+  that has multiple lines
+</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">and this is its value
+
+</span><span style="color:#65737e;"># YAML also allows mapping between sequences with the complex key syntax
+# Some language parsers might complain
+# An example
+</span><span style="color:#c0c5ce;">? - </span><span style="color:#bf616a;">Manchester United
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">Real Madrid
+</span><span style="color:#c0c5ce;">: [</span><span style="color:#d08770;">2001-01-01</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">2002-02-02</span><span style="color:#c0c5ce;">]
+
+</span><span style="color:#65737e;"># Sequences (equivalent to lists or arrays) look like this
+# (note that the &#39;-&#39; counts as indentation):
+</span><span style="color:#bf616a;">a_sequence</span><span style="color:#c0c5ce;">:
+  - </span><span style="color:#a3be8c;">Item 1
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#a3be8c;">Item 2
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#d08770;">0.5  </span><span style="color:#65737e;"># sequences can contain disparate types.
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">Item 4
+  </span><span style="color:#c0c5ce;">- </span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">value
+    another_key</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">another_value
+  </span><span style="color:#c0c5ce;">-
+    - </span><span style="color:#a3be8c;">This is a sequence
+    </span><span style="color:#c0c5ce;">- </span><span style="color:#a3be8c;">inside another sequence
+  </span><span style="color:#c0c5ce;">- - - </span><span style="color:#a3be8c;">Nested sequence indicators
+      </span><span style="color:#c0c5ce;">- </span><span style="color:#a3be8c;">can be collapsed
+
+</span><span style="color:#65737e;"># Since YAML is a superset of JSON, you can also write JSON-style maps and
+# sequences:
+</span><span style="color:#bf616a;">json_map</span><span style="color:#c0c5ce;">: {&quot;</span><span style="color:#a3be8c;">key</span><span style="color:#c0c5ce;">&quot;: &quot;</span><span style="color:#a3be8c;">value</span><span style="color:#c0c5ce;">&quot;}
+</span><span style="color:#bf616a;">json_seq</span><span style="color:#c0c5ce;">: [</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">takeoff</span><span style="color:#c0c5ce;">&quot;]
+</span><span style="color:#bf616a;">and quotes are optional</span><span style="color:#c0c5ce;">: {</span><span style="color:#bf616a;">key</span><span style="color:#c0c5ce;">: [</span><span style="color:#d08770;">3</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">2</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">1</span><span style="color:#c0c5ce;">, </span><span style="color:#a3be8c;">takeoff</span><span style="color:#c0c5ce;">]}
+
+</span><span style="color:#65737e;">#######################
+# EXTRA YAML FEATURES #
+#######################
+
+# YAML also has a handy feature called &#39;anchors&#39;, which let you easily duplicate
+# content across your document. Both of these keys will have the same value:
+</span><span style="color:#bf616a;">anchored_content</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">&amp;</span><span style="color:#c0c5ce;">anchor_name </span><span style="color:#bf616a;">This string will appear as the value of two keys.
+other_anchor</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">*</span><span style="color:#bf616a;">anchor_name
+
+</span><span style="color:#65737e;"># Anchors can be used to duplicate/inherit properties
+</span><span style="color:#bf616a;">base</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">&amp;</span><span style="color:#c0c5ce;">base
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#a3be8c;">Everyone has same name
+
+</span><span style="color:#65737e;"># The regexp &lt;&lt; is called Merge Key Language-Independent Type. It is used to
+# indicate that all the keys of one or more specified maps should be inserted
+# into the current map.
+
+</span><span style="color:#bf616a;">foo</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#d08770;">&lt;&lt;</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">*</span><span style="color:#bf616a;">base
+  age</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">10
+
+</span><span style="color:#bf616a;">bar</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#d08770;">&lt;&lt;</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">*</span><span style="color:#bf616a;">base
+  age</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">20
+
+</span><span style="color:#65737e;"># foo and bar would also have name: Everyone has same name
+
+# YAML also has tags, which you can use to explicitly declare types.
+</span><span style="color:#bf616a;">explicit_string</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">!!str </span><span style="color:#d08770;">0.5
+</span><span style="color:#65737e;"># Some parsers implement language specific tags, like this one for Python&#39;s
+# complex number type.
+</span><span style="color:#bf616a;">python_complex_number</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">!!python/complex </span><span style="color:#a3be8c;">1+2j
+
+</span><span style="color:#65737e;"># We can also use yaml complex keys with language specific tags
+</span><span style="color:#c0c5ce;">? </span><span style="color:#b48ead;">!!python/tuple </span><span style="color:#c0c5ce;">[</span><span style="color:#d08770;">5</span><span style="color:#c0c5ce;">, </span><span style="color:#d08770;">7</span><span style="color:#c0c5ce;">]
+: </span><span style="color:#a3be8c;">Fifty Seven
+</span><span style="color:#65737e;"># Would be {(5, 7): &#39;Fifty Seven&#39;} in Python
+
+####################
+# EXTRA YAML TYPES #
+####################
+
+# Strings and numbers aren&#39;t the only scalars that YAML can understand.
+# ISO-formatted date and datetime literals are also parsed.
+</span><span style="color:#bf616a;">datetime</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2001-12-15T02:59:43.1Z
+</span><span style="color:#bf616a;">datetime_with_spaces</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2001-12-14 21:59:43.10 -5
+</span><span style="color:#bf616a;">date</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">2002-12-14
+
+</span><span style="color:#65737e;"># The !!binary tag indicates that a string is actually a base64-encoded
+# representation of a binary blob.
+</span><span style="color:#bf616a;">gif_file</span><span style="color:#c0c5ce;">: </span><span style="color:#b48ead;">!!binary |
+</span><span style="color:#a3be8c;">  R0lGODlhDAAMAIQAAP//9/X17unp5WZmZgAAAOfn515eXvPz7Y6OjuDg4J+fn5
+  OTk6enp56enmlpaWNjY6Ojo4SEhP/++f/++f/++f/++f/++f/++f/++f/++f/+
+  +f/++f/++f/++f/++f/++SH+Dk1hZGUgd2l0aCBHSU1QACwAAAAADAAMAAAFLC
+  AgjoEwnuNAFOhpEMTRiggcz4BNJHrv/zCFcLiwMWYNG84BwwEeECcgggoBADs=
+
+</span><span style="color:#65737e;"># YAML also has a set type, which looks like this:
+</span><span style="color:#bf616a;">set</span><span style="color:#c0c5ce;">:
+  ? </span><span style="color:#bf616a;">item1
+  </span><span style="color:#c0c5ce;">? </span><span style="color:#bf616a;">item2
+  </span><span style="color:#c0c5ce;">? </span><span style="color:#bf616a;">item3
+or</span><span style="background-color:#bf616a;color:#2b303b;">:</span><span style="color:#c0c5ce;"> {</span><span style="color:#a3be8c;">item1</span><span style="color:#c0c5ce;">, </span><span style="color:#a3be8c;">item2</span><span style="color:#c0c5ce;">, </span><span style="color:#a3be8c;">item3</span><span style="color:#c0c5ce;">}
+
+</span><span style="color:#65737e;"># Sets are just maps with null values; the above is equivalent to:
+</span><span style="color:#bf616a;">set2</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">item1</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">null
+  </span><span style="color:#bf616a;">item2</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">null
+  </span><span style="color:#bf616a;">item3</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">null
+
+</span><span style="color:#c0c5ce;">...  </span><span style="color:#65737e;"># document end
+</span></code></pre>
+<p><em>Source</em> <a href="https://learnxinyminutes.com/docs/yaml/">Learn YAML in 10 minutes</a></p>
+<h3 id="scalabilite-d-un-deploiement">Scalabilité d'un déploiement</h3>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-in.png" alt="scaling-kubernetes-in" width="580" height="400">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/scaling-kubernetes-out.png" alt="scaling-kubernetes-out" width="700" height="520">
+<p>Vous pouvez mettre à l'échelle un déploiement en utilisant la commande suivante:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> scale deployment/nginx-deployment</span><span style="color:#bf616a;"> --replicas</span><span style="color:#c0c5ce;">=10
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment</span><span style="color:#c0c5ce;"> scaled
+</span></code></pre>
+<p>En supposant que l'autoscaling horizontal des pods est activé dans votre cluster, <strong>vous pouvez configurer un autoscaler pour votre déploiement</strong> et choisir le nombre minimum et maximum de pods que vous souhaitez exécuter en fonction de l'utilisation du CPU de vos pods existants.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> autoscale deployment/nginx-deployment</span><span style="color:#bf616a;"> --min</span><span style="color:#c0c5ce;">=10</span><span style="color:#bf616a;"> --max</span><span style="color:#c0c5ce;">=15</span><span style="color:#bf616a;"> --cpu-percent</span><span style="color:#c0c5ce;">=80
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment</span><span style="color:#c0c5ce;"> scaled
+</span></code></pre>
+<p>Les déploiements RollingUpdate permettent d'exécuter plusieurs versions d'une application en même temps. 
+Lorsque vous ou un autoscaler mettez à l'échelle un déploiement RollingUpdate qui est au milieu d'un déploiement (en cours ou en pause), le contrôleur de déploiement équilibre les replicas supplémentaires dans les ReplicaSets actifs existants (ReplicaSets avec Pods) afin d'atténuer le risque. </p>
+<p>C'est ce qu'on appelle la mise à l'échelle proportionnelle.</p>
+<p>Par exemple, vous exécutez un déploiement avec 10 replicas, maxSurge=3 et maxUnavailable=2.</p>
+<p>Assurez-vous que les 10 replicas de votre déploiement sont running.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get deploy
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">     10        10        10           10          50s
+</span></code></pre>
+<p>Vous effectuez une mise à jour vers une nouvelle image qui se trouve être non résoluble depuis l'intérieur du cluster.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> set image deployment/nginx-deployment nginx=nginx:sometag
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment</span><span style="color:#c0c5ce;"> image updated
+</span></code></pre>
+<p>La mise à jour de l'image lance un nouveau déploiement avec ReplicaSet nginx-deployment-1989198191, mais il est bloqué en raison de l'exigence maxUnavailable que vous avez mentionnée ci-dessus. </p>
+<p>Vérifiez l'état du déploiement.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get rs
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                          DESIRED   CURRENT   READY     AGE
+</span><span style="color:#bf616a;">nginx-deployment-1989198191</span><span style="color:#c0c5ce;">   5         5         0         9s
+</span><span style="color:#bf616a;">nginx-deployment-618515232</span><span style="color:#c0c5ce;">    8         8         8         1m
+</span></code></pre>
+<p>Puis une nouvelle demande de mise à l'échelle pour que le déploiement arrive. 
+L'autoscaler incrémente les replicas du déploiement à 15. Le contrôleur de déploiement doit décider où ajouter ces 5 nouveaux replicas. </p>
+<p>Si vous n'utilisiez pas la mise à l'échelle proportionnelle, les 5 replicas seraient ajoutés dans le nouveau ReplicaSet. Avec la mise à l'échelle proportionnelle, vous répartissez les replicas supplémentaires sur tous les ReplicaSets. 
+Les proportions les plus importantes vont aux ReplicaSets ayant le plus de replicas et les proportions les plus faibles vont aux ReplicaSets ayant moins de replicas. Les restes sont ajoutés au ReplicaSet ayant le plus de replicas. </p>
+<p>Les ReplicaSets avec zéro replica ne sont pas mis à l'échelle.</p>
+<p>Dans notre exemple ci-dessus, 3 replicas sont ajoutées à l'ancien ReplicaSet et 2 replicas sont ajoutées au nouveau ReplicaSet. Le processus de déploiement devrait finalement déplacer toutes les replicas vers le nouveau ReplicaSet, en supposant que les nouveaux replicas soient valides. </p>
+<p>Pour confirmer cela, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get deploy
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                 DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">     15        18        7            8           7m
+</span></code></pre>
+<p>Le statut de déploiement confirme comment les replicas ont été ajoutés à chaque ReplicaSet.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get rs
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                          DESIRED   CURRENT   READY     AGE
+</span><span style="color:#bf616a;">nginx-deployment-1989198191</span><span style="color:#c0c5ce;">   7         7         0         7m
+</span><span style="color:#bf616a;">nginx-deployment-618515232</span><span style="color:#c0c5ce;">    11        11        11        7m
+</span></code></pre><h3 id="strategie-de-mise-a-jour-sans-interruption">Stratégie de mise à jour sans interruption</h3>
+<blockquote>
+<p><em>N.B.</em> Le re-déploiement d'un déploiement est déclenché si et seulement si le modèle de pod du déploiement (c'est-à-dire <strong>.spec.template</strong>) est modifié, par exemple si les labels ou les images de conteneur du template sont mis à jour. D'autres mises à jour, telles que la mise à l'échelle du déploiement, ne déclenchent pas de rollout.</p>
+</blockquote>
+<p>Suivez les étapes ci-dessous pour mettre à jour votre déploiement:</p>
+<p>Mettons à jour les pods nginx pour utiliser l'image nginx: 1.9.1 au lieu de l'image nginx: 1.7.9.</p>
+<p>kubectl --record deployment.apps/nginx-deployment set image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1</p>
+<p>ou utilisez la commande suivante:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> set image deployment/nginx-deployment nginx=nginx:1.9.1</span><span style="color:#bf616a;"> --record
+
+deployment.apps/nginx-deployment</span><span style="color:#c0c5ce;"> image updated
+</span></code></pre>
+<p>Alternativement, vous pouvez éditer le déploiement et changer <code>.spec.template.spec.containers[0].image</code> de 'nginx: 1.7.9' à 'nginx: 1.9.1':</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> edit deployment.v1.apps/nginx-deployment
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment</span><span style="color:#c0c5ce;"> edited
+</span></code></pre>
+<p>Pour voir l'état du déploiement, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> rollout status deployment.v1.apps/nginx-deployment
+
+</span><span style="color:#bf616a;">Waiting</span><span style="color:#c0c5ce;"> for rollout to finish: 2 out of 3 new replicas have been updated...
+
+</span><span style="color:#65737e;"># OR
+
+</span><span style="color:#bf616a;">deployment </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">nginx-deployment</span><span style="color:#c0c5ce;">&quot; successfully rolled out
+</span></code></pre>
+<p>Obtenez plus de détails sur votre déploiement mis à jour:</p>
+<p>Une fois le déploiement réussi, vous pouvez afficher le déploiement en exécutant <code>kubectl get deployments.</code> La sortie est similaire à ceci:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">               READY   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">   3/3     3            3           36s
+</span></code></pre>
+<p>Exécutez kubectl get rs pour voir que le déploiement a mis à jour les pods en créant un nouveau ReplicaSet et en le redimensionnant jusqu'à 3 replicas, ainsi qu'en réduisant l'ancien ReplicaSet à 0 réplicas.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get rs
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                          DESIRED   CURRENT   READY   AGE
+</span><span style="color:#bf616a;">nginx-deployment-1564180365</span><span style="color:#c0c5ce;">   3         3         3       6s
+</span><span style="color:#bf616a;">nginx-deployment-2035384211</span><span style="color:#c0c5ce;">   0         0         0       36s
+</span></code></pre>
+<p>L'exécution de <code>kubectl get pods</code> ne devrait désormais afficher que les nouveaux pods:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                                READY     STATUS    RESTARTS   AGE
+</span><span style="color:#bf616a;">nginx-deployment-1564180365-khku8</span><span style="color:#c0c5ce;">   1/1       Running   0          14s
+</span><span style="color:#bf616a;">nginx-deployment-1564180365-nacti</span><span style="color:#c0c5ce;">   1/1       Running   0          14s
+</span><span style="color:#bf616a;">nginx-deployment-1564180365-z9gth</span><span style="color:#c0c5ce;">   1/1       Running   0          14s
+</span></code></pre>
+<p>La prochaine fois que vous souhaitez mettre à jour ces pods, il vous suffit de mettre à jour le modèle de pod de déploiement à nouveau.</p>
+<p><strong>Le déploiement garantit que seul un certain nombre de pods sont en panne pendant leur mise à jour. Par défaut, il garantit qu'au moins 75% du nombre souhaité de pods sont en place (25% max indisponible).</strong></p>
+<p>Le déploiement garantit également que seul un certain nombre de pods sont créés au-dessus du nombre souhaité de pods. <strong>Par défaut, il garantit qu'au plus 125% du nombre de pods souhaité sont en hausse (surtension maximale de 25%).</strong></p>
+<p>Par exemple, si vous regardez attentivement le déploiement ci-dessus, vous verrez qu'il a d'abord créé un nouveau pod, puis supprimé certains anciens pods et en a créé de nouveaux. Il ne tue pas les anciens Pods tant qu'un nombre suffisant de nouveaux Pods n'est pas apparu, et ne crée pas de nouveaux Pods tant qu'un nombre suffisant de Pods anciens n'a pas été tué. Il s'assure qu'au moins 2 pods sont disponibles et qu'au maximum 4 pods au total sont disponibles.</p>
+<p>Obtenez les détails de votre déploiement:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> describe deployments
+
+</span><span style="color:#bf616a;">Name:</span><span style="color:#c0c5ce;">                   nginx-deployment
+</span><span style="color:#bf616a;">Namespace:</span><span style="color:#c0c5ce;">              default
+</span><span style="color:#bf616a;">CreationTimestamp:</span><span style="color:#c0c5ce;">      Thu, 30 Nov 2021 10:56:25 +0000
+</span><span style="color:#bf616a;">Labels:</span><span style="color:#c0c5ce;">                 app=nginx
+</span><span style="color:#bf616a;">Annotations:</span><span style="color:#c0c5ce;">            deployment.kubernetes.io/revision=2
+</span><span style="color:#bf616a;">Selector:</span><span style="color:#c0c5ce;">               app=nginx
+</span><span style="color:#bf616a;">Replicas:</span><span style="color:#c0c5ce;">               3 desired | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> updated | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> total | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> available | </span><span style="color:#bf616a;">0</span><span style="color:#c0c5ce;"> unavailable
+</span><span style="color:#bf616a;">StrategyType:</span><span style="color:#c0c5ce;">           RollingUpdate
+</span><span style="color:#bf616a;">MinReadySeconds:</span><span style="color:#c0c5ce;">        0
+</span><span style="color:#bf616a;">RollingUpdateStrategy:</span><span style="color:#c0c5ce;">  25% max unavailable, 25% max surge
+</span><span style="color:#bf616a;">Pod</span><span style="color:#c0c5ce;"> Template:
+    </span><span style="color:#bf616a;">Labels:</span><span style="color:#c0c5ce;">  app=nginx
+    </span><span style="color:#bf616a;">Containers:
+    nginx:
+        Image:</span><span style="color:#c0c5ce;">        nginx:1.9.1
+        </span><span style="color:#bf616a;">Port:</span><span style="color:#c0c5ce;">         80/TCP
+        </span><span style="color:#bf616a;">Environment:  </span><span style="color:#c0c5ce;">&lt;none&gt;
+        Mounts:       &lt;none&gt;
+    Volumes:        &lt;none&gt;
+    Conditions:
+    </span><span style="color:#bf616a;">Type</span><span style="color:#c0c5ce;">           Status  Reason
+    </span><span style="color:#bf616a;">----</span><span style="color:#c0c5ce;">           ------  ------
+    </span><span style="color:#bf616a;">Available</span><span style="color:#c0c5ce;">      True    MinimumReplicasAvailable
+    </span><span style="color:#bf616a;">Progressing</span><span style="color:#c0c5ce;">    True    NewReplicaSetAvailable
+    </span><span style="color:#bf616a;">OldReplicaSets:  </span><span style="color:#c0c5ce;">&lt;none&gt;
+    NewReplicaSet:   nginx-deployment-1564180365 (3/3 replicas created)
+    </span><span style="color:#bf616a;">Events:
+    Type</span><span style="color:#c0c5ce;">    Reason             Age   From                   Message
+    </span><span style="color:#bf616a;">----</span><span style="color:#c0c5ce;">    ------             ----  ----                   -------
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  2m    deployment-controller  Scaled up replica set nginx-deployment-2035384211 to 3
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  24s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 1
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  22s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 2
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  22s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 2
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  19s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 1
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
+    </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
+</span></code></pre>
+<p>Ici, vous voyez que lorsque vous avez créé le déploiement pour la première fois, il a créé un ReplicaSet (nginx-deployment-2035384211) et l'a mis à l'échelle directement jusqu'à 3 replicas. </p>
+<p>Lorsque vous avez mis à jour le déploiement, il a créé un nouveau ReplicaSet (nginx-deployment-1564180365) et l'a mis à l'échelle jusqu'à 1, puis a réduit l'ancien ReplicaSet à 2, de sorte qu'au moins 2 pods étaient disponibles et au plus 4 pods ont été créés à chaque fois. </p>
+<p>Il a ensuite poursuivi la montée en charge du nouveau et de l'ancien ReplicaSet, avec la même stratégie de mise à jour continue. </p>
+<p>Enfin, vous aurez 3 réplicas disponibles dans le nouveau ReplicaSet, et l'ancien ReplicaSet est réduit à 0.</p>
+<h3 id="revenir-a-une-revision-precedente">Revenir à une révision précédente</h3>
+<p>Suivez les étapes ci-dessous pour restaurer le déploiement de la version actuelle à la version précédente, qui est la version 2.</p>
+<p>Vous avez maintenant décidé d'annuler le déploiement actuel et le retour à la révision précédente:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> rollout undo deployment.v1.apps/nginx-deployment
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment
+</span></code></pre>
+<p>Alternativement, vous pouvez revenir à une révision spécifique en la spécifiant avec <strong>--to-revision</strong>:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> rollout undo deployment.v1.apps/nginx-deployment</span><span style="color:#bf616a;"> --to-revision</span><span style="color:#c0c5ce;">=2
+
+</span><span style="color:#bf616a;">deployment.apps/nginx-deployment
+</span></code></pre>
+<p>Pour plus de détails sur les commandes liées au déploiement, lisez <code>kubectl rollout</code>.</p>
+<p>Le déploiement est maintenant rétabli à une précédente révision stable. Comme vous pouvez le voir, <strong>un événement DeploymentRollback pour revenir à la révision 2 est généré à partir du contrôleur de déploiement</strong>.</p>
+<p>Vérifiez si la restauration a réussi et que le déploiement s'exécute comme prévu, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get deployment nginx-deployment
+
+</span><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">               READY   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">   3/3     3            3           30m
+</span></code></pre>
+<p>Obtenez la description du déploiement:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> describe deployment nginx-deployment
+
+</span><span style="color:#bf616a;">Name:</span><span style="color:#c0c5ce;">                   nginx-deployment
+</span><span style="color:#bf616a;">Namespace:</span><span style="color:#c0c5ce;">              default
+</span><span style="color:#bf616a;">CreationTimestamp:</span><span style="color:#c0c5ce;">      Sun, 02 Sep 2021 18:17:55</span><span style="color:#bf616a;"> -0500
+Labels:</span><span style="color:#c0c5ce;">                 app=nginx
+</span><span style="color:#bf616a;">Annotations:</span><span style="color:#c0c5ce;">            deployment.kubernetes.io/revision=4
+                        </span><span style="color:#bf616a;">kubernetes.io/change-cause</span><span style="color:#c0c5ce;">=</span><span style="color:#a3be8c;">kubectl </span><span style="color:#96b5b4;">set</span><span style="color:#c0c5ce;"> image deployment.v1.apps/nginx-deployment nginx=nginx:1.9.1 --record=true
+</span><span style="color:#bf616a;">Selector:</span><span style="color:#c0c5ce;">               app=nginx
+</span><span style="color:#bf616a;">Replicas:</span><span style="color:#c0c5ce;">               3 desired | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> updated | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> total | </span><span style="color:#bf616a;">3</span><span style="color:#c0c5ce;"> available | </span><span style="color:#bf616a;">0</span><span style="color:#c0c5ce;"> unavailable
+</span><span style="color:#bf616a;">StrategyType:</span><span style="color:#c0c5ce;">           RollingUpdate
+</span><span style="color:#bf616a;">MinReadySeconds:</span><span style="color:#c0c5ce;">        0
+</span><span style="color:#bf616a;">RollingUpdateStrategy:</span><span style="color:#c0c5ce;">  25% max unavailable, 25% max surge
+</span><span style="color:#bf616a;">Pod</span><span style="color:#c0c5ce;"> Template:
+  </span><span style="color:#bf616a;">Labels:</span><span style="color:#c0c5ce;">  app=nginx
+  </span><span style="color:#bf616a;">Containers:
+   nginx:
+    Image:</span><span style="color:#c0c5ce;">        nginx:1.9.1
+    </span><span style="color:#bf616a;">Port:</span><span style="color:#c0c5ce;">         80/TCP
+    </span><span style="color:#bf616a;">Host</span><span style="color:#c0c5ce;"> Port:    0/TCP
+    </span><span style="color:#bf616a;">Environment:  </span><span style="color:#c0c5ce;">&lt;none&gt;
+    Mounts:       &lt;none&gt;
+  Volumes:        &lt;none&gt;
+Conditions:
+  </span><span style="color:#bf616a;">Type</span><span style="color:#c0c5ce;">           Status  Reason
+  </span><span style="color:#bf616a;">----</span><span style="color:#c0c5ce;">           ------  ------
+  </span><span style="color:#bf616a;">Available</span><span style="color:#c0c5ce;">      True    MinimumReplicasAvailable
+  </span><span style="color:#bf616a;">Progressing</span><span style="color:#c0c5ce;">    True    NewReplicaSetAvailable
+</span><span style="color:#bf616a;">OldReplicaSets:  </span><span style="color:#c0c5ce;">&lt;none&gt;
+NewReplicaSet:   nginx-deployment-c4747d96c (3/3 replicas created)
+</span><span style="color:#bf616a;">Events:
+  Type</span><span style="color:#c0c5ce;">    Reason              Age   From                   Message
+  </span><span style="color:#bf616a;">----</span><span style="color:#c0c5ce;">    ------              ----  ----                   -------
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   12m   deployment-controller  Scaled up replica set nginx-deployment-75675f5897 to 3
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 1
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 2
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 2
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 1
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-c4747d96c to 3
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled down replica set nginx-deployment-75675f5897 to 0
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   11m   deployment-controller  Scaled up replica set nginx-deployment-595696685f to 1
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  DeploymentRollback  15s   deployment-controller  Rolled back deployment &quot;</span><span style="color:#a3be8c;">nginx-deployment</span><span style="color:#c0c5ce;">&quot; to revision 2
+  </span><span style="color:#bf616a;">Normal</span><span style="color:#c0c5ce;">  ScalingReplicaSet   15s   deployment-controller  Scaled down replica set nginx-deployment
+</span></code></pre><h3 id="suppression-d-un-deploiement">Suppression d'un déploiement</h3>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> delete deploy deployment.apps/nginx-deployment
+
+</span><span style="color:#65737e;"># or
+
+</span><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> delete deploy nginx-deployment
+</span></code></pre><h3 id="publication-et-analyse-d-un-deploiement-tp">Publication et analyse d'un déploiement (TP)</h3>
+<h4 id="partie-1">Partie 1</h4>
+<p>Vous devrez publier un fichier deployment contenant la spécification de 3 replicas web servers nginx.</p>
+<p>Vous devrez décrire ce deployment, afficher son état et vous assurez qu'il soit dans un état sain.</p>
+<h4 id="partie-2">Partie 2</h4>
+<p>Scaler le nombre de replicas à 10. Assurez-vous que l'état des replicas est sain.</p>
+<p>Revenir ensuite à une révision précédente de votre spécification.</p>
+<p>Détruisez ensuite ce deployment.</p>
+<h4 id="partie-3-facultatif">Partie 3 (Facultatif)</h4>
+<p>Reproduisez l'étape 1 pour une base de données mysql en lieu et place des serveurs nginx. Ce deployment ne devra disposer que d'un seul replica.</p>
+<p>La persistence des données n'est requise.</p>
+<p>Détruisez ensuite ce deployment.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+  <a href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-introduction&#x2F;">
+    <div class="card my-1">
+      <div class="card-body py-2">
+        &larr; Introduction à kubernetes
+      </div>
+    </div>
+  </a>
+  
+
+  
+  
+  
+  
+  
+    <a class="ms-auto" href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-architecture&#x2F;">
+      <div class="card my-1">
+        <div class="card-body py-2">
+          Architecture Kubernetes &rarr;
+        </div>
+      </div>
+    </a>
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>
