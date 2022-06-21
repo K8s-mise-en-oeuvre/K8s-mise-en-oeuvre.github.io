@@ -33,7 +33,7 @@ Il faudra attendre **2013 pour que Google lance sa première offre IAAS** en aya
 
 Il fallait donc un standard pour l'orchestration, une API qui puisse gérer l'ensemble de ces caractéristiques.
 
-Kubernetes est strictement impératif, nous demandons un état sans avoir à connaître les étapes intermédiaires.
+Kubernetes s'utilise principalement en mode déclaratif, nous demandons un état sans avoir à connaître les étapes intermédiaires.
 
 Par exemple:
 

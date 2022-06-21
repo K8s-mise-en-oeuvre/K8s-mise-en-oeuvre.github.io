@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://K8s-mise-en-oeuvre.github.io/sitemap.xml

@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Gestion avancée des containers | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="Documentation website of eponym course using Zola Adidoks and Github Pages">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Containers Advanced",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/annexe-a/">Annexe A</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#gestion-avancee-des-conteneurs">Gestion avancée des conteneurs</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#qu-est-ce-qu-un-container">Qu&#x27;est-ce qu&#x27;un container ?</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#dockerfile">Dockerfile</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#creation-et-automatisation-d-images-personnalisees">Création et automatisation d&#x27;images personnalisées</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#deploiement-d-une-image-personnalisee">Déploiement d&#x27;une image personnalisée</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#un-conteneur-et-plusieurs-services">Un conteneur et plusieurs services</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/#creation-et-automatisation-d-images-personnalisees-tp">Création et automatisation d&#x27;images personnalisées (TP)</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Gestion avancée des containers</h1>
+        
+        <h2 id="gestion-avancee-des-conteneurs">Gestion avancée des conteneurs</h2>
+<h3 id="qu-est-ce-qu-un-container">Qu'est-ce qu'un container ?</h3>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containers.jpg" alt="containers" width="900" height="720">
+<blockquote>
+<p>&quot;Caisson métallique parallélépipédique conçu pour le transport de marchandise par différents mode de transports.
+Ses dimensions ont été standardisées au niveau international et il est muni a tous les angles de pièces de préemption
+permettant de l'arrimer ou de le transborder d'un véhicule a l'autre.&quot; 
+<em>Définition d'un container maritime</em></p>
+</blockquote>
+<p>Nous allons voir que ces propriétés se retrouvent dans la conception informatique du container.</p>
+<p>C'est tout simplement faire tourner un ensemble de processus systèmes ou métier au sein d'un même environnement, isolé.</p>
+<p>Une des problématique de la virtualisation par hyperviseur est celle de la boîte noire. Difficile de recenser l'ensemble des composants, ce qui peut être critique en cas de panne de la VM, impossible donc d'en déterminer l'état.</p>
+<p>Comment faire également lorsque les ressources ne sont pas partagées, comme le cache des applications par exemple ? </p>
+<p>Physiquement, un container est un système de fichiers contenant l'ensemble des binaires dont on a besoin pour faire tourner
+notre application.</p>
+<p>L'image apporte également des métadonnées rattachées aux layers dont on peut ensuite déterminer la composition exacte.</p>
+<p>A la fin j'ai une brique atomique, je n'ai pas besoin de savoir quelles sont les couches successivement empilées du container.</p>
+<p>Cela permet de résoudre la problématique du packaging OS (.deb, .rpm, etc.), non agnostique.</p>
+<p><em>Docker on Linux</em>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-on-linux.png" alt="docker-on-linux" width="900" height="720"></p>
+<p>Les containers sont immutables, ils ne laissent rien derrière eux, ont un format autosufisant.</p>
+<p>Les développeurs peuvent passer d'un langage a l'autre pour les applications sans jamais impacter l'infrastructure de PROD.</p>
+<p>C'est toujours un 'runner' de container tel containerd qui execute le processus sur l'hôte mais on se fiche désormais de savoir quel est le launcher sous le container (npm, shell, cargo, etc.).</p>
+<p>Les containers amènent de l'auditabilité en production.</p>
+<p>Autour de cette infrastructure, d'autres composants, tel un orchestrateur peuvent être intégrés.</p>
+<blockquote>
+<p>Le container runtime est le logiciel responsable de l'exécution des conteneurs.</p>
+</blockquote>
+<p>Kubernetes est compatible avec plusieurs containers runtime: <strong>Docker, containerd, cri-o, rktlet ainsi que toute implémentation de Kubernetes CRI (Container Runtime Interface)</strong></p>
+<p><em>Docker and Kubernetes use containerd</em>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker-and-kubernetes-use-containerd.png" alt="docker-and-kubernetes-use-containerd" width="900" height="720"></p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containerd-platform.png" alt="containerd-plateform" width="900" height="720">
+<p><em>Ressources supplémentaires</em></p>
+<p>Image disposant d'une binary toolbox minimaliste: <a href="https://www.busybox.net">Busybox</a></p>
+<p>Outil d'introspection des layers des images: <a href="https://github.com/wagoodman/dive">Dive</a></p>
+<p><em>Demo CI dive</em>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/demo-ci-dive.png" alt="dive-demo" width="900" height="720"></p>
+<p>Container runtime de docker: <a href="https://containerd.io">Containerd</a></p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/containerd.webp" alt="containerd" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/docker_containerd.png" alt="docker_containerd" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/cri.png" alt="CRI" width="900" height="720">
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/ctr.png" alt="CTR" width="720" height="600">
+<h3 id="dockerfile">Dockerfile</h3>
+<blockquote>
+<p>Les Dockerfiles contiennent des instructions pour créer une image Docker.Chaque instruction est écrite sur une ligne et est donnée sous la forme <INSTRUCTION>&lt;argument(s)&gt;. Les fichiers Docker sont utilisés pour créer des images Docker à l'aide de la commande <code>docker build </code>.</p>
+</blockquote>
+<p>Les principales directives pouvant être utilisées dans un Dockerfile sont:</p>
+<ul>
+<li>
+<p><strong>FROM</strong> - Il s’agit de la première instruction. Elle est indispensable, car elle définit l’image de base avec le système d’exploitation et l’application portant le reste des couches. <strong>Vous pouvez également spécifier une image de base minimale en utilisant l’instruction <code>FROM scratch</code></strong>.</p>
+</li>
+<li>
+<p><strong>COPY</strong> - Cette commande ajoute dans votre image des fichiers locaux ou distants tels le code source d’une application ou un fichier de configuration. Il existe aussi une commande ADD qui peut être très utile lorsque l’on veut extraire à la volée un tar.gz. ADD permet de faire ceci en une instruction alors que COPY ne permet que de copier la source vers une destination.</p>
+</li>
+<li>
+<p><strong>RUN</strong> - Exécuter avec RUN toute commande souhaitée pour créer une nouvelle couche sur l’image.</p>
+</li>
+<li>
+<p><strong>CMD</strong> - Pour spécifier une commande à exécuter seulement lors du lancement du conteneur. </p>
+</li>
+</ul>
+<h4 id="helloworld-dockerfile">HelloWorld Dockerfile</h4>
+<p>Un fichier Dockerfile minimal pourrait ressembler à ceci:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">FROM</span><span style="color:#c0c5ce;"> alpine
+</span><span style="color:#bf616a;">CMD </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">echo</span><span style="color:#c0c5ce;">&quot;, &quot;</span><span style="color:#a3be8c;">Hello Classroom!</span><span style="color:#c0c5ce;">&quot;</span><span style="color:#b48ead;">]
+</span></code></pre>
+<p>Cela indiquera à Docker de créer une image basée sur Alpine (FROM), une distribution minimale pour les conteneurs et d'exécuter une commande spécifique (CMD) lors de l'exécution de l'image résultante.</p>
+<p>Construisez et exécutez-le:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">docker</span><span style="color:#c0c5ce;"> build</span><span style="color:#bf616a;"> -t</span><span style="color:#c0c5ce;"> hello .
+</span><span style="color:#bf616a;">docker</span><span style="color:#c0c5ce;"> run</span><span style="color:#bf616a;"> --rm</span><span style="color:#c0c5ce;"> hello
+
+</span><span style="color:#65737e;"># Output
+</span><span style="color:#c0c5ce;">Hello Classroom!
+</span></code></pre><h3 id="creation-et-automatisation-d-images-personnalisees">Création et automatisation d'images personnalisées</h3>
+<p>Exexmple de code applicatif go:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-go" data-lang="go"><span style="color:#b48ead;">package </span><span style="color:#bf616a;">main
+
+</span><span style="color:#b48ead;">import </span><span style="color:#c0c5ce;">(
+	&quot;</span><span style="color:#a3be8c;">net/http</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">os</span><span style="color:#c0c5ce;">&quot;
+
+	&quot;</span><span style="color:#a3be8c;">github.com/labstack/echo/v4</span><span style="color:#c0c5ce;">&quot;
+	&quot;</span><span style="color:#a3be8c;">github.com/labstack/echo/v4/middleware</span><span style="color:#c0c5ce;">&quot;
+)
+
+</span><span style="color:#b48ead;">func </span><span style="color:#8fa1b3;">main</span><span style="color:#c0c5ce;">() {
+
+	</span><span style="color:#bf616a;">e </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">echo</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">New</span><span style="color:#c0c5ce;">()
+
+	</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Use</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">middleware</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Logger</span><span style="color:#c0c5ce;">())
+	</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Use</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">middleware</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Recover</span><span style="color:#c0c5ce;">())
+
+	</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">GET</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#b48ead;">func</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">c echo</span><span style="color:#c0c5ce;">.</span><span style="color:#b48ead;">Context</span><span style="color:#c0c5ce;">) </span><span style="color:#b48ead;">error </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">c</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">HTML</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">http</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">StatusOK</span><span style="color:#c0c5ce;">, &quot;</span><span style="color:#a3be8c;">Hello, Docker! &lt;3</span><span style="color:#c0c5ce;">&quot;)
+	})
+
+	</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">GET</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">/ping</span><span style="color:#c0c5ce;">&quot;, </span><span style="color:#b48ead;">func</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">c echo</span><span style="color:#c0c5ce;">.</span><span style="color:#b48ead;">Context</span><span style="color:#c0c5ce;">) </span><span style="color:#b48ead;">error </span><span style="color:#c0c5ce;">{
+		</span><span style="color:#b48ead;">return </span><span style="color:#bf616a;">c</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">JSON</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">http</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">StatusOK</span><span style="color:#c0c5ce;">, </span><span style="color:#b48ead;">struct</span><span style="color:#c0c5ce;">{ </span><span style="color:#bf616a;">Status </span><span style="color:#b48ead;">string </span><span style="color:#c0c5ce;">}{</span><span style="color:#bf616a;">Status</span><span style="color:#c0c5ce;">: &quot;</span><span style="color:#a3be8c;">OK</span><span style="color:#c0c5ce;">&quot;})
+	})
+
+	</span><span style="color:#bf616a;">httpPort </span><span style="color:#c0c5ce;">:= </span><span style="color:#bf616a;">os</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Getenv</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">HTTP_PORT</span><span style="color:#c0c5ce;">&quot;)
+	</span><span style="color:#b48ead;">if </span><span style="color:#bf616a;">httpPort </span><span style="color:#c0c5ce;">== &quot;&quot; {
+		</span><span style="color:#bf616a;">httpPort </span><span style="color:#c0c5ce;">= &quot;</span><span style="color:#a3be8c;">8080</span><span style="color:#c0c5ce;">&quot;
+	}
+
+	</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Logger</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Fatal</span><span style="color:#c0c5ce;">(</span><span style="color:#bf616a;">e</span><span style="color:#c0c5ce;">.</span><span style="color:#bf616a;">Start</span><span style="color:#c0c5ce;">(&quot;</span><span style="color:#a3be8c;">:</span><span style="color:#c0c5ce;">&quot; + </span><span style="color:#bf616a;">httpPort</span><span style="color:#c0c5ce;">))
+}
+</span></code></pre>
+<p><em>Dockerfile</em></p>
+<pre style="background-color:#2b303b;">
+<code class="language-dockerfile" data-lang="dockerfile"><span style="color:#65737e;"># syntax=docker/dockerfile:1
+
+</span><span style="color:#b48ead;">FROM</span><span style="color:#c0c5ce;"> golang:1.16-alpine
+
+</span><span style="color:#b48ead;">WORKDIR </span><span style="color:#c0c5ce;">/app
+
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> go.mod ./
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> go.sum ./
+</span><span style="color:#b48ead;">RUN </span><span style="color:#c0c5ce;">go mod download
+
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> *.go ./
+
+</span><span style="color:#b48ead;">RUN </span><span style="color:#c0c5ce;">go build -o /docker-gs-ping
+
+</span><span style="color:#b48ead;">EXPOSE </span><span style="color:#c0c5ce;">8080
+
+CMD [ &quot;</span><span style="color:#a3be8c;">/docker-gs-ping</span><span style="color:#c0c5ce;">&quot; ]
+</span></code></pre>
+<p>Golang build images: <a href="https://docs.docker.com/language/golang/build-images">Golang build images</a></p>
+<p>Docker multistage building: <a href="https://docs.docker.com/develop/develop-images/multistage-build">Multistage building</a></p>
+<h3 id="deploiement-d-une-image-personnalisee">Déploiement d'une image personnalisée</h3>
+<p>Init du package applicatif golang:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">go</span><span style="color:#c0c5ce;"> mod init example.com/echo
+
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> creating new go.mod: module example.com/echo
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> to add module requirements and sums:
+        </span><span style="color:#bf616a;">go</span><span style="color:#c0c5ce;"> mod tidy
+</span></code></pre>
+<p>Installation des dépendances:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">go</span><span style="color:#c0c5ce;"> mod tidy
+
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> finding module for package github.com/labstack/echo/v4/middleware
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> finding module for package github.com/labstack/echo/v4
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/labstack/echo/v4 v4.6.3
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/labstack/echo v3.3.10+incompatible
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> found github.com/labstack/echo/v4 in github.com/labstack/echo/v4 v4.6.3
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> found github.com/labstack/echo/v4/middleware in github.com/labstack/echo/v4 v4.6.3
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading golang.org/x/crypto v0.0.0-20210817164053-32db794688a5
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading golang.org/x/net v0.0.0-20210913180222-943fd674d43e
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/labstack/gommon v0.3.1
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/golang-jwt/jwt v3.2.2+incompatible
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/valyala/fasttemplate v1.2.1
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading golang.org/x/time v0.0.0-20201208040808-7e3f01d25324
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/mattn/go-isatty v0.0.14
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/mattn/go-colorable v0.1.11
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading github.com/valyala/bytebufferpool v1.0.0
+</span><span style="color:#bf616a;">go:</span><span style="color:#c0c5ce;"> downloading golang.org/x/sys v0.0.0-20211103235746-7861aae1554b
+</span></code></pre>
+<p>Build de l'image personnalisée:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">docker</span><span style="color:#c0c5ce;"> build</span><span style="color:#bf616a;"> --tag</span><span style="color:#c0c5ce;"> docker-gs-ping .
+
+</span><span style="color:#bf616a;">[+]</span><span style="color:#c0c5ce;"> Building 19.3s (12/12) </span><span style="color:#bf616a;">FINISHED
+
+</span><span style="color:#c0c5ce;">=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">internal</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">load</span><span style="color:#c0c5ce;"> build definition from Dockerfile                                                               0.0s
+=&gt; =&gt; transferring </span><span style="color:#bf616a;">dockerfile:</span><span style="color:#c0c5ce;"> 220B                                                                               0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">internal</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">load</span><span style="color:#c0c5ce;"> .dockerignore                                                                                  0.0s
+=&gt; =&gt; transferring </span><span style="color:#bf616a;">context:</span><span style="color:#c0c5ce;"> 2B                                                                                    0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">internal</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">load</span><span style="color:#c0c5ce;"> metadata for docker.io/library/golang:1.16-alpine                                              8.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">internal</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">load</span><span style="color:#c0c5ce;"> build context                                                                                  0.0s
+=&gt; =&gt; transferring </span><span style="color:#bf616a;">context:</span><span style="color:#c0c5ce;"> 5.75kB                                                                                0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">1/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">FROM</span><span style="color:#c0c5ce;"> docker.io/library/golang:1.16-alpine@sha256:c4b36cff558405c8368be606325261a21a9a3ae9f79dc1bd3fff9f  6.6s
+=&gt; =&gt; resolve </span><span style="color:#bf616a;">docker.io/library/golang:1.16-alpine@sha256:c4b36cff558405c8368be606325261a21a9a3ae9f79dc1bd3fff9f</span><span style="color:#c0c5ce;">  0.0s
+=&gt; =&gt; sha256:c4b36cff558405c8368be606325261a21a9a3ae9f79dc1bd3fff9f831a0411f2 </span><span style="color:#bf616a;">1.65kB</span><span style="color:#c0c5ce;"> / 1.65kB                     0.0s
+=&gt; =&gt; sha256:802b7b395fac3d9b0ed552be257a3f19739486f6e712b7f5276f76214ad1efa1 </span><span style="color:#bf616a;">1.36kB</span><span style="color:#c0c5ce;"> / 1.36kB                     0.0s
+=&gt; =&gt; sha256:4bcb0d501de3d5c9d95c65a8ef94ef2d169244bf06970413780748ac6fc7536c </span><span style="color:#bf616a;">5.20kB</span><span style="color:#c0c5ce;"> / 5.20kB                     0.0s
+=&gt; =&gt; sha256:59bf1c3509f33515622619af21ed55bbe26d24913cedbca106468a5fb37a50c3 </span><span style="color:#bf616a;">2.82MB</span><span style="color:#c0c5ce;"> / 2.82MB                     0.4s
+=&gt; =&gt; sha256:666ba61612fd7c93393f9a5bc1751d8a9929e32d51501dba691da9e8232bc87b </span><span style="color:#bf616a;">282.16kB</span><span style="color:#c0c5ce;"> / 282.16kB                 0.2s
+=&gt; =&gt; sha256:8ed8ca4862056a130f714accb3538decfa0663fec84e635d8b5a0a3305353dee </span><span style="color:#bf616a;">155B</span><span style="color:#c0c5ce;"> / 155B                         0.1s
+=&gt; =&gt; sha256:fa6e261410ce0cebd518eb5ee56b9bb56fa66883992dc54ab7bd25afdca2b521 </span><span style="color:#bf616a;">105.85MB</span><span style="color:#c0c5ce;"> / 105.85MB                 2.9s
+=&gt; =&gt; sha256:033ff68f5bd26b7f1a7567e74101649886332f6bffed2928025b2dc88a49a909 </span><span style="color:#bf616a;">155B</span><span style="color:#c0c5ce;"> / 155B                         0.5s
+=&gt; =&gt; extracting </span><span style="color:#bf616a;">sha256:59bf1c3509f33515622619af21ed55bbe26d24913cedbca106468a5fb37a50c3</span><span style="color:#c0c5ce;">                          0.3s
+=&gt; =&gt; extracting </span><span style="color:#bf616a;">sha256:666ba61612fd7c93393f9a5bc1751d8a9929e32d51501dba691da9e8232bc87b</span><span style="color:#c0c5ce;">                          0.1s
+=&gt; =&gt; extracting </span><span style="color:#bf616a;">sha256:8ed8ca4862056a130f714accb3538decfa0663fec84e635d8b5a0a3305353dee</span><span style="color:#c0c5ce;">                          0.0s
+=&gt; =&gt; extracting </span><span style="color:#bf616a;">sha256:fa6e261410ce0cebd518eb5ee56b9bb56fa66883992dc54ab7bd25afdca2b521</span><span style="color:#c0c5ce;">                          3.4s
+=&gt; =&gt; extracting </span><span style="color:#bf616a;">sha256:033ff68f5bd26b7f1a7567e74101649886332f6bffed2928025b2dc88a49a909</span><span style="color:#c0c5ce;">                          0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">2/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">WORKDIR</span><span style="color:#c0c5ce;"> /app                                                                                             0.3s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">3/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">COPY</span><span style="color:#c0c5ce;"> go.mod ./                                                                                           0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">4/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">COPY</span><span style="color:#c0c5ce;"> go.sum ./                                                                                           0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">5/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">RUN</span><span style="color:#c0c5ce;"> go mod download                                                                                      1.8s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">6/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">COPY </span><span style="color:#c0c5ce;">*.go ./                                                                                             0.0s
+=&gt; </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">7/7</span><span style="color:#b48ead;">] </span><span style="color:#bf616a;">RUN</span><span style="color:#c0c5ce;"> go build</span><span style="color:#bf616a;"> -o</span><span style="color:#c0c5ce;"> /docker-gs-ping                                                                          2.0s
+=&gt; exporting </span><span style="color:#bf616a;">to</span><span style="color:#c0c5ce;"> image                                                                                             0.5s
+=&gt; =&gt; exporting </span><span style="color:#bf616a;">layers</span><span style="color:#c0c5ce;">                                                                                            0.5s
+=&gt; =&gt; writing </span><span style="color:#bf616a;">image</span><span style="color:#c0c5ce;"> sha256:d6282f70c0eed3c1f1f5c705c99c64c0aa1ac703d240630a9a0be1b437dc2025                       0.0s
+=&gt; =&gt; naming </span><span style="color:#bf616a;">to</span><span style="color:#c0c5ce;"> docker.io/library/docker-gs-ping                                                                  0.0s
+</span></code></pre>
+<p>Run de l'image:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">docker</span><span style="color:#c0c5ce;"> run</span><span style="color:#bf616a;"> -it</span><span style="color:#c0c5ce;"> docker.io/library/docker-gs-ping
+
+   </span><span style="color:#bf616a;">____</span><span style="color:#c0c5ce;">    __
+  </span><span style="color:#bf616a;">/</span><span style="color:#c0c5ce;"> __/___/ /  ___
+ </span><span style="color:#bf616a;">/</span><span style="color:#c0c5ce;"> _// __/ _ </span><span style="color:#96b5b4;">\/</span><span style="color:#c0c5ce;"> _ \
+/___/</span><span style="color:#96b5b4;">\_</span><span style="color:#c0c5ce;">_/_//_/</span><span style="color:#96b5b4;">\_</span><span style="color:#c0c5ce;">__/ v4.6.3
+</span><span style="color:#bf616a;">High</span><span style="color:#c0c5ce;"> performance, minimalist Go web framework
+</span><span style="color:#bf616a;">https://echo.labstack.com
+____________________________________O/_______
+                                    O\
+⇨</span><span style="color:#c0c5ce;"> http server started on </span><span style="color:#b48ead;">[</span><span style="color:#c0c5ce;">::</span><span style="color:#b48ead;">]</span><span style="color:#c0c5ce;">:8080
+
+</span></code></pre><h3 id="un-conteneur-et-plusieurs-services">Un conteneur et plusieurs services</h3>
+<blockquote>
+<p>Le processus principal en cours d'exécution d'un conteneur est le ENTRYPOINT et/ou le CMD à la fin du Dockerfile. Il est généralement recommandé de séparer les zones de préoccupation en utilisant un service par conteneur. Ce service peut être divisé en plusieurs processus (par exemple, le serveur Web Apache lance plusieurs processus de travail). Il est acceptable d'avoir plusieurs processus, mais pour tirer le meilleur parti de Docker, évitez qu'un conteneur soit responsable de plusieurs aspects de votre application globale. Vous pouvez connecter plusieurs conteneurs à l'aide de réseaux définis par l'utilisateur et de volumes partagés.</p>
+</blockquote>
+<p>Le processus principal du conteneur est responsable de la gestion de tous les processus qu'il démarre. Dans certains cas, le processus principal n'est pas bien conçu et ne gère pas la &quot;récolte&quot; (l'arrêt) des processus enfants de manière élégante lorsque le conteneur sort. Si votre processus entre dans cette catégorie, vous pouvez utiliser l'option --init lorsque vous exécutez le conteneur. L'option --init insère un minuscule processus d'initialisation dans le conteneur en tant que processus principal, et gère la récupération de tous les processus à la sortie du conteneur. La gestion de ces processus de cette manière est supérieure à l'utilisation d'un processus init complet tel que sysvinit, upstart, ou systemd pour gérer le cycle de vie des processus dans votre conteneur.</p>
+<p>Si vous devez exécuter plus d'un service dans un conteneur, vous pouvez le faire de plusieurs manières différentes.</p>
+<p>Placez toutes vos commandes dans un script wrapper, avec des informations de test et de débogage. Exécutez le script wrapper comme votre CMD. Voici un exemple très naïf. </p>
+<p>Tout d'abord, le script wrapper :</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;">#!/bin/bash
+
+# Start the first process
+</span><span style="color:#bf616a;">./my_first_process </span><span style="color:#c0c5ce;">&amp;
+  
+</span><span style="color:#65737e;"># Start the second process
+</span><span style="color:#bf616a;">./my_second_process </span><span style="color:#c0c5ce;">&amp;
+  
+</span><span style="color:#65737e;"># Wait for any process to exit
+</span><span style="color:#96b5b4;">wait </span><span style="color:#bf616a;">-n
+  
+</span><span style="color:#65737e;"># Exit with status of process that exited first
+</span><span style="color:#c0c5ce;">exit $</span><span style="color:#bf616a;">?
+</span></code></pre>
+<p>Puis, le dockerfile:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-dockerfile" data-lang="dockerfile"><span style="color:#65737e;"># syntax=docker/dockerfile:1
+</span><span style="color:#b48ead;">FROM</span><span style="color:#c0c5ce;"> ubuntu:latest
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_first_process my_first_process
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_second_process my_second_process
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_wrapper_script.sh my_wrapper_script.sh
+CMD ./my_wrapper_script.sh
+</span></code></pre>
+<p>Si vous avez un processus principal qui doit démarrer en premier et rester en cours d'exécution, mais que vous avez temporairement besoin de lancer d'autres processus (peut-être pour interagir avec le processus principal), vous pouvez utiliser le contrôle des tâches de bash pour faciliter cela.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;">#!/bin/bash
+  
+# turn on bash&#39;s job control
+</span><span style="color:#96b5b4;">set </span><span style="color:#bf616a;">-m
+  
+</span><span style="color:#65737e;"># Start the primary process and put it in the background
+</span><span style="color:#c0c5ce;">./my_main_process &amp;
+  
+</span><span style="color:#65737e;"># Start the helper process
+</span><span style="color:#bf616a;">./my_helper_process
+  
+</span><span style="color:#65737e;"># the my_helper_process might need to know how to wait on the
+# primary process to start before it does its work and returns
+  
+# now we bring the primary process back into the foreground
+# and leave it there
+</span><span style="color:#bf616a;">fg </span><span style="color:#c0c5ce;">%</span><span style="color:#d08770;">1
+</span></code></pre><pre style="background-color:#2b303b;">
+<code class="language-dockerfile" data-lang="dockerfile"><span style="color:#65737e;"># syntax=docker/dockerfile:1
+</span><span style="color:#b48ead;">FROM</span><span style="color:#c0c5ce;"> ubuntu:latest
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_main_process my_main_process
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_helper_process my_helper_process
+</span><span style="color:#b48ead;">COPY</span><span style="color:#c0c5ce;"> my_wrapper_script.sh my_wrapper_script.sh
+CMD ./my_wrapper_script.sh
+</span></code></pre>
+<p>Notons toutefois que cette façon de procéder n'est que peu adaptée à une utilisation dans Kubernetes où dans une approche orientée micro-services l'on préferera 1 container pour 1 service exposé.</p>
+<p><em>Sources</em></p>
+<p><a href="https://docs.docker.com/config/containers/multi-service_container/">Multi Service container</a></p>
+<h3 id="creation-et-automatisation-d-images-personnalisees-tp">Création et automatisation d'images personnalisées (TP)</h3>
+<h4 id="partie-1">Partie 1</h4>
+<p>Dans ce TP vous aurez à charge de réaliser une image personnalisée sur la base d'un autre code applicatif (Golang/Java/Python,etc.) que vous souhaitez containeriser.</p>
+<p>L'image devra être buildée et run sans erreurs.</p>
+<h4 id="partie-2-facultatif">Partie 2 (Facultatif)</h4>
+<p>Étoffer votre image en rajoutant plusieurs services comme vu dans la section &quot;Un conteneur et plusieurs services&quot;.</p>
+<h4 id="partie-3-facultatif">Partie 3 (Facultatif)</h4>
+<p>Étoffer à nouveau votre image en la construisant cette fois selon les règles du multi-stage building (https://docs.docker.com/develop/develop-images/multistage-build) qui visera a séparer le build du ou des binaires des processus qui seront run par l'image finale.</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+  
+
+  
+  
+  
+  
+  
+    <a class="ms-auto" href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;kubernetes-introduction&#x2F;">
+      <div class="card my-1">
+        <div class="card-body py-2">
+          Introduction à kubernetes &rarr;
+        </div>
+      </div>
+    </a>
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>
