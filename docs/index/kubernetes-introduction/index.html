@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2" type="font/woff2" crossorigin>
+  <link rel="preload" as="font" href="https://K8s-mise-en-oeuvre.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2"  type="font/woff2" crossorigin>
+
+
+<link rel="stylesheet" href="https://K8s-mise-en-oeuvre.github.io/main.css">
+
+
+
+  
+  
+    
+  
+
+  
+  
+    
+    
+  
+  
+  
+    
+  
+  
+  
+  
+    
+  
+  
+  
+
+
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+
+	
+
+
+	
+
+<title>Introduction à kubernetes | Kubernetes, mise en oeuvre</title>
+<meta name="description" content="$">
+<link rel="canonical" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">
+
+
+
+
+
+
+  
+
+
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    
+      
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          {
+            "@type": "ListItem",
+            "position":  1 ,
+            "name": "Home",
+            "item": "https://K8s-mise-en-oeuvre.github.io/"
+          },
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  2 ,
+            "name": "Docs",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  3 ,
+            "name": "Index",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/"
+          },
+        
+      
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+          
+          
+          {
+            "@type": "ListItem",
+            "position":  4 ,
+            "name": "Kubernetes Introduction",
+            "item": "https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/"
+          },
+        
+      
+    
+  }
+</script>
+
+
+
+
+  <meta name="theme-color" content="#fff">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://K8s-mise-en-oeuvre.github.io/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://K8s-mise-en-oeuvre.github.io/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://K8s-mise-en-oeuvre.github.io/favicon-16x16.png">
+  
+    <link rel="manifest" href="https://K8s-mise-en-oeuvre.github.io/site.webmanifest">
+  
+
+
+  
+
+</head>
+
+  
+
+<body class="docs single">
+  
+  
+  
+  
+<div class="header-bar fixed-top"></div>
+<header class="navbar fixed-top navbar-expand-md navbar-light">
+	<div class="container">
+		<input class="menu-btn order-0" type="checkbox" id="menu-btn">
+		<label class="menu-icon d-md-none" for="menu-btn"><span class="navicon"></span></label>
+		<a class="navbar-brand order-1 order-md-0 me-auto" href="https://K8s-mise-en-oeuvre.github.io">Kubernetes, mise en oeuvre</a>
+		<button id="mode" class="btn btn-link order-2 order-md-4" type="button" aria-label="Toggle mode">
+			<span class="toggle-dark"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></span>
+			<span class="toggle-light"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg></span>
+		</button>
+		<ul class="navbar-nav fork-me order-3 order-md-5">
+			
+				
+					<li class="nav-item">
+						<a class="nav-link" href="https://github.com/K8s-mise-en-oeuvre/K8s-mise-en-oeuvre.github.io"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg><span class="ms-2 visually-hidden">GitHub</span></a>
+					</li>
+				
+			
+		</ul>
+		<div class="collapse navbar-collapse order-4 order-md-1">
+			<ul class="navbar-nav main-nav me-auto order-5 order-md-2">
+				
+					
+						<li class="nav-item docs active">
+							<a class="nav-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/">Docs</a>
+						</li>
+					
+				
+			</ul>
+			<div class="break order-6 d-md-none"></div>
+			
+				<form class="navbar-form flex-grow-1 order-7 order-md-3">
+					<input id="userinput" class="form-control is-search" type="search" placeholder="Search docs..."
+						aria-label="Search docs..." autocomplete="off">
+					<div id="suggestions" class="shadow bg-white rounded"></div>
+				</form>
+			
+		</div>
+	</div>
+</header>
+
+
+
+  
+<div class="wrap container" role="document">
+  <div class="content">
+    <div class="row flex-xl-nowrap">
+	  
+<div class="col-lg-5 col-xl-4 docs-sidebar">
+	<nav class="docs-links" aria-label="Main navigation">
+			
+			
+			
+			
+					
+					
+					
+							<h3>K8s, mise en oeuvre</h3>
+							<ul class="list-unstyled">
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/containers-advanced/">Gestion avancée des containers</a></li>
+							                           
+									<li><a class="docs-link active" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/">Introduction à kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/description-files/">Les fichiers descriptifs</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-architecture/">Architecture Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-exploitation/">Exploitation de Kubernetes</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-in-production/">Kubernetes en Production</a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/deploy-k8s-cluster/">Déploiement d&#x27;un cluster Kubernetes </a></li>
+							                           
+									<li><a class="docs-link" href="https://K8s-mise-en-oeuvre.github.io/docs/index/annexe-a/">Annexe A</a></li>
+							
+					</ul>
+					
+					
+			
+	</nav>
+</div>
+
+	  
+  
+  <nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation">
+  	<div class="page-links">
+  			<h3>On this page</h3>
+  			<nav id="TableOfContents">
+  					<ul>
+  							
+  							<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#introduction-a-kubernetes">Introduction à kubernetes</a></li>
+  							
+  									<ul>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#de-la-virtualisation-a-la-conteneurisation">De la virtualisation à la conteneurisation</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#solutions-d-installation-minikube-on-premise-etc">Solutions d&#x27;installation (MiniKube, On-Premise, etc.)</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#installation-et-configuration-de-docker">Installation et configuration de docker</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#acceder-au-cluster-kubernetes-cli-kubectl-gui-dashboard-et-apis">Accéder au cluster Kubernetes: CLI (kubectl), GUI (dashboard) et APIs</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#deploiement-publication-manuelle-et-introspection-du-deploiement">Déploiement, publication manuelle et introspection du deploiement</a></li>
+  											
+  											<li><a href="https://K8s-mise-en-oeuvre.github.io/docs/index/kubernetes-introduction/#deploiement-d-une-plateforme-de-test-tp">Déploiement d&#x27;une plateforme de test (TP)</a></li>
+  											
+  									</ul>
+  							
+  							
+  					</ul>
+  			</nav>
+  	</div>
+  </nav>
+  
+
+      <main class="docs-content col-lg-11 col-xl-9">
+        <h1>Introduction à kubernetes</h1>
+        
+        <h2 id="introduction-a-kubernetes">Introduction à kubernetes</h2>
+<p>Kubernetes, souvent abrégé k8s, est un orchestrateur de conteneurs conçu par Google et sorti en 2014. C’est un outil Open Source (code source disponible sur github), écrit en Go, qui trouve ses racines dans Borg le système interne de Google qui gère l’infrastructure du géant de Mountain View.</p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/borg.png" alt="Borg" width="720" height="600">
+<p>Ce n’est pas le seul orchestrateur de conteneurs sur le marché, il en existe d’autres comme <strong>Docker Swarm</strong>, <strong>Apache Marathon</strong>, <strong>Nomad</strong> ou <strong>Kontena</strong>. Cependant, aujourd'hui K8s apparaît comme hégémonique sur le marché et ses concurrents ne se divisent que peu de parts.</p>
+<blockquote>
+<p>Le nom Kubernetes tire son origine du grec ancien, signifiant capitaine ou pilote ou encore timonier et est la racine de gouverneur et cybernetic. K8s est l'abbréviation dérivée par le remplacement des 8 lettres &quot;ubernete&quot; par &quot;8&quot;.</p>
+</blockquote>
+<p>Soit celui qui tient la barre d’un bateau. Si l’on reprend l’analogie de Docker avec les conteneurs maritimes, Kubernetes est le capitaine qui dirige le porte-conteneurs.</p>
+<p>Aujourd'hui, en 2022, force est de constater que Kubernetes est devenu incontournable et la plupart des cloud providers proposent désormais des solutions Kubernetes hébergées.</p>
+<p>Il faudra attendre <strong>2013 pour que Google lance sa première offre IAAS</strong> en ayant été ralenti par l'échec de son PAAS AppEngine.</p>
+<p><strong>Un des enjeux de K8S fut de réussir a mixer la flexibilité du IAAS et la facilité d'accès, la descriptabilité du PAAS, ce que l'on pourrait appeler l'IPAAS.</strong></p>
+<p>Il fallait donc un standard pour l'orchestration, une API qui puisse gérer l'ensemble de ces caractéristiques.</p>
+<p>Kubernetes est strictement impératif, nous demandons un état sans avoir à connaître les étapes intermédiaires.</p>
+<p>Par exemple:</p>
+<ul>
+<li>&quot;J'aimerai un espace isolé dont les applications n'utilisent que 4Go de RAM et 2 CPU&quot;</li>
+<li>&quot;J'aimerai une base de données répliquée 2 fois&quot;</li>
+<li>&quot;J'aimerai un storage avec une rétention de 6 mois&quot;</li>
+<li>&quot;J'aimerai que des mises a jour soit déployées mais n'impactent que les applications du ns 'web' ou correspondant au tag 'web'&quot;</li>
+</ul>
+<p>Pour utiliser Kubernetes, vous utilisez les objets de l'API Kubernetes pour décrire l'état souhaité de votre cluster: quelles applications ou autres processus que vous souhaitez exécuter, quelles images de conteneur elles utilisent, le nombre de réplicas, les ressources réseau et disque que vous mettez à disposition, et plus encore. Vous définissez l'état souhaité en créant des objets à l'aide de l'API Kubernetes, généralement via l'interface en ligne de commande, kubectl. Vous pouvez également utiliser l'API Kubernetes directement pour interagir avec le cluster et définir ou modifier l'état souhaité.</p>
+<p>Une fois que vous avez défini l'état souhaité, le plan de contrôle Kubernetes (control plane en anglais) permet de faire en sorte que l'état actuel du cluster corresponde à l'état souhaité. Pour ce faire, Kubernetes effectue automatiquement diverses tâches, telles que le démarrage ou le redémarrage de conteneurs, la mise à jour du nombre de réplicas d'une application donnée, etc.</p>
+<p><strong>L’orchestration est gérée par des contrôleurs</strong>. Ces contrôleurs sont compilés dans le kube-controller-manager.</p>
+<p>Kubernetes est container-centric et va nous permettre de déployer et de gérer des conteneurs. Les conteneurs ne sont pas gérés individuellement. Au lieu de cela ils font partie d’un ensemble plus grand appelé <strong>Pod</strong>.</p>
+<blockquote>
+<p>Un Pod se compose d’un ou de plusieurs conteneurs qui partagent une adresse IP, un accès au stockage et un espace de nommage.</p>
+</blockquote>
+<p>On va distinguer la notion de spec de la notion de statut.</p>
+<p>S'il réussi a converger à l'issue de sa boucle de réconciliation, l'état est appliqué et le résultat retourné à l'api server.</p>
+<p>Il était très compliqué d'atteindre l'indempotence avec Puppet ou Chef par exemple, car outre l'effet snowflake, certains composants tel le réseau on-premise, n'étaient pas prévus pour être indompotents.</p>
+<p>Deux machines, 2 versions ne vont pas nécessairement réagir de la même façon. C'est l'effet snowflake car tous les flocons se ressemblent et il devient presque impossible distinguer/troubleshooter les différences sur des milliers de machines de production.</p>
+<p>Kubernetes répond a ce problème car il maintient l'état et le retourne après action. On a donc un <em>avant</em> et un <em>après</em>.</p>
+<p>Les pratiques de Kube sont basées sur Google mais également sur beaucoup d'autres suggestions de la communauté.</p>
+<p>L'organe de certification de la CNCF permet d'assurer que toutes les solutions qui sont vendues sont compatibles.</p>
+<p>On a un cluster ETCD qui sert a la persistence de l'état. </p>
+<p>L'API server est en somme un &quot;gardien du temple&quot; qui s'assure de la validité des requêtes émises.</p>
+<h3 id="de-la-virtualisation-a-la-conteneurisation">De la virtualisation à la conteneurisation</h3>
+<p>L'ancienne façon (old way) de déployer des applications consistait à installer les applications sur un hôte en utilisant les systèmes de gestions de paquets natifs. Cela avait pour principale inconvénient de lier fortement les exécutables, la configuration, les librairies et le cycle de vie de chacun avec l'OS. Il est bien entendu possible de construire une image de machine virtuelle (VM) immuable pour arriver à produire des publications (rollouts) ou retours arrières (rollbacks), mais les VMs sont lourdes et non-portables.</p>
+<p>La nouvelle façon (new way) consiste à déployer des conteneurs basés sur une virtualisation au niveau du système d'opération (operation-system-level) plutôt que de la virtualisation hardware. Ces conteneurs sont isolés les uns des autres et de l'hôte : ils ont leurs propres systèmes de fichiers, ne peuvent voir que leurs propres processus et leur usage des ressources peut être contraint. Ils sont aussi plus faciles à construire que des VMs, et vu qu'ils sont décorrélés de l'infrastructure sous-jacente et du système de fichiers de l'hôte, ils sont aussi portables entre les différents fournisseurs de Cloud et les OS.</p>
+<h3 id="solutions-d-installation-minikube-on-premise-etc">Solutions d'installation (MiniKube, On-Premise, etc.)</h3>
+<h4 id="k8s-certified-providers">K8S certified providers</h4>
+<p><a href="https://unofficial-kubernetes.readthedocs.io/en/latest/setup/pick-right-solution">Marketplace Solutions</a></p>
+<p><a href="https://kubernetes.io/training/">Kubernetes Training Partners</a></p>
+<img src="https://K8s-mise-en-oeuvre.github.io/docs/ccnf-landscape.jpg" alt="CCNF Landscape" width="900" height="720">
+<p><img src="https://K8s-mise-en-oeuvre.github.io/docs/landscape-kuber-min-1.jpg
+" alt="CCNF Landscape 2" width="900" height="720"></p>
+<h5 id="managed-solutions">Managed Solutions</h5>
+<p>Quelques solutions parmi les plus représentées: </p>
+<ul>
+<li>GCP GKE</li>
+<li>AWS EKS</li>
+<li>Azure AKS</li>
+<li>Platform9 (KUBE2GO)</li>
+<li>Pivotal</li>
+<li>Rancher</li>
+<li>Tectonic by CoreOS</li>
+<li>Stackpoint.io</li>
+</ul>
+<h5 id="le-cas-ovh-implementation-d-offre-kaas-basee-sur-openstack-et-platform9-solution">Le cas OVH: implémentation d'offre KAAS basée sur OpenStack et Platform9 solution</h5>
+<p>Dans le cadre de la Kubecon 2019, OVH annonce le déploiement de Kubernetes sur ses serveurs dédiés suite à un partenariat avec <strong>Platform9</strong>. Par conséquent, il est désormais le fournisseur européen qui propose le choix le plus diversifié en matière de déploiement Kubernetes.</p>
+<h5 id="le-cas-bare-metal">Le cas Bare-metal</h5>
+<p>En bare-metal l'expérience montre qu'avec CoreOs racheté par Redhat et intégré a Openshift, cette solution ainsi que Pivotal et Rancher sont les plus représentées sur le marché français.</p>
+<h4 id="solutions-locales">Solutions locales</h4>
+<h5 id="kind-kubernetes-dans-docker">kind: Kubernetes dans Docker</h5>
+<p>Sous licence Apache, le projet kind (« Kubernetes in Docker») est un peu différent. Il déploie les nodes sous forme de conteneurs – chaque cluster étant identifié par une étiquette Docker. Son usage est donc plutôt orienté sur le test que le développement.</p>
+<p>Le cœur fonctionnel est codé en Go. L’installation de base se fonde sur une image minimale d’Ubuntu. Elle contient les outils statiques nécessaires à Kubernetes, ajoute un point d’entrée sur chaque nœud pour réaliser des actions avant l’amorçage et paramètre un service systemd pour gérer la journalisation. Il en existe des variantes « étendues », contenant des tarballs (archives d’images) que le cluster chargera avant d’exécuter kubeadm.</p>
+<p>L’installation est nettement plus lourde qu’avec les options sus-évoquées. Sur Mac comme sur Windows, il faut au minimum 6 Go de RAM (8 recommandés) pour la VM Docker. Il n’existe pas encore d’images Arm.</p>
+<p>Parmi les autres limites, kind ne gère pas les applications à état. Il ne fonctionne par ailleurs pas dans la sandbox Linux de Chrome OS et ne prend pas en charge les conteneurs Windows. Depuis peu, il permet d’utiliser, côté hôte, docker et podman en rootless. L’implémentation réseau par défaut repose sur un module propre au projet (kindnetd). Associable à MetalLB pour la répartition de charge, il supporte l’IPv6, y compris en mode dual-stack.</p>
+<h5 id="minikube-et-microk8">Minikube et MicroK8</h5>
+<p>Pas encore d’IPv6 sur Minikube, le « Kubernetes light officiel ». Sa première release remonte à 2016. Il couvre aujourd’hui Windows, Mac et Linux, sur x86-64. Son principe : exécuter des clusters à nœud unique dans une VM. Ses exigences : au minimum 2 CPU, 2 Go de RAM et 20 Go de disque. On peut aussi l’utiliser en remplacement de Docker Desktop, sans lancer Kubernetes.</p>
+<p>Comme k0s, MicroK8s (AMD64, ARM64) peut faire l’objet d’un support commercial – 10 ans de maintenance – par son éditeur. Au-delà du développement local, il cible l’IoT et les environnements minimaux d’intégration continue. Canonical le distribue sous forme de Snap (et d’exécutable sur Windows) qui exécute nativement l’orchestrateur (sans VM).</p>
+<p>De base, MicroK8s inclut le serveur d’API, le planificateur, le kubelet, l’interface CNI et kube-proxy. On peut l’étendre avec une trentaine d’add-on dont Istio, Kubeflow, OpenFaaS, Prometheus et l’opérateur NVIDIA. Configuration minimale recommandée: 4 Go de RAM et 20 Go de disque sur Linux avec l’installation par défaut (40 Go de disque sur Windows et Mac). Autre possibilité: installer MicroK8s dans un conteneur LXD. Comme Minikube, on est sur du déploiement de clusters à un seul nœud. Mais il est possible d’en ajouter et d’activer la haute disponibilité – avec DQlite en datastore.</p>
+<h3 id="installation-et-configuration-de-docker">Installation et configuration de docker</h3>
+<p><strong>Ce guide part du postulat que les machines clientes pour cette formation qui seront amenées a utiliser un runtime docker tournent sous Windows, tandis que les outils seront installés dans un container linux.</strong></p>
+<p>L'installation de docker réfèrera donc au docker-desktop.</p>
+<p>Cliquez sur le lient de téléchargement ci-dessous et suivez les étapes mentionnées: <a href="https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe">Install Docker Desktop</a></p>
+<h3 id="acceder-au-cluster-kubernetes-cli-kubectl-gui-dashboard-et-apis">Accéder au cluster Kubernetes: CLI (kubectl), GUI (dashboard) et APIs</h3>
+<p>Pour accéder au cluster nous aurons besoin de récupérer au préalable le <strong>KUBECONFIG</strong> de celui-ci. La récupération des données propres a générer, reconstruire ou accéder à un kubeconfig existant dépendra de la solution via laquelle le cluster a été déployé.</p>
+<p>Voici un ensemble d'outils nécessaires sinon indispensables à une utilisation de Kubernetes en ligne de commande: </p>
+<h4 id="kubectl">Kubectl</h4>
+<p><code>kubectl</code> est le client CLI écrit en go pour Kubernetes. </p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl -LO </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://dl.k8s.io/release/</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">curl -L -s</span><span style="color:#a3be8c;"> https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl</span><span style="color:#c0c5ce;">&quot;
+</span></code></pre>
+<p>Valider le téléchargement du binaire via la checksum:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl -LO </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://dl.k8s.io/</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">curl -L -s</span><span style="color:#a3be8c;"> https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256</span><span style="color:#c0c5ce;">&quot;
+
+</span><span style="color:#96b5b4;">echo </span><span style="color:#c0c5ce;">&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#c0c5ce;">&lt;</span><span style="color:#a3be8c;">kubectl.sha256)  kubectl</span><span style="color:#c0c5ce;">&quot; | </span><span style="color:#bf616a;">sha256sum --check
+</span></code></pre>
+<p>Si la vérification est conforme:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl:</span><span style="color:#c0c5ce;"> OK
+</span></code></pre>
+<p>Si la vérification échoue, sha256 se termine avec un statut non nul et imprime une sortie similaire à:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl:</span><span style="color:#c0c5ce;"> FAILED
+</span><span style="color:#bf616a;">sha256sum:</span><span style="color:#c0c5ce;"> WARNING: 1 computed checksum did NOT match
+</span></code></pre>
+<p>Installer kubectl:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">sudo</span><span style="color:#c0c5ce;"> install</span><span style="color:#bf616a;"> -o</span><span style="color:#c0c5ce;"> root</span><span style="color:#bf616a;"> -g</span><span style="color:#c0c5ce;"> root</span><span style="color:#bf616a;"> -m</span><span style="color:#c0c5ce;"> 0755 kubectl /usr/local/bin/kubectl
+</span></code></pre>
+<p>Si vous n'avez pas l'accès root sur le système cible, vous pouvez quand même installer kubectl dans le répertoire <em>~/.local/bin</em>:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">chmod</span><span style="color:#c0c5ce;"> +x kubectl
+</span><span style="color:#bf616a;">mkdir -p ~</span><span style="color:#c0c5ce;">/.local/bin/kubectl
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> ./kubectl </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.local/bin/kubectl
+</span><span style="color:#65737e;"># and then add ~/.local/bin/kubectl to $PATH
+</span></code></pre>
+<p>Vérifier l'installation:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> version</span><span style="color:#bf616a;"> --client
+</span></code></pre><h4 id="krew-plugin-manager-for-kubernetes">Krew, plugin manager for Kubernetes</h4>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#c0c5ce;">(
+  </span><span style="color:#96b5b4;">set </span><span style="color:#bf616a;">-x</span><span style="color:#c0c5ce;">; </span><span style="color:#96b5b4;">cd </span><span style="color:#c0c5ce;">&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">mktemp -d</span><span style="color:#a3be8c;">)</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">OS</span><span style="color:#c0c5ce;">=&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">uname </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">tr </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">[:upper:]</span><span style="color:#c0c5ce;">&#39; &#39;</span><span style="color:#a3be8c;">[:lower:]</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">)</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">ARCH</span><span style="color:#c0c5ce;">=&quot;$</span><span style="color:#a3be8c;">(</span><span style="color:#bf616a;">uname -m </span><span style="color:#c0c5ce;">| </span><span style="color:#bf616a;">sed -e </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">s/x86_64/amd64/</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#bf616a;"> -e </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">s/\(arm\)\(64\)\?.*/\1\2/</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#bf616a;"> -e </span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">s/aarch64$/arm64/</span><span style="color:#c0c5ce;">&#39;</span><span style="color:#a3be8c;">)</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">KREW</span><span style="color:#c0c5ce;">=&quot;</span><span style="color:#a3be8c;">krew-</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">OS</span><span style="color:#a3be8c;">}_</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">ARCH</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">curl -fsSLO </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">https://github.com/kubernetes-sigs/krew/releases/latest/download/</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">KREW</span><span style="color:#a3be8c;">}.tar.gz</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">tar</span><span style="color:#c0c5ce;"> zxvf &quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">KREW</span><span style="color:#a3be8c;">}.tar.gz</span><span style="color:#c0c5ce;">&quot; &amp;&amp;
+  </span><span style="color:#bf616a;">./</span><span style="color:#c0c5ce;">&quot;$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">KREW</span><span style="color:#a3be8c;">}</span><span style="color:#c0c5ce;">&quot; install krew
+)
+
+</span><span style="color:#bf616a;">cat </span><span style="color:#c0c5ce;">&lt;&lt; </span><span style="color:#b48ead;">EOF </span><span style="color:#c0c5ce;">&gt;&gt; </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.bashrc 
+</span><span style="color:#a3be8c;">export PATH=&quot;</span><span style="color:#c0c5ce;">$</span><span style="color:#a3be8c;">{</span><span style="color:#bf616a;">KREW_ROOT</span><span style="color:#c0c5ce;">:-$</span><span style="color:#bf616a;">HOME</span><span style="color:#a3be8c;">/.krew}/bin:</span><span style="color:#c0c5ce;">$</span><span style="color:#bf616a;">PATH</span><span style="color:#a3be8c;">&quot;
+EOF</span><span style="background-color:#bf616a;color:#2b303b;"> </span><span style="color:#a3be8c;">
+</span></code></pre><h4 id="kubectx-kubens">Kubectx + Kubens</h4>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> krew install ctx
+</span><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> krew install ns
+</span></code></pre><h4 id="konfig">Konfig</h4>
+<p>Le plugin konfig va nous servir a exporter une configuration cluster présente dans un fichier de structure kubeconfig et le copier dans <em>~/.kube/config</em>. De cette façon, les binaires kubectx ou kubie auront accès au contexte et nous pourrons ainsi passer d'un contexte à l'autre sans jamais passer la variable d'environnment <strong>KUBECONFIG</strong>. </p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> krew install konfig
+</span><span style="color:#bf616a;">konfig</span><span style="color:#c0c5ce;"> import /tmp/custom-cluster-KuBeConFig
+</span><span style="color:#bf616a;">konfig</span><span style="color:#c0c5ce;"> import</span><span style="color:#bf616a;"> --save</span><span style="color:#c0c5ce;"> /tmp/custom-cluster-KuBeConFig
+</span><span style="color:#bf616a;">kubie</span><span style="color:#c0c5ce;"> ctx custom-cluster
+</span><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get po</span><span style="color:#bf616a;"> -A
+</span></code></pre><h4 id="kubie">Kubie</h4>
+<p>Réunit les commandes <code>kubectx</code> + <code>kubens</code> dans un seul binaire (et peut permettre par exemple d'exécuter des commandes extérieures au contexte kube actuel).</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl -sS</span><span style="color:#c0c5ce;"> https://github.com/sbstp/kubie/releases/download/v0.16.0/kubie-linux-amd64 | </span><span style="color:#bf616a;">bash
+chmod</span><span style="color:#c0c5ce;"> +x kubie-linux-amd64
+</span><span style="color:#bf616a;">mv</span><span style="color:#c0c5ce;"> kubie-linux-amd64 /usr/local/bin/kubie
+</span></code></pre>
+<p>Quelques exemples concernant l'utilisation de Kubie:</p>
+<p>Changer de contexte courant:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubie</span><span style="color:#c0c5ce;"> ctx kolo@kolorado.us-east-2.eksctl.io
+</span></code></pre>
+<p>Afficher les namespaces du contexte courant:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubie</span><span style="color:#c0c5ce;"> ns
+</span></code></pre>
+<p>Exécuter une commande kubectl sur un contexte accessible:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubie</span><span style="color:#c0c5ce;"> exec kolo@kolorado.us-east-2.eksctl.io kube-system kubectl get pods
+</span></code></pre><h4 id="k9s">K9s</h4>
+<p>Visualiseur en shell console pour Kubernetes:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">curl -sS</span><span style="color:#c0c5ce;"> https://webinstall.dev/k9s | </span><span style="color:#bf616a;">bash
+
+</span><span style="color:#96b5b4;">echo </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">export PATH=&#39;/home/pbackz/.local/bin:</span><span style="color:#c0c5ce;">$</span><span style="color:#bf616a;">PATH</span><span style="color:#a3be8c;">&#39;</span><span style="color:#c0c5ce;">&quot; &gt;&gt; </span><span style="color:#bf616a;">~</span><span style="color:#c0c5ce;">/.bashrc
+</span></code></pre><pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#65737e;"># List all available CLI options
+</span><span style="color:#bf616a;">k9s</span><span style="color:#c0c5ce;"> help
+</span><span style="color:#65737e;"># To get info about K9s runtime (logs, configs, etc..)
+</span><span style="color:#c0c5ce;">k9s info
+</span><span style="color:#65737e;"># To run K9s in a given namespace
+</span><span style="color:#c0c5ce;">k9s</span><span style="color:#bf616a;"> -n</span><span style="color:#c0c5ce;"> mycoolns
+</span><span style="color:#65737e;"># Start K9s in an existing KubeConfig context
+</span><span style="color:#c0c5ce;">k9s</span><span style="color:#bf616a;"> --context</span><span style="color:#c0c5ce;"> coolCtx
+</span><span style="color:#65737e;"># Start K9s in readonly mode - with all cluster modification commands disabled
+</span><span style="color:#c0c5ce;">k9s</span><span style="color:#bf616a;"> --readonly
+</span></code></pre><h4 id="gui">GUI</h4>
+<p>Kubernetes fournit nativement des dashboards.</p>
+<p>Cependant, l'interface utilisateur du tableau de bord n'est pas déployée par défaut. Pour la déployer, exécutez la commande suivante:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f</span><span style="color:#c0c5ce;"> https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+</span></code></pre>
+<p>Pour protéger vos données dans le cluster, le tableau de bord se déploie avec une configuration RBAC minimale par défaut. Actuellement, le tableau de bord prend uniquement en charge la connexion avec un token de support. </p>
+<p>Vous pouvez accéder au tableau de bord à l'aide de la commande suivante:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> proxy
+</span></code></pre>
+<p>Kubectl mettra le tableau de bord à disposition à l'adresse suivante: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/.</p>
+<p>Vous ne pouvez accéder à l'interface utilisateur que depuis la machine sur laquelle la commande est exécutée. Voir kubectl <code>proxy --help</code> pour plus d'options.</p>
+<p><em>N.B.</em> La méthode d'authentification Kubeconfig ne prend pas en charge les fournisseurs d'identité externes ni l'authentification basée sur un certificat x509. </p>
+<p>Nous y préférerons aujourd'hui l'outil Kubernetes Lens (https://k8slens.dev/), disposant de plus de fonctionnalités.</p>
+<img src="k8s-lens.png" alt="k8s-lens" width="900" height="720">
+<h4 id="apis">APIs</h4>
+<p>De nombreux sdks conçus pour la majorité des langages permettent également d'accéder à un cluster Kubernetes, d'en visualiser, lister ou manipuler les ressources via des apis.</p>
+<p>Toutefois, nous ne saurions que trop conseiller l'utilisation du langage Golang dans lequel Kubernetes est écrit pour manipuler ces APIs ou créer des opérateurs.</p>
+<h3 id="deploiement-publication-manuelle-et-introspection-du-deploiement">Déploiement, publication manuelle et introspection du deploiement</h3>
+<blockquote>
+<p>Un Deployment fournit des mises à jour déclaratives pour Pods et ReplicaSets.
+Vous décrivez un état désiré dans un déploiement et le controlleur déploiement change l'état réel à l'état souhaité à un rythme contrôlé. Vous pouvez définir des Deployments pour créer de nouveaux ReplicaSets, ou pour supprimer des déploiements existants et adopter toutes leurs ressources avec de nouveaux déploiements.</p>
+</blockquote>
+<p>Voici un exemple de déploiement. Il crée un ReplicaSet pour faire apparaître trois pods nginx:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-yaml" data-lang="yaml"><span style="color:#bf616a;">apiVersion</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">apps/v1
+kind</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">Deployment
+metadata</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx-deployment
+  labels</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">app</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx
+spec</span><span style="color:#c0c5ce;">:
+  </span><span style="color:#bf616a;">replicas</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">3
+  </span><span style="color:#bf616a;">selector</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">matchLabels</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">app</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx
+  template</span><span style="color:#c0c5ce;">:
+    </span><span style="color:#bf616a;">metadata</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">labels</span><span style="color:#c0c5ce;">:
+        </span><span style="color:#bf616a;">app</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx
+    spec</span><span style="color:#c0c5ce;">:
+      </span><span style="color:#bf616a;">containers</span><span style="color:#c0c5ce;">:
+      - </span><span style="color:#bf616a;">name</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx
+        image</span><span style="color:#c0c5ce;">: </span><span style="color:#bf616a;">nginx:1.7.9
+        ports</span><span style="color:#c0c5ce;">:
+        - </span><span style="color:#bf616a;">containerPort</span><span style="color:#c0c5ce;">: </span><span style="color:#d08770;">80
+</span></code></pre>
+<p>Dans cet exemple:</p>
+<p>Un déploiement nommé nginx-deployment est créé, indiqué par le champ <strong>.metadata.name</strong>.</p>
+<p>Le déploiement crée trois pods répliqués, indiqués par le champ replicas.</p>
+<p>Le champ selector définit comment le déploiement trouve les pods à gérer. Dans ce cas, vous sélectionnez simplement un label définie dans le template de pod (app:nginx). Cependant, des règles de sélection plus sophistiquées sont possibles, tant que le modèle de pod satisfait lui-même la règle.</p>
+<blockquote>
+<p><em>N.B.</em> Le champ matchLabels est une table de hash {clé, valeur}. Une seule {clé, valeur} dans la table matchLabels est équivalente à un élément de matchExpressions, dont le champ clé est &quot;clé&quot;, l'opérateur est &quot;In&quot; et le tableau de valeurs contient uniquement &quot;valeur&quot;. Toutes les exigences, à la fois de matchLabels et de matchExpressions, doivent être satisfaites pour correspondre.</p>
+</blockquote>
+<p>Les Pods reçoivent le label <strong>app:nginx</strong> dans le champ labels.</p>
+<p>La spécification du template de pod dans le champ <strong>.template.spec</strong>, indique que les pods exécutent un conteneur, nginx, qui utilise l'image nginx Docker Hub à la version 1.7.9.</p>
+<p>Créez un conteneur et nommez-le nginx en utilisant le champ <strong>name</strong>.</p>
+<p>Créez le déploiement en exécutant la commande suivante:</p>
+<blockquote>
+<p><em>N.B.</em> Vous pouvez spécifier l'indicateur <strong>--record</strong> pour écrire la commande exécutée dans l'annotation de ressource kubernetes.io/change-cause. </p>
+</blockquote>
+<p>C'est utile pour une future introspection. Par exemple, pour voir les commandes exécutées dans chaque révision de déploiement.</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> apply</span><span style="color:#bf616a;"> -f</span><span style="color:#c0c5ce;"> https://k8s.io/examples/controllers/nginx-deployment.yaml
+</span></code></pre>
+<p>Exécutez <code>kubectl get deployments</code> pour vérifier si le déploiement a été créé. </p>
+<p>Si le déploiement est toujours en cours de création, la sortie est similaire à:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">               READY   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">   0/3     0            0           1s
+</span></code></pre>
+<p>Lorsque vous inspectez les déploiements de votre cluster, les champs suivants s'affichent:</p>
+<ul>
+<li>
+<p><strong>NAME</strong> - répertorie les noms des déploiements dans le cluster.</p>
+</li>
+<li>
+<p><strong>DESIRED</strong> - affiche le nombre souhaité de répliques de l'application, que vous définissez lorsque vous créez le déploiement. C'est l'état désiré.</p>
+</li>
+<li>
+<p><strong>CURRENT</strong> - affiche le nombre de réplicas en cours d'exécution.</p>
+</li>
+<li>
+<p><strong>UP-TO-DATE</strong> - affiche le nombre de réplicas qui ont été mises à jour pour atteindre l'état souhaité.</p>
+</li>
+<li>
+<p><strong>AVAILABLE</strong> - affiche le nombre de réplicas de l'application disponibles pour vos utilisateurs.</p>
+</li>
+<li>
+<p><strong>AGE</strong> - affiche la durée d'exécution de l'application.</p>
+</li>
+</ul>
+<p>Notez que le nombre de réplicas souhaitées est de 3 selon le champ <strong>.spec.replicas</strong></p>
+<p>Pour voir l'état du déploiement, exécutez:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> rollout status deployment.v1.apps/nginx-deployment
+
+</span><span style="color:#bf616a;">Waiting</span><span style="color:#c0c5ce;"> for rollout to finish: 2 out of 3 new replicas have been updated...
+</span><span style="color:#bf616a;">deployment </span><span style="color:#c0c5ce;">&quot;</span><span style="color:#a3be8c;">nginx-deployment</span><span style="color:#c0c5ce;">&quot; successfully rolled out
+</span></code></pre>
+<p>Exécutez à nouveau kubectl get deployments quelques secondes plus tard. La sortie est similaire à ceci:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">               READY   UP-TO-DATE   AVAILABLE   AGE
+</span><span style="color:#bf616a;">nginx-deployment</span><span style="color:#c0c5ce;">   3/3     3            3           18s
+</span></code></pre>
+<p>Notez que le déploiement a créé les trois répliques et que toutes les répliques sont à jour (elles contiennent le dernier modèle de pod) et disponibles.</p>
+<p>Pour voir le ReplicaSet (<strong>rs</strong>) créé par le déploiement, exécutez <code>kubectl get rs</code>. </p>
+<p>La sortie est similaire à ceci:</p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">NAME</span><span style="color:#c0c5ce;">                          DESIRED   CURRENT   READY   AGE
+</span><span style="color:#bf616a;">nginx-deployment-75675f5897</span><span style="color:#c0c5ce;">   3         3         3       18s
+</span></code></pre>
+<p><strong>Notez que le nom du ReplicaSet est toujours formaté comme ceci: &quot;[DEPLOYMENT-NAME]-[RANDOM-STRING]&quot;.</strong> </p>
+<p>La chaîne aléatoire est générée aléatoirement et utilise le pod-template-hash.</p>
+<p>Pour voir les labels générées automatiquement pour chaque Pod, exécutez: </p>
+<pre style="background-color:#2b303b;">
+<code class="language-bash" data-lang="bash"><span style="color:#bf616a;">kubectl</span><span style="color:#c0c5ce;"> get pods</span><span style="color:#bf616a;"> --show-labels
+
+NAME</span><span style="color:#c0c5ce;">                                READY     STATUS    RESTARTS   AGE       LABELS
+</span><span style="color:#bf616a;">nginx-deployment-75675f5897-7ci7o</span><span style="color:#c0c5ce;">   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+</span><span style="color:#bf616a;">nginx-deployment-75675f5897-kzszj</span><span style="color:#c0c5ce;">   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+</span><span style="color:#bf616a;">nginx-deployment-75675f5897-qqcnn</span><span style="color:#c0c5ce;">   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+</span></code></pre>
+<p>Le ReplicaSet créé garantit qu'il y a trois pods nginx.</p>
+<blockquote>
+<p><em>N.B.</em> Vous devez spécifier un sélecteur approprié et des labels de template de pod dans un déploiement (dans ce cas, app: nginx). Ne superposez pas les étiquettes ou les sélecteurs avec d'autres contrôleurs (y compris d'autres déploiements et StatefulSets). Kubernetes n'empêche pas les chevauchements de noms, et si plusieurs contrôleurs ont des sélecteurs qui se chevauchent, ces contrôleurs peuvent entrer en conflit et se comporter de façon inattendue. </p>
+</blockquote>
+<h3 id="deploiement-d-une-plateforme-de-test-tp">Déploiement d'une plateforme de test (TP)</h3>
+<p>Dans ce TP vous devrez mettre en place une plateforme de test locale via l'une des solutions suivantes: Minikube, Kind, MicroK8S ou encore Docker Desktop.</p>
+<p>Vous créérez un fichier <em>deployment.yaml</em> contenant la spec souhaitée puis exécuter la commande <code>kubectl apply -f deployment.yaml</code>.</p>
+<p>Vous devrez créer des pods disposant d'un label 'test'.</p>
+<p>Vous devrez pouvoir lister les pods ainsi que leurs labels et accéder au fichier de configuration du cluster (kubeconfig).</p>
+
+        
+        
+<div class="docs-navigation d-flex justify-content-between">
+  
+  
+  
+  
+  
+  <a href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;containers-advanced&#x2F;">
+    <div class="card my-1">
+      <div class="card-body py-2">
+        &larr; Gestion avancée des containers
+      </div>
+    </div>
+  </a>
+  
+
+  
+  
+  
+  
+  
+    <a class="ms-auto" href="https:&#x2F;&#x2F;K8s-mise-en-oeuvre.github.io&#x2F;docs&#x2F;index&#x2F;description-files&#x2F;">
+      <div class="card my-1">
+        <div class="card-body py-2">
+          Les fichiers descriptifs &rarr;
+        </div>
+      </div>
+    </a>
+  
+</div>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+<footer class="footer text-muted">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 order-last order-lg-first">
+				<ul class="list-inline">
+					
+						<li class="list-inline-item">Powered by <a href="https://www.getzola.org/">Zola</a>, and <a href="https://github.com/aaranxu/adidoks">AdiDoks</a></li>
+					
+				</ul>
+			</div>
+			<div class="col-lg-8 order-first order-lg-last text-lg-end">
+				<ul class="list-inline">
+					
+				</ul>
+			</div>
+		</div>
+	</div>
+</footer>
+
+  
+
+  
+<script src="https://K8s-mise-en-oeuvre.github.io/js/main.js" defer></script>
+
+  <script src="https://K8s-mise-en-oeuvre.github.io/plugins/elasticlunr.min.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/search_index.fr.js" defer></script>
+  <script src="https://K8s-mise-en-oeuvre.github.io/js/search.js" defer></script>
+
+  
+</body>
+</html>
